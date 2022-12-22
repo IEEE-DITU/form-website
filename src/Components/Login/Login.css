@@ -63,7 +63,7 @@
     font-size: 1.3vw;
 }
 
-.login>.rightside>.loginbox>.passwordarea{
+.login>.rightside>.loginbox>.pass>.passwordarea{
     background: none;
     appearance: none;
     border-top: none;
@@ -75,7 +75,7 @@
     font-size: 1vw;
 }
 
-.login>.rightside>.loginbox>.passwordarea:focus{
+.login>.rightside>.loginbox>.pass>.passwordarea:focus{
     outline: none;
     border-color: #FF432A;
 }
@@ -130,3 +130,24 @@
     width: 2.8vw;
 }
 
+.pass {
+    display: flex;
+}
+
+.eyeclose {
+    width: 20px;
+    height: 20px;
+    border-top: none;
+    border-bottom: none;
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    margin-left: none;
+    margin-right: 5%;
+
+
+}
+
+.eyeclose1 {
+    width: 300%;
+}
