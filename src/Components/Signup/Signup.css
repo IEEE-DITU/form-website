@@ -17,7 +17,6 @@ input{
     border-top: none;
     border-left: none;
     border-right: none;
-    
     color: black;
 }
 form{
@@ -32,7 +31,7 @@ form.form-inner.form-group{
     width:300px;
 }
 label{
-    font-size: small;
+    font-size: 12px;
     font-weight: 200;
     font-family: sans-serif;
     color:black;
@@ -48,6 +47,14 @@ label{
 }
 
 .right-col{
-    margin-left:5%;
-    margin-top: 2%;
+    margin-left:3%;
+    margin-top: 5%;
+    margin-right: 3%;
+    width:60%;
+}
+
+.picture{
+    width: 60%;
+    max-height:fit-content;
+    padding: auto;
 }

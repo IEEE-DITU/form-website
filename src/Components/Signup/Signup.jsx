@@ -6,9 +6,9 @@ function Signup() {
   return (
     <div className='signup'>
     <div className="main">
-      <div className="left-col">
-        <img  src={authImg} ></img>
-      </div>
+      
+  
+      <img src={authImg} className="picture"></img>
       <div className='right-col'>
         <h1>Sign up</h1>
         <br/>
