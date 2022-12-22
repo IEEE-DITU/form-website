@@ -1,3 +1,131 @@
 .login{
     display: flex;
 }
+.login>div>.authImg{
+    width: 65vw;
+}
+
+.login>.rightside>.heading{
+    font-size: 2vw;
+    margin-top: 8vw;
+    margin-left: 6vw;
+    margin-bottom: 3vw;
+}
+.login>.rightside>.noaccount{
+    margin-left: 6vw;
+    margin-top: 0;
+    margin-bottom: 2%;
+    font-weight: 500;
+    font-size: 1.2vw;
+}
+
+.login>.rightside>.registerbtn{
+    text-decoration: none;
+    color: #FF432A;
+    font-weight: 700;
+    margin-left: 6vw;
+    font-size: 1.2vw;
+}
+
+.login>.rightside>.loginbox{
+    margin-left: 6vw;
+    margin-top: 4vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.login>.rightside>.loginbox>.emailheading{
+    font-weight: 500;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
+}
+
+.login>.rightside>.loginbox>.emailarea{
+    appearance: none;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 25vw;
+    padding: 0.5vw;
+    margin-top: none;
+    margin-bottom: 2vw;
+    font-size: 1vw;
+}
+
+.login>.rightside>.loginbox>.emailarea:focus{
+    outline: none;
+    border-color: #FF432A;
+}
+.login>.rightside>.loginbox>.passwordheading{
+    font-weight: 500;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
+}
+
+.login>.rightside>.loginbox>.passwordarea{
+    background: none;
+    appearance: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 25vw;
+    padding: 0.5vw;
+    margin-top: none;
+    font-size: 1vw;
+}
+
+.login>.rightside>.loginbox>.passwordarea:focus{
+    outline: none;
+    border-color: #FF432A;
+}
+
+.login>.rightside>.extraDetails{
+    display: flex;
+}
+
+.login>.rightside>.extraDetails>.rememberMecheck{
+    margin-left: 6vw;
+    margin-top: 0.5vw;
+    accent-color: #FF432A;
+    font-size: 1vw;
+}
+
+.login>.rightside>.extraDetails>.forgotPassword{
+    margin-top: 0.5vw;
+    text-decoration: none;
+    color: black;
+    position: absolute;
+    right: 1.7vw;
+    font-size: 1vw;
+}
+
+.login>.rightside>.loginbtn{
+    margin-top: 3.5vw;
+    padding: 1vw 11.5vw;
+    border-radius: 50px;
+    background-color: #FF432A;
+    border:none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2vw;
+    margin-left: 6vw;
+}
+
+.login>.rightside>.otheroption>p{
+    color: #B5B5B5;
+    font-weight: 500;
+    margin-left:15.5vw ;
+    margin-top: 1.8vw;
+    font-size: 1vw;
+}
+
+.login>.rightside>.otheroption>.otheroptionimg{
+    margin-left: 12vw;
+    margin-top:3vw;
+}
+
+.login>.rightside>.otheroption>.otheroptionimg>a>img{
+    margin-left: 1.5vw;
+    width: 2.8vw;
+}
