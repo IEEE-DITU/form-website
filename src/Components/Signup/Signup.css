@@ -3,6 +3,12 @@
 }
 .abc{
     display: flex;
+    
+}
+.abc:focus{
+    outline: none;
+    border-color: #FF432A;
+
 }
 
 *{
@@ -31,19 +37,22 @@ form.form-inner.form-group{
     width:300px;
 }
 label{
-    font-size: 12px;
+    font-size: 1.2vw;
     font-weight: 200;
     font-family: sans-serif;
     color:black;
+    
 }
 
 .register-button{
-    color:white;
+    padding: 1vw 11.5vw;
+    border-radius: 50px;
     background-color: #FF432A;
-    border-color: #FF432A;
-    min-height: 28px;
-    min-width: 90%;
-    border-radius: 15px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2vw;
+    
 }
 
 .right-col{
@@ -54,7 +63,10 @@ label{
 }
 
 .picture{
-    width: 60%;
+    width: 63%;
     max-height:fit-content;
     padding: auto;
+}
+.link{
+    color: #FF432A;
 }
