@@ -13,7 +13,7 @@ function Signup() {
         <h1>Sign up</h1>
         <br/>
         <h3>Already has an account with us?</h3><br/>
-        <h3>Skip to <a href="../Login">login!</a></h3> <br/>  
+        <h3>Skip to <a href="../Login" className='link'>login!</a></h3> <br/>  
       
         <form>
                 <div className="form-inner" >
@@ -27,24 +27,24 @@ function Signup() {
                     </div><br/><br/>
                     <div className="form-group">
                         <label>Username</label>
-                        <div>
+                        <div  className='abc' >
                           <input type="text" name="username"  autoComplete="off" placeholder="Enter your Username"></input>
                         </div>
                         
                     </div><br/><br/>
                     <div className="form-group">
                         <label>Password</label>
-                        <div>
+                        <div  className='abc'>
                           <input type="password"  name="password" autoComplete="off" placeholder="Enter your Password"></input>
                         </div>
                         
                     </div><br/><br/>
                     <div className="form-group">
                         <label>Confirm Password</label>
-                        <div>
-                           <input type="password"  name="confirm password" autoComplete="off" placeholder="Confirm your Password"></input>
+                        <div  className='abc'>
+                          <input type="password"  name="confirm password" autoComplete="off" placeholder="Confirm your Password"></input>
                         </div>
-                       
+                    
                     </div><br/><br/>
                     <div className="mainbutton">
                         <button className="register-button">Register</button>
