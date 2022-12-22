@@ -1,60 +1,31 @@
 import React from 'react'
 import authImg from '../../images/authImg.png'
 import './Signup.css'
+import { Link } from 'react-router-dom'
+
 
 function Signup() {
   return (
     <div className='signup'>
-    <div className="main">
-      
-  
-      <img src={authImg} className="picture"></img>
-      <div className='right-col'>
-        <h1>Sign up</h1>
-        <br/>
-        <h3>Already has an account with us?</h3><br/>
-        <h3>Skip to <a href="../Login" className='link'>login!</a></h3> <br/>  
-      
-        <form>
-                <div className="form-inner" >
-                    <div className='flex flex-col'>
-                      <div className="form-group">
-                        <label>Email</label>
-                        <div className='abc'>
-                          <input type="email"  name="email"autoComplete="off" placeholder="Enter your Email address"></input>
-                        </div>
-                        
-                    </div><br/><br/>
-                    <div className="form-group">
-                        <label>Username</label>
-                        <div  className='abc' >
-                          <input type="text" name="username"  autoComplete="off" placeholder="Enter your Username"></input>
-                        </div>
-                        
-                    </div><br/><br/>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <div  className='abc'>
-                          <input type="password"  name="password" autoComplete="off" placeholder="Enter your Password"></input>
-                        </div>
-                        
-                    </div><br/><br/>
-                    <div className="form-group">
-                        <label>Confirm Password</label>
-                        <div  className='abc'>
-                          <input type="password"  name="confirm password" autoComplete="off" placeholder="Confirm your Password"></input>
-                        </div>
-                    
-                    </div><br/><br/>
-                    <div className="mainbutton">
-                        <button className="register-button">Register</button>
-                    </div>
-                    </div>
-                    
-                </div>
-        </form>
-    </div>
-    </div>
+      <div>
+        <img className='authImg' src={authImg} alt="" />
+      </div>
+      <div className='rightside'>
+        <h2 className='heading'>Sign up</h2>
+        <p className='haveaccount'>Already have an account with us?</p>
+        <Link className="loginlink" to="/login">Login Here !</Link>
+        <div className="signupbox">
+          <label className="emailheading" for="email">Email</label>
+          <input className="emailarea" type="email" placeholder="&#xf0e0;   Enter your Email address" style={{ fontFamily: "Arial, FontAwesome" }} name="email" required />
+          <label className="userheading" for="user">Username</label>
+          <input className="userarea" type="text" placeholder="&#xf007;   Enter your Username" style={{ fontFamily: "Arial, FontAwesome" }} name="user" required />
+          <label className="passwordheading" for="password">Password</label>
+          <input className="passwordarea" type="password" placeholder="&#xf023;   Enter your password" style={{ fontFamily: "Arial, FontAwesome" }} name="password" required />
+          <label className="cfmpasswordheading" for="cfmpassword">Confirm Password</label>
+          <input className="cfmpasswordarea" type="password" placeholder="&#xf023;   Enter your password" style={{ fontFamily: "Arial, FontAwesome" }} name="cfmpassword" required />
+        </div>
+        <button className="registerbtn">Register</button>
+      </div>
     </div>
   )
 }
