@@ -1,0 +1,53 @@
+.main{
+    display: flex;
+}
+.abc{
+    display: flex;
+}
+
+*{
+    margin:0;
+    padding :0;
+    box-sizing: border-box;
+    font-family: montsrrat,sans-serif;
+}
+input{
+    appearance: none;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    
+    color: black;
+}
+form{
+    display: block;
+    position: relative;
+}
+
+
+form.form-inner.form-group{
+    display: block;
+    margin-bottom: 300px;
+    width:300px;
+}
+label{
+    font-size: small;
+    font-weight: 200;
+    font-family: sans-serif;
+    color:black;
+}
+
+.register-button{
+    color:white;
+    background-color: #FF432A;
+    border-color: #FF432A;
+    min-height: 28px;
+    min-width: 90%;
+    border-radius: 15px;
+}
+
+.right-col{
+    margin-left:5%;
+    margin-top: 2%;
+}
