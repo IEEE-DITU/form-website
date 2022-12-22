@@ -1,72 +1,136 @@
-.main{
+.signup{
     display: flex;
 }
-.abc{
+.signup>div>.authImg{
+    width: 65vw;
+}
+
+.signup>.rightside>.heading{
+    font-size: 2vw;
+    margin-top: 2vw;
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+}
+.signup>.rightside>.haveaccount{
+    margin-left: 6vw;
+    margin-top: 0;
+    margin-bottom: 2%;
+    font-weight: 500;
+    font-size: 1.2vw;
+}
+
+.signup>.rightside>.loginlink{
+    text-decoration: none;
+    color: #FF432A;
+    font-weight: 700;
+    margin-left: 6vw;
+    font-size: 1.2vw;
+}
+
+.signup>.rightside>.signupbox{
+    margin-left: 6vw;
+    margin-top: 3vw;
     display: flex;
-    
-}
-.abc:focus{
-    outline: none;
-    border-color: #FF432A;
-
+    flex-direction: column;
 }
 
-*{
-    margin:0;
-    padding :0;
-    box-sizing: border-box;
-    font-family: montsrrat,sans-serif;
+.signup>.rightside>.signupbox>.emailheading{
+    font-weight: 500;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
 }
-input{
+.signup>.rightside>.signupbox>.userheading{
+    font-weight: 500;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
+}
+
+.signup>.rightside>.signupbox>.emailarea{
     appearance: none;
     background: none;
     border-top: none;
     border-left: none;
     border-right: none;
-    color: black;
+    width: 25vw;
+    padding: 0.5vw;
+    margin-top: none;
+    margin-bottom: 2vw;
+    font-size: 1vw;
 }
-form{
-    display: block;
-    position: relative;
-}
-
-
-form.form-inner.form-group{
-    display: block;
-    margin-bottom: 300px;
-    width:300px;
-}
-label{
-    font-size: 1.2vw;
-    font-weight: 200;
-    font-family: sans-serif;
-    color:black;
-    
+.signup>.rightside>.signupbox>.userarea{
+    appearance: none;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 25vw;
+    padding: 0.5vw;
+    margin-top: none;
+    margin-bottom: 2vw;
+    font-size: 1vw;
 }
 
-.register-button{
-    padding: 1vw 11.5vw;
+.signup>.rightside>.signupbox>.emailarea:focus{
+    outline: none;
+    border-color: #FF432A;
+}
+.signup>.rightside>.signupbox>.userarea:focus{
+    outline: none;
+    border-color: #FF432A;
+}
+.signup>.rightside>.signupbox>.passwordheading{
+    font-weight: 500;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
+}
+.signup>.rightside>.signupbox>.cfmpasswordheading{
+    font-weight: 500;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
+}
+
+.signup>.rightside>.signupbox>.passwordarea{
+    background: none;
+    appearance: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 25vw;
+    padding: 0.5vw;
+    margin-top: none;
+    font-size: 1vw;
+    margin-bottom: 2vw;
+}
+.signup>.rightside>.signupbox>.cfmpasswordarea{
+    background: none;
+    appearance: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 25vw;
+    padding: 0.5vw;
+    margin-top: none;
+    font-size: 1vw;
+}
+
+.signup>.rightside>.signupbox>.passwordarea:focus{
+    outline: none;
+    border-color: #FF432A;
+}
+
+.signup>.rightside>.signupbox>.cfmpasswordarea:focus{
+    outline: none;
+    border-color: #FF432A;
+}
+
+.signup>.rightside>.registerbtn{
+    margin-top: 3.5vw;
+    padding: 1vw 10vw;
     border-radius: 50px;
     background-color: #FF432A;
-    border: none;
+    border:none;
     color: white;
     font-weight: 700;
     font-size: 1.2vw;
-    
-}
-
-.right-col{
-    margin-left:3%;
-    margin-top: 5%;
-    margin-right: 3%;
-    width:60%;
-}
-
-.picture{
-    width: 63%;
-    max-height:fit-content;
-    padding: auto;
-}
-.link{
-    color: #FF432A;
+    margin-left: 6vw;
 }
