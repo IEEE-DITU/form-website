@@ -8,11 +8,11 @@
 .signup>.rightside>.heading{
     font-size: 2vw;
     margin-top: 2vw;
-    margin-left: 6vw;
+    margin-left: 4vw;
     margin-bottom: 2vw;
 }
 .signup>.rightside>.haveaccount{
-    margin-left: 6vw;
+    margin-left: 4vw;
     margin-top: 0;
     margin-bottom: 2%;
     font-weight: 500;
@@ -23,12 +23,12 @@
     text-decoration: none;
     color: #FF432A;
     font-weight: 700;
-    margin-left: 6vw;
+    margin-left: 4vw;
     font-size: 1.2vw;
 }
 
 .signup>.rightside>.signupbox{
-    margin-left: 6vw;
+    margin-left: 4vw;
     margin-top: 3vw;
     display: flex;
     flex-direction: column;
@@ -137,7 +137,11 @@
     color: white;
     font-weight: 700;
     font-size: 1.2vw;
-    margin-left: 6vw;
+    margin-left: 4vw;
+}
+
+.signup>.rightside>.registerbtn:disabled{
+    background-color: grey;
 }
 .pass{
     display: flex;
