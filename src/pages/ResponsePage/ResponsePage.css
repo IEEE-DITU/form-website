@@ -1,0 +1,67 @@
+.ResponsePage {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	flex-direction: column;
+	padding-bottom: 5rem;
+}
+
+.responseHead {
+	position: sticky;
+	top: 0;
+	left: 0;
+	padding: 0.25rem;
+	width: 100%;
+	background: rgb(255, 109, 24);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgb(0, 255, 170);
+	font-weight: 600;
+	font-size: 1rem;
+}
+
+.responseDetailsContainer {
+	width: 95%;
+	border-radius: 20px;
+	background: rgb(255, 212, 148);
+	margin-top: 1rem;
+	padding: 1rem;
+}
+
+.responseDetailsContainer h1 {
+	margin-bottom: 1rem;
+}
+
+.responseQuestionContainer {
+	width: 95%;
+	border-radius: 20px;
+	background: rgb(255, 223, 174);
+	padding: 1rem;
+}
+
+.question p:nth-child(1) {
+	font-size: 1rem;
+	font-weight: 600;
+	margin-bottom: 0.25rem;
+}
+
+.graphs {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.temporatyGraph {
+	width: 5rem;
+	height: 5rem;
+	border-radius: 50%;
+	background: green;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+}
