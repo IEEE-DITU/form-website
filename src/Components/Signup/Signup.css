@@ -101,7 +101,7 @@
     font-size: 1vw;
     margin-bottom: 2vw;
 }
-.signup>.rightside>.signupbox>.cfmpasswordarea{
+.signup>.rightside>.signupbox>.pass>.cfmpasswordarea{
     background: none;
     appearance: none;
     border-top: none;
@@ -115,16 +115,21 @@
 
 .signup>.rightside>.signupbox>.pass>.passwordarea:focus{
     outline: none;
-    border-color: #FF432A;
+    border-color: #FF432A;;
 }
-
-.signup>.rightside>.signupbox>.cfmpasswordarea:focus{
+.signup>.rightside>.signupbox>.pass>.cfmpasswordarea:focus{
     outline: none;
-    border-color: #FF432A;
+    border-color:#FF432A;
+}
+.signup>.rightside>.errormsg{
+    color: #FF432A;
+    position: absolute;
+    right: 10vw;
+    margin-top: 0.5vw;
 }
 
 .signup>.rightside>.registerbtn{
-    margin-top: 3.5vw;
+    margin-top: 2.5vw;
     padding: 1vw 10vw;
     border-radius: 50px;
     background-color: #FF432A;
@@ -148,8 +153,6 @@
    border-right: none;
    margin-left: none;
    margin-right: 5%;
-
-   
 }
 
 .eyeclose1{
