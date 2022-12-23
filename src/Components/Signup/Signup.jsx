@@ -41,11 +41,16 @@ function Signup() {
         await updateProfile(user, {
           displayName: values.username
         });
-        navigate('/login')
+        navigate('/')
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setMessage(err.message);
+        if(err.message==="Firebase: Error (auth/email-already-in-use)."){
+          setMessage("User Already exists !")
+        }
+        else{
+          setMessage("Can't Register now !");
+        }
       })
   }
   const [state, setstate] = useState(false);
@@ -64,7 +69,7 @@ function Signup() {
       <div className='rightside'>
         <h2 className='heading'>Sign up</h2>
         <p className='haveaccount'>Already have an account with us?</p>
-        <Link className="loginlink" to="/login">Login Here !</Link>
+        <Link className="loginlink" to="/">Login Here !</Link>
         <div className="signupbox">
           <label className="emailheading" for="email">Email</label>
           <input className="emailarea" type="email" placeholder="&#xf0e0;   Enter your Email address" style={{ fontFamily: "Arial, FontAwesome" }} name="email" onChange={(event) =>
