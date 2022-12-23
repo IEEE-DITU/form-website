@@ -111,6 +111,7 @@
     padding: 0.5vw;
     margin-top: none;
     font-size: 1vw;
+    margin-bottom: 1vw;
 }
 
 .signup>.rightside>.signupbox>.passwordarea:focus{
@@ -124,7 +125,7 @@
 }
 
 .signup>.rightside>.registerbtn{
-    margin-top: 3.5vw;
+    margin-top: 2.5vw;
     padding: 1vw 10vw;
     border-radius: 50px;
     background-color: #FF432A;
@@ -133,4 +134,15 @@
     font-weight: 700;
     font-size: 1.2vw;
     margin-left: 6vw;
+}
+
+.signup>.rightside>.errormsg{
+    color: #FF432A;
+    position: absolute;
+    right: 10vw;
+    font-size: 1.2vw;
+}
+
+.signup>.rightside>.registerbtn:disabled{
+    background-color: grey;
 }

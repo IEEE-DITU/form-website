@@ -3,7 +3,6 @@ import authImg from '../../images/authImg.png'
 import './Login.css'
 import { Link } from 'react-router-dom'
 import google from '../../images/google.png';
-import apple from '../../images/apple.png';
 import facebook from '../../images/Facebook.png';
 
 function Login() {
@@ -36,7 +35,6 @@ function Login() {
           <p>or continue with</p>
           <div className="otheroptionimg">
             <a href="#/"><img src={google} alt="" /></a>
-            <a href="#/"><img src={apple} alt="" /></a>
             <a href="#/"><img src={facebook} alt="" /></a>
           </div>
         </div>
