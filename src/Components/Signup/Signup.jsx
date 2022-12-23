@@ -9,6 +9,7 @@ import { auth } from '../../Firebase';
 
 
 
+
 function Signup() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -92,6 +93,7 @@ function Signup() {
               {state1 ? <img src={eyeopen} alt="" className="eyeclose1"></img> : <img src={eyeclose} alt="" className="eyeclose1"></img>}
             </button>
           </div>
+
         </div>
         <b className='errormsg'>{message}</b>
         <button className="registerbtn" disabled={submitButtonDisabled} onClick={handleSubmission}>Register</button>
