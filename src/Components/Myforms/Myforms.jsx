@@ -33,16 +33,19 @@ function Myforms(){
             
             <div className='rightcol'>
                <div className='profile'>
-                    <p className='myprofile'><center>My Profile</center></p>
+                    <p className='myprofile'><center>My Profile</center></p><br></br>
                     <div className='avatar'>
                     <img src={avatar}></img>
+                    <button className="editprofilebutton"><img src={editprofile} ></img></button>
                     </div>
                </div>
                <div className='profilecontent'>
-                <p>Name - Shreyal Jain</p>
-                <p>User Id- Shreyal1605</p>
-                <p>Email- shreyaljain0007@gmail.com</p>
-               </div>   
+                
+                <p>Name-Shreyal Jain</p><br/>
+                <p>User Id- Shreyal_1605</p><br/>
+                <p>Email-Shreyaljain0007@gmail.com</p>
+               </div>  
+               <br/> 
                <div className='lobutton'>
                  <button className='logoutbutton' >Log Out</button>
                </div> 

@@ -60,7 +60,8 @@ margin-bottom: 1.5%;
 
 }
 .rightcol>.profilecontent{
-    font-size: 1.5vw;
+    font-size: 3.2vh;
+    
 }
 .logoutbutton{
         
@@ -80,4 +81,10 @@ margin-bottom: 1.5%;
 }
 .avatar{
     margin-left:28% ;
+    margin-bottom: 8%;
+}
+.editprofilebutton{
+    border: none;
+    background-color: transparent;
+    
 }
