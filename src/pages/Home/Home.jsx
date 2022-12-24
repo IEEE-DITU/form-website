@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { auth } from '../../Firebase'
 import './Home.css'
 
+
 function Home() {
   const navigate=useNavigate();
   const handleclick=()=>{
