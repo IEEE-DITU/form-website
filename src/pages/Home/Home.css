@@ -1,3 +1,13 @@
 .logout{
     padding: 1vw 8vw;
+    background-color:#FF432A;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
+
+.home{
+    margin: 20% 40% ;
 }
