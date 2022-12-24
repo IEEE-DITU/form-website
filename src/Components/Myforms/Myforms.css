@@ -1,0 +1,83 @@
+.bg_image{
+background-size: cover;
+background-repeat: no-repeat;
+min-height: 130vh;
+}
+
+.main{
+    display: flex;
+}
+.main>.leftcol{
+    
+    margin-left: 5%;
+    margin-top: 5%;
+}
+.line2{
+margin-bottom: 1.5%;  
+}
+.leftcol>.myform{
+    font-size: 2vw;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    
+
+}
+.rightcol>.profile>.myprofile {
+    font-size: 2vw;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 4%;
+}
+
+.rightcol{
+    margin-left: 2%;
+    margin-top: 5%;
+}
+.division{
+    align-items: center;
+}
+.leftcol{
+    width: 45%;
+}
+.background{
+    background-size: cover;
+
+}
+.createbutton{
+    
+            
+            margin-bottom: 4vw;
+            padding: 1vw 3.5vw;
+            border-radius: 50px;
+            background-color: #FF432A;
+            border: none;
+            float: right;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2vw;
+            margin-right:12%;
+
+}
+.rightcol>.profilecontent{
+    font-size: 1.5vw;
+}
+.logoutbutton{
+        
+        padding: 1vw 3.5vw;
+        border-radius: 50px;
+        background-color: #FF432A;
+        border: none;
+        
+        color: white;
+        font-weight: 700;
+        font-size: 1.2vw;
+        
+
+}
+.lobutton{
+    margin-left: 17%;
+}
+.avatar{
+    margin-left:28% ;
+}
