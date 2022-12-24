@@ -8,6 +8,7 @@ import {
 import Signup from './Components/Signup/Signup';
 import Home from './pages/Home/Home';
 import PasswordReset from './Components/PasswordReset/PasswordReset';
+import ResponsePage from "./pages/ResponsePage/ResponsePage";
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/home" element={<Home/>}/>
         <Route path="/resetpass" element={<PasswordReset/>}/>
+        <Route path="/forms/responses" element={<ResponsePage />} />
         </Routes>
       </Router>
     </div>
