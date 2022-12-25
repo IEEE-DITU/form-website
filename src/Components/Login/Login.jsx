@@ -7,10 +7,10 @@ import eyeclose from "../../images/eye-close.png"
 import eyeopen from "../../images/eye-open.png"
 import google from '../../images/google.png';
 import facebook from '../../images/Facebook.png';
-import { signInWithEmailAndPassword } from '@firebase/auth'
-import { auth } from '../../Firebase'
+import { useAuth } from '../../context/AuthContext'
 
 function Login() {
+  const {login}=useAuth();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -20,21 +20,21 @@ function Login() {
   const [message, setMessage] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const handleSubmission = () => {
+  const handleSubmission = async(e) => {
+    e.preventDefault();
     if (!values.email || !values.password) {
       setMessage("Please fill all the feilds !")
       return;
     }
     setMessage("");
-
-    setSubmitButtonDisabled(true);
-    signInWithEmailAndPassword(auth,values.email,values.password)
-    .then((res) => {
-      setSubmitButtonDisabled(false);
-     navigate('/home');
-    })
-      .catch((err) => {
-        if(err.message==="Firebase: Error (auth/wrong-password).")
+    
+    try {
+      setMessage("");
+      setSubmitButtonDisabled(true);
+      await login(values.email,values.password)
+      navigate('/')
+    } catch (err) {
+      if(err.message==="Firebase: Error (auth/wrong-password).")
         {
           setMessage("wrong credentials !")
         }
@@ -46,7 +46,7 @@ function Login() {
           setMessage("Can't Login ! Try again later");
         }
         setSubmitButtonDisabled(false);
-      })
+    }
   }
 
   const [state, setstate] = useState(false);

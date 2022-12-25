@@ -4,13 +4,15 @@ import eyeclose from "../../images/eye-close.png"
 import eyeopen from "../../images/eye-open.png"
 import './Signup.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
-import { auth } from '../../Firebase';
+import { useAuth } from '../../context/AuthContext'
+// import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
+// import { auth } from '../../Firebase';
 
 
 
 
 function Signup() {
+  const {signup,verifyUser}=useAuth();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -22,7 +24,8 @@ function Signup() {
   const [message, setMessage] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const handleSubmission = () => {
+  const handleSubmission = async(e) => {
+    e.preventDefault();
     if (!values.email || !values.username || !values.password || !values.cfmpassword) {
       setMessage("Please fill all the feilds !")
       return;
@@ -32,26 +35,21 @@ function Signup() {
       return;
     }
     setMessage("");
-
-    setSubmitButtonDisabled(true);
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(async (res) => {
-        setSubmitButtonDisabled(false);
-        const user = res.user;
-        await updateProfile(user, {
-          displayName: values.username
-        });
-        navigate('/')
-      })
-      .catch((err) => {
-        setSubmitButtonDisabled(false);
-        if(err.message==="Firebase: Error (auth/email-already-in-use)."){
-          setMessage("User Already exists !")
-        }
-        else{
-          setMessage("Can't Register now !");
-        }
-      })
+    try {
+      setMessage("");
+      setSubmitButtonDisabled(true);
+      await signup(values.email,values.password);
+      await verifyUser();
+      navigate('/emailverify')
+    } catch (error) {
+      if(error.message==="Firebase: Error (auth/email-already-in-use)."){
+        setMessage("User Already exists !")
+      }
+      else{
+        setMessage("Can't Register now !");
+      }
+    }
+    
   }
   const [state, setstate] = useState(false);
   const [state1, setstate1] = useState(false);
@@ -69,7 +67,7 @@ function Signup() {
       <div className='rightside'>
         <h2 className='heading'>Sign up</h2>
         <p className='haveaccount'>Already have an account with us?</p>
-        <Link className="loginlink" to="/">Login Here !</Link>
+        <Link className="loginlink" to="/login">Login Here !</Link>
         <div className="signupbox">
           <label className="emailheading" for="email">Email</label>
           <input className="emailarea" type="email" placeholder="&#xf0e0;   Enter your Email address" style={{ fontFamily: "Arial, FontAwesome" }} name="email" onChange={(event) =>
