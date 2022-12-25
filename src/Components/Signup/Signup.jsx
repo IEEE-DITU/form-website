@@ -12,7 +12,7 @@ import { useAuth } from '../../context/AuthContext'
 
 
 function Signup() {
-  const {signup}=useAuth();
+  const {signup,verifyUser}=useAuth();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -39,7 +39,8 @@ function Signup() {
       setMessage("");
       setSubmitButtonDisabled(true);
       await signup(values.email,values.password);
-      navigate('/')
+      await verifyUser();
+      navigate('/emailverify')
     } catch (error) {
       if(error.message==="Firebase: Error (auth/email-already-in-use)."){
         setMessage("User Already exists !")

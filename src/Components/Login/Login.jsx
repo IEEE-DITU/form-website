@@ -7,8 +7,6 @@ import eyeclose from "../../images/eye-close.png"
 import eyeopen from "../../images/eye-open.png"
 import google from '../../images/google.png';
 import facebook from '../../images/Facebook.png';
-import { signInWithEmailAndPassword } from '@firebase/auth'
-import { auth } from '../../Firebase'
 import { useAuth } from '../../context/AuthContext'
 
 function Login() {
@@ -29,7 +27,7 @@ function Login() {
       return;
     }
     setMessage("");
-
+    
     try {
       setMessage("");
       setSubmitButtonDisabled(true);

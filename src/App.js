@@ -9,6 +9,7 @@ import Signup from './Components/Signup/Signup';
 import Home from './pages/Home/Home';
 import PasswordReset from './Components/PasswordReset/PasswordReset';
 import { AuthProvider } from './context/AuthContext';
+import EmailVerify from './Components/EmailVerify/EmailVerify';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Home />} />
             <Route path="/resetpass" element={<PasswordReset />} />
+            <Route path="/emailverify" element={<EmailVerify/>} />
           </Routes>
         </AuthProvider>
       </Router>

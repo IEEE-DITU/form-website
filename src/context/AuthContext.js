@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import React, { useContext, useEffect, useState} from 'react'
 import { auth } from '../Firebase';
 
@@ -23,13 +23,17 @@ export function AuthProvider({children}) {
         })
         return unsubsribe
     },[])
+    function verifyUser(){
+        return sendEmailVerification(auth.currentUser)
+    }
 
 const [currentUser,setCurrentUser]=useState();
 
 const value={
     currentUser,
     signup,
-    login
+    login,
+    verifyUser
 }
 
   return (
