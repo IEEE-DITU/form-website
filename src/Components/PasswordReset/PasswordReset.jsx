@@ -25,7 +25,7 @@ function PasswordReset() {
             setSubmitButtonDisabled(false);
             setMessage("verification link send !\nRedirecting for Login...");
             setTimeout(()=>{
-                navigate('/');
+                navigate('/login');
             },2000)
         })
         .catch((err)=>{

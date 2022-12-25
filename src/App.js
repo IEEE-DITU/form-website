@@ -8,16 +8,19 @@ import {
 import Signup from './Components/Signup/Signup';
 import Home from './pages/Home/Home';
 import PasswordReset from './Components/PasswordReset/PasswordReset';
+import { AuthProvider } from './context/AuthContext';
 function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/resetpass" element={<PasswordReset/>}/>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/resetpass" element={<PasswordReset />} />
+          </Routes>
+        </AuthProvider>
       </Router>
     </div>
   );
