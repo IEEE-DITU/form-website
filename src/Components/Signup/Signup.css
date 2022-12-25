@@ -138,6 +138,7 @@
     font-weight: 700;
     font-size: 1.2vw;
     margin-left: 4vw;
+    cursor: pointer;
 }
 
 .signup>.rightside>.registerbtn:disabled{
@@ -148,8 +149,7 @@
 }
 
 .eyeclose{
-   width: 20px;
-   height: 20px;
+   width: 0.8vw;
    border-top: none;
    border-bottom: none;
    background-color: transparent;
