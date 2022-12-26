@@ -1,108 +1,178 @@
-import React, { useState } from 'react'
-import authImg from '../../images/authImg.png'
-import eyeclose from "../../images/eye-close.png"
-import eyeopen from "../../images/eye-open.png"
-import './Signup.css'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import React, { useState } from "react";
+import eyeclose from "../../images/eye-close.png";
+import eyeopen from "../../images/eye-open.png";
+import "./Signup.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { IoMdMail } from "react-icons/io";
 // import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
 // import { auth } from '../../Firebase';
 
-
-
-
 function Signup() {
-  const {signup,verifyUser}=useAuth();
-  const navigate = useNavigate();
-  const [values, setValues] = useState({
-    email: "",
-    username: "",
-    password: "",
-    cfmpassword: ""
-  });
+	const { signup, verifyUser } = useAuth();
+	const navigate = useNavigate();
+	const [values, setValues] = useState({
+		email: "",
+		username: "",
+		password: "",
+		cfmpassword: "",
+	});
 
-  const [message, setMessage] = useState("");
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+	const [message, setMessage] = useState("");
+	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const handleSubmission = async(e) => {
-    e.preventDefault();
-    if (!values.email || !values.username || !values.password || !values.cfmpassword) {
-      setMessage("Please fill all the feilds !")
-      return;
-    }
-    if (values.password !== values.cfmpassword) {
-      setMessage("Please Enter same password !")
-      return;
-    }
-    setMessage("");
-    try {
-      setMessage("");
-      setSubmitButtonDisabled(true);
-      await signup(values.email,values.password);
-      await verifyUser();
-      navigate('/emailverify')
-    } catch (error) {
-      if(error.message==="Firebase: Error (auth/email-already-in-use)."){
-        setMessage("User Already exists !")
-      }
-      else{
-        setMessage("Can't Register now !");
-      }
-    }
-    
-  }
-  const [state, setstate] = useState(false);
-  const [state1, setstate1] = useState(false);
-  const toggleBtn = () => {
-    setstate(prevState => !prevState);
-  }
-  const toggleBtn1 = () => {
-    setstate1(prevState => !prevState);
-  }
-  return (
-    <div className='signup'>
-      <div>
-        <img className='authImg' src={authImg} alt="" />
-      </div>
-      <div className='rightside'>
-        <h2 className='heading'>Sign up</h2>
-        <p className='haveaccount'>Already have an account with us?</p>
-        <Link className="loginlink" to="/login">Login Here !</Link>
-        <div className="signupbox">
-          <label className="emailheading" for="email">Email</label>
-          <input className="emailarea" type="email" placeholder="&#xf0e0;   Enter your Email address" style={{ fontFamily: "Arial, FontAwesome" }} name="email" onChange={(event) =>
-            setValues((prev) => ({ ...prev, email: event.target.value }))} required />
+	const handleSubmission = async (e) => {
+		e.preventDefault();
+		if (
+			!values.email ||
+			!values.username ||
+			!values.password ||
+			!values.cfmpassword
+		) {
+			setMessage("Please fill all the feilds !");
+			return;
+		}
+		if (values.password !== values.cfmpassword) {
+			setMessage("Please Enter same password !");
+			return;
+		}
+		setMessage("");
+		try {
+			setMessage("");
+			setSubmitButtonDisabled(true);
+			await signup(values.email, values.password);
+			await verifyUser();
+			navigate("/emailverify");
+		} catch (error) {
+			if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+				setMessage("User Already exists !");
+			} else {
+				setMessage("Can't Register now !");
+			}
+		}
+	};
+	const [state, setstate] = useState(false);
+	const [state1, setstate1] = useState(false);
+	const toggleBtn = () => {
+		setstate((prevState) => !prevState);
+	};
+	const toggleBtn1 = () => {
+		setstate1((prevState) => !prevState);
+	};
+	return (
+		<div className="signup">
+			<div className="leftside"></div>
+			<div className="rightside">
+				<div className="child">
+					<h2 className="heading">Sign up</h2>
+					<p className="haveaccount">Already have an account with us?</p>
+					<Link className="loginlink" to="/login">
+						Login Here !
+					</Link>
+					<div className="signupbox">
+						<label className="emailheading" for="email">
+							Email
+						</label>
+						<div className="emailHolder">
+							<IoMdMail className="signup-email" />
+							<input
+								className="emailarea"
+								type="email"
+								placeholder="Enter your Email address"
+								name="email"
+								onChange={(event) =>
+									setValues((prev) => ({ ...prev, email: event.target.value }))
+								}
+								required
+							/>
+						</div>
 
-          <label className="userheading" for="user">Username</label>
+						<label className="userheading" for="user">
+							Username
+						</label>
+						<div className="emailHolder">
+							<IoMdMail className="signup-email" />
+							<input
+								className="userarea"
+								type="text"
+								placeholder="Enter your Username"
+								name="user"
+								onChange={(event) =>
+									setValues((prev) => ({
+										...prev,
+										username: event.target.value,
+									}))
+								}
+								required
+							/>
+						</div>
 
-          <input className="userarea" type="text" placeholder="&#xf007;   Enter your Username" style={{ fontFamily: "Arial, FontAwesome" }} name="user" onChange={(event) =>
-            setValues((prev) => ({ ...prev, username: event.target.value }))} required />
+						<label className="passwordheading" for="password">
+							Password
+						</label>
+						<div className="emailHolder">
+							<IoMdMail className="signup-email" />
+							<input
+								className="passwordarea"
+								type={state ? "text" : "password"}
+								placeholder="Enter your password"
+								name="password"
+								onChange={(event) =>
+									setValues((prev) => ({
+										...prev,
+										password: event.target.value,
+									}))
+								}
+								required
+							/>
+							<div className="eyeclose" onClick={toggleBtn}>
+								{state ? (
+									<img src={eyeopen} alt="" className="eyeclose1"></img>
+								) : (
+									<img src={eyeclose} alt="" className="eyeclose1"></img>
+								)}
+							</div>
+						</div>
+						<label className="cfmpasswordheading" for="cfmpassword">
+							Confirm Password
+						</label>
+						<div className="emailHolder">
+							<IoMdMail className="signup-email" />
+							<input
+								className="cfmpasswordarea"
+								type={state1 ? "text" : "password"}
+								placeholder="Enter your password"
+								name="cfmpassword"
+								onChange={(event) =>
+									setValues((prev) => ({
+										...prev,
+										cfmpassword: event.target.value,
+									}))
+								}
+								required
+							/>
 
-          <label className="passwordheading" for="password">Password</label>
-          <div class="pass">
-            <input className="passwordarea" type={state ? "text" : "password"} placeholder="&#xf023;   Enter your password" style={{ fontFamily: "Arial, FontAwesome" }} name="password" onChange={(event) =>
-              setValues((prev) => ({ ...prev, password: event.target.value }))} required />
-            <button className='eyeclose' onClick={toggleBtn}>
-              {state ? <img src={eyeopen} alt="" className="eyeclose1"></img> : <img src={eyeclose} alt="" className="eyeclose1"></img>}
-            </button>
-          </div>
-
-          <label className="cfmpasswordheading" for="cfmpassword">Confirm Password</label>
-          <div className="pass">
-            <input className="cfmpasswordarea" type={state1 ? "text" : "password"} placeholder="&#xf023;   Enter your password" style={{ fontFamily: "Arial, FontAwesome" }} name="cfmpassword" onChange={(event) =>
-              setValues((prev) => ({ ...prev, cfmpassword: event.target.value }))} required />
-
-            <button className='eyeclose' onClick={toggleBtn1}>
-              {state1 ? <img src={eyeopen} alt="" className="eyeclose1"></img> : <img src={eyeclose} alt="" className="eyeclose1"></img>}
-            </button>
-          </div>
-
-        </div>
-        <b className='errormsg'>{message}</b>
-        <button className="registerbtn" disabled={submitButtonDisabled} onClick={handleSubmission}>Register</button>
-      </div>
-    </div>
-  )
+							<div className="eyeclose" onClick={toggleBtn1}>
+								{state1 ? (
+									<img src={eyeopen} alt="" className="eyeclose1"></img>
+								) : (
+									<img src={eyeclose} alt="" className="eyeclose1"></img>
+								)}
+							</div>
+						</div>
+					</div>
+					<b className="errormsg">{message}</b>
+					<button
+						className="registerbtn"
+						disabled={submitButtonDisabled}
+						onClick={handleSubmission}
+					>
+						Register
+					</button>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default Signup;
