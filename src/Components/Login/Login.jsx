@@ -8,6 +8,7 @@ import facebook from "../../images/Facebook.png";
 import { useAuth } from "../../context/AuthContext";
 import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 function Login() {
 	const { login } = useAuth();
@@ -16,30 +17,26 @@ function Login() {
 		email: "",
 		password: "",
 	});
-
-	const [message, setMessage] = useState("");
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
 	const handleSubmission = async (e) => {
 		e.preventDefault();
 		if (!values.email || !values.password) {
-			setMessage("Please fill all the feilds !");
+			toast.error("Please fill all the feilds !");
 			return;
 		}
-		setMessage("");
 
 		try {
-			setMessage("");
 			setSubmitButtonDisabled(true);
 			await login(values.email, values.password);
 			navigate("/");
 		} catch (err) {
 			if (err.message === "Firebase: Error (auth/wrong-password).") {
-				setMessage("wrong credentials !");
+				toast.error("wrong credentials !");
 			} else if (err.message === "Firebase: Error (auth/user-not-found).") {
-				setMessage("User does not exists !");
+				toast.error("User does not exists !");
 			} else {
-				setMessage("Can't Login ! Try again later");
+				toast.error("Error logging in ! Try again later");
 			}
 			setSubmitButtonDisabled(false);
 		}
@@ -119,7 +116,6 @@ function Login() {
 						</Link>
 						{/* <a className='forgotPassword' href="#/">forgot password?</a> */}
 					</div>
-					<b className="errormsg">{message}</b>
 					<button
 						className="loginbtn"
 						disabled={submitButtonDisabled}
