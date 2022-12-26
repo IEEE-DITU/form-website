@@ -6,7 +6,6 @@ import "./EmailVerify.css";
 function EmailVerify() {
 	const { currentUser } = useAuth();
 	const navigate = useNavigate();
-	console.log(currentUser);
 	return (
 		<div>
 			{currentUser && !currentUser.verified && "this is verification page"}
