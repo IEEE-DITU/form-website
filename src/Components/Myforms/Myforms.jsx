@@ -39,7 +39,7 @@ function Myforms() {
 			<div className="main">
 				<div className="leftcol">
 					<p className="myform">My Forms</p>
-					<img src={line2} className="line2"></img>
+					<img src={line2} className="line2" alt="misc"></img>
 
 					<Card></Card>
 					<Card></Card>
@@ -49,7 +49,7 @@ function Myforms() {
 					<button className="createbutton">Create</button>
 				</div>
 
-				<img className="line1" src={line1}></img>
+				<img className="line1" src={line1} alt="misc"></img>
 
 				<div className="rightcol">
 					<div className="profile">
@@ -58,9 +58,9 @@ function Myforms() {
 						</p>
 						<br></br>
 						<div className="avatar">
-							<img src={avatar}></img>
+							<img src={avatar} alt="user profile"></img>
 							<button className="editprofilebutton">
-								<img src={editprofile}></img>
+								<img src={editprofile} alt="edit profile"></img>
 							</button>
 						</div>
 					</div>
