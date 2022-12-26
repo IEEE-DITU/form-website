@@ -11,3 +11,21 @@
 .home{
     margin: 20% 40% ;
 }
+.user{
+    font-size: 1.4vw;
+    margin-bottom: 2vw;
+}
+.user>strong{
+    color:#FF432A;
+}
+.home>h2{
+    color: #FF432A;
+}
+
+.home>h2>p{
+    color: black;
+    font-size: 1vw;
+}
+.loginlink{
+    color: #FF432A;
+}
