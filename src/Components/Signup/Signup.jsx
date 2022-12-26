@@ -5,8 +5,7 @@ import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { IoMdMail } from "react-icons/io";
-// import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
-// import { auth } from '../../Firebase';
+import toast from "react-hot-toast";
 
 function Signup() {
 	const { signup, verifyUser } = useAuth();
@@ -17,8 +16,6 @@ function Signup() {
 		password: "",
 		cfmpassword: "",
 	});
-
-	const [message, setMessage] = useState("");
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
 	const handleSubmission = async (e) => {
@@ -29,25 +26,23 @@ function Signup() {
 			!values.password ||
 			!values.cfmpassword
 		) {
-			setMessage("Please fill all the feilds !");
+			toast.error("Please fill all the feilds !");
 			return;
 		}
 		if (values.password !== values.cfmpassword) {
-			setMessage("Please Enter same password !");
+			toast.error("Please Enter same password !");
 			return;
 		}
-		setMessage("");
 		try {
-			setMessage("");
 			setSubmitButtonDisabled(true);
 			await signup(values.email, values.password);
 			await verifyUser();
 			navigate("/emailverify");
 		} catch (error) {
 			if (error.message === "Firebase: Error (auth/email-already-in-use).") {
-				setMessage("User Already exists !");
+				toast.error("User Already exists !");
 			} else {
-				setMessage("Can't Register now !");
+				toast.error("Can't Register now !");
 			}
 		}
 	};
@@ -161,7 +156,6 @@ function Signup() {
 							</div>
 						</div>
 					</div>
-					<b className="errormsg">{message}</b>
 					<button
 						className="registerbtn"
 						disabled={submitButtonDisabled}
