@@ -126,8 +126,20 @@ function Login() {
 					<div className="otheroption">
 						<p>or continue with</p>
 						<div className="otheroptionimg">
-							<img src={google} alt="" />
-							<img src={facebook} alt="" />
+							<img
+								src={google}
+								alt=""
+								onClick={() => {
+									toast("Google authentication coming soon...");
+								}}
+							/>
+							<img
+								src={facebook}
+								alt=""
+								onClick={() => {
+									toast("Facebook authentication coming soon...");
+								}}
+							/>
 						</div>
 					</div>
 				</div>
