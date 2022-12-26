@@ -1,0 +1,66 @@
+.temp {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background: transparent;
+	transition: transform 0.6s;
+}
+
+.temp-down {
+	transform: translateY(50vh);
+}
+
+.temp-bg {
+	background: black;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 1rem 0.5rem 0.5rem 0.5rem;
+	gap: 0.5rem;
+}
+
+.temp-list {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.temp-list div {
+	border: 1px solid white;
+	color: white !important;
+	padding: 1px;
+}
+
+.temp-icon {
+	font-size: 2rem;
+	background: black;
+	transform: translateY(1rem);
+}
+
+.tempp {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: transparent;
+	width: 100vw;
+}
+
+.temp-icon2 {
+	background: black;
+	color: white;
+	font-size: 2rem;
+}
