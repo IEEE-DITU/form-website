@@ -5,10 +5,11 @@ import "./EmailVerify.css";
 
 function EmailVerify() {
 	const { currentUser } = useAuth();
-	const navigate = useNavigate();
 	return (
-		<div>
-			{currentUser && !currentUser.verified && "this is verification page"}
+		<div className="EmailVerify">
+			{currentUser &&
+				!currentUser.verified &&
+				"verfiy your mail to continue . link has been sent to your mail. If your created your accout before 26/12/2022 then recreate with other email id to recieve verification mail."}
 		</div>
 	);
 }

@@ -35,17 +35,60 @@ function App() {
 					<Route
 						exact
 						path="/"
-						element={currentUser ? <Home /> : <Navigate to="/login" />}
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<Home />
+								) : (
+									<Navigate to="/emailverify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
 					/>
 					<Route
 						path="/myforms"
-						element={currentUser ? <Myforms /> : <Navigate to="/login" />}
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<Myforms />
+								) : (
+									<Navigate to="/emailverify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
 					/>
 					<Route path="/resetpass" element={<PasswordReset />} />
-					<Route path="/emailverify" element={<EmailVerify />} />
+					<Route
+						path="/emailverify"
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<Navigate to="/" />
+								) : (
+									<EmailVerify />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
 					<Route
 						path="/forms/responses"
-						element={currentUser ? <ResponsePage /> : <Navigate to="/login" />}
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<ResponsePage />
+								) : (
+									<Navigate to="/emailverify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
 					/>
 				</Routes>
 			</Router>
