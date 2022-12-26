@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import Signup from "./Components/Signup/Signup";
 import Home from "./pages/Home/Home";
-import Myforms from "./Components/Myforms/Myforms";
 import PasswordReset from "./Components/PasswordReset/PasswordReset";
 import EmailVerify from "./Components/EmailVerify/EmailVerify";
 import ResponsePage from "./pages/ResponsePage/ResponsePage";
@@ -39,20 +38,6 @@ function App() {
 							currentUser ? (
 								currentUser.emailVerified ? (
 									<Home />
-								) : (
-									<Navigate to="/emailverify" />
-								)
-							) : (
-								<Navigate to="/login" />
-							)
-						}
-					/>
-					<Route
-						path="/myforms"
-						element={
-							currentUser ? (
-								currentUser.emailVerified ? (
-									<Myforms />
 								) : (
 									<Navigate to="/emailverify" />
 								)

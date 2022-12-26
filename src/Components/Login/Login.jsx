@@ -25,12 +25,24 @@ function Login() {
 			toast.error("Please fill all the feilds !");
 			return;
 		}
-
-		try {
-			setSubmitButtonDisabled(true);
-			await login(values.email, values.password);
-			navigate("/");
-		} catch (err) {
+		setSubmitButtonDisabled(true);
+		toast.promise(
+			login(values.email, values.password),
+			{
+				loading: "Logging in....",
+				success: <b>Logged in!</b>,
+				error: (err) => {
+					handleError(err);
+				},
+			},
+			{
+				error: {
+					duration: 1,
+				},
+			}
+		);
+		const handleError = (err) => {
+			setSubmitButtonDisabled(false);
 			if (err.message === "Firebase: Error (auth/wrong-password).") {
 				toast.error("wrong credentials !");
 			} else if (err.message === "Firebase: Error (auth/user-not-found).") {
@@ -38,8 +50,7 @@ function Login() {
 			} else {
 				toast.error("Error logging in ! Try again later");
 			}
-			setSubmitButtonDisabled(false);
-		}
+		};
 	};
 
 	const [state, setstate] = useState(false);

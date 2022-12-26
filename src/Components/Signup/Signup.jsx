@@ -33,18 +33,15 @@ function Signup() {
 			toast.error("Please Enter same password !");
 			return;
 		}
-		try {
-			setSubmitButtonDisabled(true);
-			await signup(values.email, values.password);
-			await verifyUser();
-			navigate("/emailverify");
-		} catch (error) {
-			if (error.message === "Firebase: Error (auth/email-already-in-use).") {
-				toast.error("User Already exists !");
-			} else {
-				toast.error("Can't Register now !");
-			}
-		}
+		// setSubmitButtonDisabled(true);
+		toast.promise(signup(values.email, values.password), {
+			loading: "Signing up...",
+			success: () => {
+				verifyUser();
+				return "Signed up!";
+			},
+			error: (err) => `${err.code.split("/")[1]}`,
+		});
 	};
 	const [state, setstate] = useState(false);
 	const [state1, setstate1] = useState(false);
