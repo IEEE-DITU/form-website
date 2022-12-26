@@ -10,7 +10,10 @@ import line2 from "../../images/Line 2.png";
 import line1 from "../../images/Line1.png"
 import editprofile from  "../../images/profile edit button.png";
 import Card from '../Card/Card';
+import { useAuth } from '../../context/AuthContext';
 function Myforms(){
+    const {currentUser}=useAuth();
+    console.log(currentUser);
     
     return(
         
@@ -33,22 +36,22 @@ function Myforms(){
             <img className='line1' src={line1}></img>
             
             <div className='rightcol'>
-               <div className='profile'>
+            <div className='profile'>
                     <p className='myprofile'><center>My Profile</center></p><br></br>
                     <div className='avatar'>
                     <img src={avatar}></img>
                     <button className="editprofilebutton"><img src={editprofile} ></img></button>
                     </div>
-               </div>
-               <div className='profilecontent'>
+            </div>
+            <div className='profilecontent'>
                 
-                <p>Name-Shreyal Jain</p><br/>
-                <p>User Id- Shreyal_1605</p><br/>
-                <p>Email-Shreyaljain0007@gmail.com</p>
-               </div>  
+                <p>Name-</p><br/>
+                <p>User Id- </p><br/>
+                <p>Email-</p>
+            </div>  
                <br/> 
                <div className='lobutton'>
-                 <button className='logoutbutton' >Log Out</button>
+                <button className='logoutbutton' >Log Out</button>
                </div> 
                
                 
@@ -57,11 +60,11 @@ function Myforms(){
 
             </div>
         </div>
-    </div>
-       
+</div>
+
 
         
- 
+
     )
 
 }
