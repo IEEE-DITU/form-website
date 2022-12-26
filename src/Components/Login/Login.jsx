@@ -30,7 +30,7 @@ function Login() {
 			login(values.email, values.password),
 			{
 				loading: "Logging in....",
-				success: <b>Logged in!</b>,
+				success: "Logged in!",
 				error: (err) => {
 					handleError(err);
 				},

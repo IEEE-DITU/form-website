@@ -18,8 +18,8 @@ function Myforms() {
 			}),
 			{
 				loading: "Logging out....",
-				success: <b>Logged out!</b>,
-				error: <b>Error logging out.</b>,
+				success: "Logged out!",
+				error: "Error logging out",
 			}
 		);
 	};
