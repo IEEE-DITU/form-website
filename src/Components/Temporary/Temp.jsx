@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Temp.css";
 
 const Temp = () => {
-	const [down, setdown] = useState(false);
+	const [down, setdown] = useState(true);
 	return (
 		<>
 			<div className="tempp">
