@@ -38,10 +38,7 @@ function App() {
 						path="/myforms"
 						element={currentUser ? <Myforms /> : <Navigate to="/login" />}
 					/>
-					<Route
-						path="/resetpass"
-						element={currentUser ? <PasswordReset /> : <Navigate to="/login" />}
-					/>
+					<Route path="/resetpass" element={<PasswordReset />} />
 					<Route path="/emailverify" element={<EmailVerify />} />
 					<Route
 						path="/forms/responses"
