@@ -36,9 +36,9 @@ const value={
     verifyUser
 }
 
-  return (
+return (
     <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  )
+)
 }
