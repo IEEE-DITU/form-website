@@ -1,10 +1,12 @@
 import React from "react";
 import avatar from "../../images/avatar 1.png";
 import { useAuth } from "../../context/AuthContext";
-import background from "../../images/bg1.png";
+import background from "../../images/authImg.png";
 import "./Myforms.css";
 import line2 from "../../images/Line 2.png";
 import line1 from "../../images/Line1.png";
+import dash1 from "../../images/dash1.png";
+import dash2 from "../../images/dash2.png";
 import editprofile from "../../images/profile edit button.png";
 import Card from "../Card/Card";
 import { signOut } from "@firebase/auth";
@@ -33,11 +35,27 @@ function Myforms() {
 			style={{
 				backgroundImage: `url(${background})`,
 				backgroundRepeat: "no-repeat",
-				backgroundSize: "contain",
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+				height: "100vh",
+				width: "100vw",
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
 			}}
 		>
-			<div className="main">
+			<div
+				className="main"
+				style={{
+					background: "white",
+					height: "90vh",
+					width: "90vw",
+					borderRadius: "20px",
+					padding: "2rem",
+				}}
+			>
 				<div className="leftcol">
+					<img src={dash1} alt="dash" className="dash1" />
 					<p className="myform">My Forms</p>
 					<img src={line2} className="line2" alt="misc"></img>
 
@@ -52,6 +70,7 @@ function Myforms() {
 				<img className="line1" src={line1} alt="misc"></img>
 
 				<div className="rightcol">
+					<img src={dash2} alt="dash" className="dash2" />
 					<div className="profile">
 						<p className="myprofile">
 							<center>My Profile</center>
