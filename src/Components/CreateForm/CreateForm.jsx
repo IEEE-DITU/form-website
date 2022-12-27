@@ -3,7 +3,8 @@ import { useAuth } from "../../context/AuthContext";
 import "./CreateForm.css";
 import { v4 } from "uuid";
 import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
+import Text from "../QuestionTypes/Text";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const CreateForm = () => {
 	const { currentUser } = useAuth();
@@ -90,15 +91,18 @@ const CreateForm = () => {
 										</div>
 									</div>
 								</div>
-								<div className="newFormQuestionLower">
+								<div className="newFormQuestionMiddle">
 									<div className="newFormQuestionAnswerArea">
-										{question.questionType}
+										<Text />
 									</div>
+								</div>
+								<div className="newFormQuestionLower">
 									<div
 										className="newFormQuestionDelete"
 										onClick={() => deleteQuestion(id)}
 									>
-										Delete
+										<p>Delete</p>{" "}
+										<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
 									</div>
 								</div>
 							</div>
