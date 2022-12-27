@@ -108,12 +108,9 @@ const CreateForm = () => {
 							</div>
 						);
 					})}
-					<div
-						className="newFormAddQuestionButton"
-						onClick={() => addQuestion()}
-					>
-						+ Add Question
-					</div>
+				</div>
+				<div className="newFormAddQuestionButton" onClick={() => addQuestion()}>
+					+ Add Question
 				</div>
 			</div>
 		</div>
