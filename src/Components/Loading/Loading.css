@@ -1,0 +1,76 @@
+.loader {
+	--frame: 1s;
+}
+.loader,
+.loader::before,
+.loader::after {
+	border: 5px solid Tomato;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+}
+.loader {
+	font-size: 4em;
+	position: relative;
+	width: 2em;
+	height: 2em;
+	animation: anim-loader var(--frame) ease infinite;
+}
+.loader::before,
+.loader::after {
+	content: "";
+	position: absolute;
+}
+.loader::before {
+	inset: 1px;
+	animation: anim-loader calc(var(--frame) * 4.3) ease-in infinite;
+}
+.loader::after {
+	inset: 7px;
+	animation: anim-loader calc(var(--frame) * 1.51) ease-out infinite;
+}
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+.loaderbody {
+	overflow: clip;
+	height: 100vh;
+	display: grid;
+	place-items: center;
+	margin: 0;
+	background-color: #333;
+}
+@-moz-keyframes anim-loader {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}
+@-webkit-keyframes anim-loader {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}
+@-o-keyframes anim-loader {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}
+@keyframes anim-loader {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}

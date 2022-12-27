@@ -15,7 +15,10 @@ import Temp from "./Components/Temporary/Temp";
 import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 
-function App() {
+import Loading from "./Components/Loading/Loading";
+import CreateForm from "./Components/CreateForm/CreateForm";
+
+function MainApp() {
 	const { currentUser } = useAuth();
 	return (
 		<div className="App">
@@ -77,10 +80,28 @@ function App() {
 							)
 						}
 					/>
+					<Route
+						path="/newform"
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<CreateForm />
+								) : (
+									<Navigate to="/emailverify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
 				</Routes>
 			</Router>
 		</div>
 	);
+}
+function App() {
+	const { loading } = useAuth();
+	return <>{loading ? <Loading /> : <MainApp />}</>;
 }
 
 export default App;
