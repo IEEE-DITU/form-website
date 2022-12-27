@@ -40,6 +40,9 @@ const Temp = () => {
 						<Link to="/emailverify">
 							<div>/emailverify</div>
 						</Link>
+						<Link to="/newform">
+							<div>/newform</div>
+						</Link>
 						<Link to="/forms/responses">
 							<div>/forms/responses</div>
 						</Link>
