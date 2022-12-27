@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { IoMdMail } from "react-icons/io";
 import toast from "react-hot-toast";
+import { FaLock, FaUser } from "react-icons/fa";
 
 function Signup() {
 	const { signup, verifyUser } = useAuth();
@@ -86,7 +87,7 @@ function Signup() {
 							Username
 						</label>
 						<div className="emailHolder">
-							<IoMdMail className="signup-email" />
+							<FaUser className="signup-email" />
 							<input
 								className="userarea"
 								type="text"
@@ -106,7 +107,7 @@ function Signup() {
 							Password
 						</label>
 						<div className="emailHolder">
-							<IoMdMail className="signup-email" />
+							<FaLock className="signup-email" />
 							<input
 								className="passwordarea"
 								type={state ? "text" : "password"}
@@ -132,7 +133,7 @@ function Signup() {
 							Confirm Password
 						</label>
 						<div className="emailHolder">
-							<IoMdMail className="signup-email" />
+							<FaLock className="signup-email" />
 							<input
 								className="cfmpasswordarea"
 								type={state1 ? "text" : "password"}

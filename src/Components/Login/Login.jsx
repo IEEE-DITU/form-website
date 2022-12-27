@@ -114,7 +114,6 @@ function Login() {
 						<Link className="forgotPassword" to="/resetpass">
 							forgot password?
 						</Link>
-						{/* <a className='forgotPassword' href="#/">forgot password?</a> */}
 					</div>
 					<button
 						className="loginbtn"
@@ -123,7 +122,7 @@ function Login() {
 					>
 						Login
 					</button>
-					<div className="otheroption">
+					{/* <div className="otheroption">
 						<p>or continue with</p>
 						<div className="otheroptionimg">
 							<img
@@ -141,7 +140,7 @@ function Login() {
 								}}
 							/>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

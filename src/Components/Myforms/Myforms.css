@@ -1,7 +1,7 @@
 .bg_image{
 background-size: cover;
 background-repeat: no-repeat;
-min-height: 130vh;
+min-height: 130vh;          
 }
 
 .main{
@@ -73,7 +73,7 @@ margin-bottom: 1.5%;
         color: white;
         font-weight: 700;
         font-size: 1.2vw;
-        
+        cursor: pointer;
 
 }
 .lobutton{

@@ -1,5 +1,6 @@
-import { sendPasswordResetEmail } from '@firebase/auth';
+import { sendPasswordResetEmail,signOut } from '@firebase/auth';
 import React, { useState } from 'react'
+import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { auth } from '../../Firebase';
 import './PasswordReset.css'
@@ -23,22 +24,26 @@ function PasswordReset() {
         sendPasswordResetEmail(auth,values.email)
         .then(()=>{
             setSubmitButtonDisabled(false);
-            setMessage("verification link send !\nRedirecting for Login...");
+            toast.error("verification link send !\nRedirecting for Login...");
             setTimeout(()=>{
-                navigate('/login');
+                signOut(auth).then(() => {
+                    navigate('/login');
+                  }).catch((error) => {
+                    console.log("error:",error)
+                  });
             },2000)
         })
         .catch((err)=>{
             setSubmitButtonDisabled(false);
             if(err.message==="Firebase: Error (auth/user-not-found).")
             {
-                setMessage("User not registered !\nRedirecting to signup...");
+                toast.error("User not registered !\nRedirecting to signup...");
                 setTimeout(()=>{
                     navigate('/signup');
                 },2000)
             }
             else{
-                setMessage(err.message);
+                toast.error(err.message);
             }
         })
     }

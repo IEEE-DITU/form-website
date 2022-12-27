@@ -11,11 +11,21 @@ import line2 from "../../images/Line 2.png";
 import line1 from "../../images/Line1.png"
 import editprofile from  "../../images/profile edit button.png";
 import Card from '../Card/Card';
+import { signOut } from '@firebase/auth'
+import { auth } from '../../Firebase'
+import { useNavigate } from 'react-router'
 
 function Myforms(){
+    const navigate=useNavigate();
     const {currentUser}=useAuth();
     console.log(currentUser);
-   
+    const handleclick=()=>{
+        signOut(auth).then(() => {
+          navigate('/login');
+        }).catch((error) => {
+          console.log("error:",error)
+        });
+    }
     
     return(
         
@@ -53,7 +63,7 @@ function Myforms(){
             </div>  
                <br/> 
                <div className='lobutton'>
-                <button className='logoutbutton' >Log Out</button>
+                <button className='logoutbutton' onClick={handleclick}>Log Out</button>
                </div> 
                
                 
