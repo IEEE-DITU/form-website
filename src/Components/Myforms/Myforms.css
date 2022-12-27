@@ -9,6 +9,13 @@
 	min-width: 450px;
 }
 
+.myFormTop {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 100%;
+}
+
 .avatar {
 	margin-top: 2.5rem;
 	width: 8rem;
@@ -36,7 +43,7 @@
 	z-index: 0;
 }
 
-.leftcol > .myform {
+.myform {
 	background: transparent;
 	padding-bottom: 0.65rem;
 	width: max-content;
@@ -44,7 +51,7 @@
 	margin-bottom: 2rem;
 }
 
-.leftcol > .myform p {
+.myform p {
 	font-size: 1.75rem;
 	font-weight: 100;
 	font-family: Arial, Helvetica, sans-serif;
@@ -95,6 +102,7 @@
 	font-weight: 400;
 	margin-top: 3rem;
 	font-size: 1rem;
+	cursor: pointer;
 }
 
 .dash2 {
@@ -111,7 +119,6 @@
 	background-size: cover;
 }
 .createbutton {
-	margin-bottom: 4vw;
 	padding: 1vw 3.5vw;
 	border-radius: 50px;
 	background-color: #ff432a;
@@ -119,6 +126,7 @@
 	color: white;
 	font-weight: 400;
 	font-size: 1rem;
+	box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .editprofilebutton {
