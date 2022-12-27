@@ -1,9 +1,18 @@
-.pagesbutton{
-   margin-left: 1vh;
-   margin-right: 2vh;
-   border-width: 0.4vh;
-   color:black;
-   background-color: white;
-   
+.pagination {
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	margin-top: auto;
+	z-index: 10;
+}
 
+.pagination > p {
+	margin-right: 0.5rem;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+.paginationIcon {
+	font-size: 1.25rem;
 }
