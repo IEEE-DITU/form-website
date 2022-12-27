@@ -12,6 +12,7 @@ import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
 import { toast } from "react-hot-toast";
 import { cards1 } from "../Constants/dummydata";
+import { Link } from "react-router-dom";
 
 function Myforms() {
 	const [coinsData, setCoinsData] = useState([...cards1]);
@@ -73,7 +74,10 @@ function Myforms() {
 					{currentPosts.map((e, id) => {
 						return <Card key={id} {...e} />;
 					})}
-					<button className="createbutton">Create</button>
+					<Link to={"/newform"} style={{ zIndex: 10 }}>
+						{" "}
+						<div className="createbutton">+ Create</div>
+					</Link>
 				</div>
 				<img className="line1" src={line1} alt="misc"></img>
 				<div className="rightcol">
