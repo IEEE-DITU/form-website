@@ -13,6 +13,7 @@ import { auth } from "../../Firebase";
 import { toast } from "react-hot-toast";
 import { cards1 } from "../Constants/dummydata";
 import { Link } from "react-router-dom";
+import Pagination from "../Pagination/Pagination";
 
 function Myforms() {
 	const [coinsData, setCoinsData] = useState([...cards1]);
@@ -74,6 +75,9 @@ function Myforms() {
 					{currentPosts.map((e, id) => {
 						return <Card key={id} {...e} />;
 					})}
+                    <Pagination totalPosts={coinsData.length} 
+                    postsPerPage={postsPerPage}
+                    setCurrentPage={setCurrentPage}/>
 					<Link to={"/newform"} style={{ zIndex: 10 }}>
 						{" "}
 						<div className="createbutton">+ Create</div>

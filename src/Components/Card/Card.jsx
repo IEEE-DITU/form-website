@@ -9,7 +9,7 @@ function Card(e) {
 				<p className="cardcontent">Form Tittle - {e.FormTittle}</p>
 				<p className="cardcontent">Form Creation Date - {e.FormCreationDate}</p>
 				<p className="cardcontent">
-					Number of responces - {e.Numberofresponces}
+					Number of responces - {e.Numberofresponces}
 				</p>
 			</div>
 			<div className="cardright">
