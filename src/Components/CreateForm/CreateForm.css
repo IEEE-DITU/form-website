@@ -253,3 +253,18 @@
 .requiredSwitch > p {
 	font-size: 0.8rem;
 }
+
+@media only screen and (max-width: 430px) {
+	.newForm-main {
+		width: 96vw;
+		height: 96vh;
+		padding: 0.75rem;
+	}
+	.newFormQuestionUpper {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.newFormQuestionMiddle {
+		padding-left: 0;
+	}
+}
