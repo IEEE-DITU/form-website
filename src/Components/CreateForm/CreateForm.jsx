@@ -5,6 +5,7 @@ import { v4 } from "uuid";
 import Dropdown from "react-dropdown";
 import Text from "../QuestionTypes/Text";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwith";
 
 const CreateForm = () => {
 	const { currentUser } = useAuth();
@@ -13,12 +14,17 @@ const CreateForm = () => {
 		creatorId: currentUser.uid,
 		createdAt: "",
 		questions: [],
+		acceptingResponses: true,
 	});
 	const [questions, setQuestions] = useState([
 		{
 			questionTitle: "Enter question..?",
 			questionType: "text",
 			questionId: v4(),
+			isRequired: false,
+			options: [],
+			minChoice: 1,
+			maxChoice: 1,
 		},
 	]);
 
@@ -28,6 +34,10 @@ const CreateForm = () => {
 			questionTitle: "Enter question..?",
 			questionType: "text",
 			questionId: v4(),
+			isRequired: false,
+			options: [],
+			minChoice: 1,
+			maxChoice: 1,
 		});
 		setQuestions([...a]);
 		console.log(questions);
@@ -54,6 +64,16 @@ const CreateForm = () => {
 		{ value: "singleChoice", label: "single choice" },
 		{ value: "multipleChoice", label: "multiple choice" },
 	];
+	const setRequired = (questionId) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionId) {
+				return question;
+			}
+			question.isRequired = !question.isRequired;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
 	return (
 		<div className="newForm">
 			<div className="newForm-main">
@@ -97,11 +117,24 @@ const CreateForm = () => {
 									</div>
 								</div>
 								<div className="newFormQuestionLower">
+									<div className="requiredSwitch">
+										<p>Required</p>
+										<ToggleSwitch
+											id={question.questionId}
+											name="required"
+											checked={question.isRequired}
+											disabled={false}
+											small={true}
+											optionLabels={["true", "false"]}
+											onChange={setRequired}
+										/>
+									</div>
+
 									<div
 										className="newFormQuestionDelete"
 										onClick={() => deleteQuestion(id)}
 									>
-										<p>Delete</p>{" "}
+										<p>Delete</p>
 										<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
 									</div>
 								</div>
