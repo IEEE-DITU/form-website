@@ -3,7 +3,6 @@ import avatar from "../../images/avatar 1.png";
 import { useAuth } from "../../context/AuthContext";
 import background from "../../images/authImg.png";
 import "./Myforms.css";
-import line2 from "../../images/Line 2.png";
 import line1 from "../../images/Line1.png";
 import dash1 from "../../images/dash1.png";
 import dash2 from "../../images/dash2.png";
@@ -12,19 +11,16 @@ import Card from "../Card/Card";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
 import { toast } from "react-hot-toast";
-import { async } from "@firebase/util";
 import { cards1 } from "../Constants/dummydata";
 
 function Myforms() {
-    const [coinsData,setCoinsData]=useState([]);
-    const [currentPage ,setCurrentPage]=useState(1);
-    const [postsPerPage,setPostsPerPage]=useState(5);
+	const [coinsData, setCoinsData] = useState([...cards1]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [postsPerPage, setPostsPerPage] = useState(3);
 
-    
-
-    const indexOfLastCard = currentPage * postsPerPage;
-    const indexOfFirstCard = indexOfLastCard - postsPerPage;
-    const currentPosts=coinsData.slice(indexOfFirstCard,indexOfLastCard);
+	const indexOfLastCard = currentPage * postsPerPage;
+	const indexOfFirstCard = indexOfLastCard - postsPerPage;
+	const currentPosts = coinsData.slice(indexOfFirstCard, indexOfLastCard);
 
 	const { currentUser } = useAuth();
 	const logOut = () => {
@@ -59,51 +55,41 @@ function Myforms() {
 			<div
 				className="main"
 				style={{
-					background: "white",
+					background: "#FFF7F2",
 					height: "90vh",
 					width: "90vw",
 					borderRadius: "20px",
 					padding: "2rem",
+					display: "flex",
+					overflow: "hidden",
+					gap: "1rem",
 				}}
 			>
 				<div className="leftcol">
 					<img src={dash1} alt="dash" className="dash1" />
-					<p className="myform">My Forms</p>
-					<img src={line2} className="line2" alt="misc"></img>
-
-					<Card coinsData={currentPosts}/>
+					<div className="myform">
+						<p>My Forms</p>
+					</div>
+					{currentPosts.map((e, id) => {
+						return <Card key={id} {...e} />;
+					})}
 					<button className="createbutton">Create</button>
 				</div>
-
 				<img className="line1" src={line1} alt="misc"></img>
-
 				<div className="rightcol">
 					<img src={dash2} alt="dash" className="dash2" />
-					<div className="profile">
-						<p className="myprofile">
-							<center>My Profile</center>
-						</p>
-						<br></br>
-						<div className="avatar">
-							<img src={avatar} alt="user profile"></img>
-							<button className="editprofilebutton">
-								<img src={editprofile} alt="edit profile"></img>
-							</button>
-						</div>
+					<p className="myprofile">My Profile</p>
+					<div className="avatar">
+						<img src={avatar} alt="user profile"></img>
+						<img src={editprofile} alt="edit profile"></img>
 					</div>
 					<div className="profilecontent">
-						<p>Username-{currentUser.displayName}</p>
-						<br />
-						<p>User Id- {currentUser.uid}</p>
-						<br />
+						<p>Name-{currentUser.displayName}</p>
 						<p>Email-{currentUser.email}</p>
 					</div>
-					<br />
-					<div className="lobutton">
-						<button className="logoutbutton" onClick={() => logOut()}>
-							Log Out
-						</button>
-					</div>
+					<button className="logoutbutton" onClick={() => logOut()}>
+						Log Out
+					</button>
 				</div>
 			</div>
 		</div>
