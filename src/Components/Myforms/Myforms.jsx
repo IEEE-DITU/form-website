@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import avatar from "../../images/avatar 1.png";
 import { useAuth } from "../../context/AuthContext";
 import background from "../../images/bg1.png";
@@ -10,8 +10,20 @@ import Card from "../Card/Card";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
 import { toast } from "react-hot-toast";
+import { async } from "@firebase/util";
+import { cards1 } from "../Constants/dummydata";
 
 function Myforms() {
+    const [coinsData,setCoinsData]=useState([]);
+    const [currentPage ,setCurrentPage]=useState(1);
+    const [postsPerPage,setPostsPerPage]=useState(5);
+
+    
+
+    const indexOfLastCard = currentPage * postsPerPage;
+    const indexOfFirstCard = indexOfLastCard - postsPerPage;
+    const currentPosts=coinsData.slice(indexOfFirstCard,indexOfLastCard);
+
 	const { currentUser } = useAuth();
 	const logOut = () => {
 		toast.promise(
@@ -41,11 +53,7 @@ function Myforms() {
 					<p className="myform">My Forms</p>
 					<img src={line2} className="line2"></img>
 
-					<Card></Card>
-					<Card></Card>
-					<Card></Card>
-					<Card></Card>
-
+					<Card coinsData={currentPosts}/>
 					<button className="createbutton">Create</button>
 				</div>
 
