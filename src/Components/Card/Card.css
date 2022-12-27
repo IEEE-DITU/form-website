@@ -1,12 +1,13 @@
-.card {
-	width: 90%;
-	height: 17%;
-	background-color: rgb(242, 238, 238);
-	display: flex;
-	border-radius: 2vw;
-	margin-bottom: 1rem;
-	z-index: 1;
-	position: relative;
+.card{
+    width: 90%;
+    height: 17%;
+    background-color:white;
+    border-width: 2rem;
+    z-index: 1;
+    display: flex;
+    border-radius: 1.5vw;
+    margin-bottom: 1rem;
+    position: relative;
 }
 .card > .cardleft {
 	margin-left: 1%;

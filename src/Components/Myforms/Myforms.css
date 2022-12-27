@@ -36,6 +36,22 @@
 	margin-left: 4%;
 }
 
+.rightcol>.profilecontent{
+    font-size: 3.2vh;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.logoutbutton{
+        
+        padding: 1vw 3.5vw;
+        border-radius: 50px;
+        background-color: #FF432A;
+        border: none;
+        
+        color: white;
+        font-weight: 700;
+        font-size: 1.2vw;
+        
 .rightcol {
 	position: relative;
 	width: 100%;
@@ -68,14 +84,6 @@
 	font-size: 1.2vw;
 	margin-right: 12%;
 }
-.rightcol > .profilecontent {
-	font-size: 3.2vh;
-}
-.logoutbutton {
-	padding: 1vw 3.5vw;
-	border-radius: 50px;
-	background-color: #ff432a;
-	border: none;
 
 	color: white;
 	font-weight: 700;
