@@ -201,3 +201,13 @@
 	border-bottom-right-radius: 2px;
 	border-bottom-left-radius: 2px;
 }
+
+.requiredSwitch {
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+}
+
+.requiredSwitch > p {
+	font-size: 0.8rem;
+}
