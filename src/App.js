@@ -11,7 +11,6 @@ import Home from "./pages/Home/Home";
 import PasswordReset from "./Components/PasswordReset/PasswordReset";
 import EmailVerify from "./Components/EmailVerify/EmailVerify";
 import ResponsePage from "./pages/ResponsePage/ResponsePage";
-import Temp from "./Components/Temporary/Temp";
 import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 
@@ -25,7 +24,6 @@ function MainApp() {
 			<Toaster />
 
 			<Router>
-				<Temp />
 				<Routes>
 					<Route
 						path="/login"
@@ -65,7 +63,7 @@ function MainApp() {
 							)
 						}
 					/>
-					
+
 					<Route
 						path="/forms/responses"
 						element={
