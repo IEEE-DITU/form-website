@@ -1,11 +1,11 @@
 .card{
     width: 90%;
     height: 17%;
-    background-color: rgb(242, 238, 238);
+    background-color:white;
     border-width: 2rem;
-    border-color:"#fff";
+    
     display: flex;
-    border-radius: 2vw;
+    border-radius: 1.5vw;
     margin-bottom: 1rem;
     
 }
