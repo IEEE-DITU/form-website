@@ -6,6 +6,7 @@ import Dropdown from "react-dropdown";
 import Text from "../QuestionTypes/Text";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwith";
+import MultipleChoice from "../QuestionTypes/MultipleChoice";
 
 const CreateForm = () => {
 	const { currentUser } = useAuth();
@@ -22,7 +23,7 @@ const CreateForm = () => {
 			questionType: "text",
 			questionId: v4(),
 			isRequired: false,
-			options: [],
+			options: ["enter option"],
 			minChoice: 1,
 			maxChoice: 1,
 		},
@@ -35,7 +36,7 @@ const CreateForm = () => {
 			questionType: "text",
 			questionId: v4(),
 			isRequired: false,
-			options: [],
+			options: ["enter option"],
 			minChoice: 1,
 			maxChoice: 1,
 		});
@@ -61,7 +62,7 @@ const CreateForm = () => {
 	};
 	const questionTypes = [
 		{ value: "text", label: "text" },
-		{ value: "singleChoice", label: "single choice" },
+		// { value: "singleChoice", label: "single choice" },
 		{ value: "multipleChoice", label: "multiple choice" },
 	];
 	const setRequired = (questionId) => {
@@ -70,6 +71,60 @@ const CreateForm = () => {
 				return question;
 			}
 			question.isRequired = !question.isRequired;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const changeQuestionTitle = (title, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.questionTitle = title;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const addOption = (questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.options.push("enter option");
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const editOption = (questionID, text, index) => {
+		let options = [];
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			for (let i = 0; i < question.options.length; i++) {
+				if (i === index) {
+					options.push(text);
+				} else {
+					options.push(question.options[i]);
+				}
+			}
+			question.options = options;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const deleteOption = (questionID, index) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			let a = question.options;
+			a.splice(index, 1);
+			question.options = a;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -95,7 +150,17 @@ const CreateForm = () => {
 									<div className="left">
 										<div className="newFormQuestionId">{id + 1}.</div>
 										<div className="newFormQuestionTitle">
-											{question.questionTitle}
+											<input
+												type="text"
+												value={question.questionTitle}
+												placeholder="Enter quetions..."
+												onChange={(e) =>
+													changeQuestionTitle(
+														e.target.value,
+														question.questionId
+													)
+												}
+											/>
 										</div>
 									</div>
 									<div className="right">
@@ -113,10 +178,26 @@ const CreateForm = () => {
 								</div>
 								<div className="newFormQuestionMiddle">
 									<div className="newFormQuestionAnswerArea">
-										<Text />
+										{question.questionType === "text" && <Text />}
+										{question.questionType === "multipleChoice" && (
+											<MultipleChoice
+												options={question.options}
+												qid={question.questionId}
+												editOption={editOption}
+												deleteOption={deleteOption}
+											/>
+										)}
 									</div>
 								</div>
 								<div className="newFormQuestionLower">
+									{question.questionType !== "text" && (
+										<div
+											className="newFormAddOption"
+											onClick={() => addOption(question.questionId)}
+										>
+											<p>+ Add option</p>
+										</div>
+									)}
 									<div className="requiredSwitch">
 										<p>Required</p>
 										<ToggleSwitch
