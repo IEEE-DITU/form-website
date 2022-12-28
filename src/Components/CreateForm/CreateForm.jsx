@@ -7,10 +7,9 @@ import Text from "../QuestionTypes/Text";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwith";
 import MultipleChoice from "../QuestionTypes/MultipleChoice";
-
 import SingleChoice from "../QuestionTypes/SingleChoice";
-// import { doc, setDoc } from "firebase/firestore";
-// import { db } from "../../Firebase";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../Firebase";
 import toast from "react-hot-toast";
 
 const CreateForm = () => {
@@ -156,49 +155,45 @@ const CreateForm = () => {
 	};
 
 	const publish = () => {
-		// const promise = () => {
-		// 	return new Promise((resolve, reject) => {
-		// 		try {
-		// 			let data = formData;
-		// 			data.questions = questions;
-		// 			const d = new Date();
-		// 			let time = d.getTime();
-		// 			data.createdAt = time;
-		// 			setDoc(doc(db, "forms", formData.id), {
-		// 				...formData,
-		// 			})
-		// 				.then(
-		// 					db
-		// 						.collection("users")
-		// 						.where("uid", "==", currentUser.uid)
-		// 						.get()
-		// 						.then(function (querySnapshot) {
-		// 							querySnapshot.forEach(function (doc) {
-		// 								console.log(doc.id, " => ", doc.data());
-		// 								//   doc.update({forms: forms})
-		// 							});
-		// 						})
-		// 				)
-		// 				.then(() => resolve())
-		// 				.catch((err) => {
-		// 					reject(err);
-		// 				});
-		// 		} catch (err) {
-		// 			reject(err);
-		// 		}
-		// 	});
-		// };
+		const promise = () => {
+			return new Promise((resolve, reject) => {
+				try {
+					let data = formData;
+					data.questions = questions;
+					const d = new Date();
+					let time = d.toGMTString();
+					data.createdAt = time;
+					const ref = doc(db, "users", currentUser.uid);
+					setDoc(doc(db, "forms", formData.id), {
+						...formData,
+					})
+						.then(
+							getDoc(ref).then((snapshot) => {
+								const oldData = snapshot.data();
+								updateDoc(ref, {
+									forms: [...oldData.forms, data.id],
+								});
+							})
+						)
+						.then(() => resolve())
+						.catch((err) => {
+							reject(err);
+						});
+				} catch (err) {
+					reject(err);
+				}
+			});
+		};
 
-		// toast.promise(promise(), {
-		// 	loading: "publishing...",
-		// 	success: () => {
-		// 		return "published!";
-		// 	},
-		// 	error: (err) => {
-		// 		return `${err}`;
-		// 	},
-		// });
-		toast("Developer busy building this feature");
+		toast.promise(promise(), {
+			loading: "publishing...",
+			success: () => {
+				return "published!";
+			},
+			error: (err) => {
+				return `${err}`;
+			},
+		});
 	};
 	return (
 		<div className="newForm">
