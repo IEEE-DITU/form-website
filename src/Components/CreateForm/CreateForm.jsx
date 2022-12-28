@@ -140,24 +140,19 @@ const CreateForm = () => {
 		});
 		setQuestions([...arr]);
 	};
-	const singleoption = (questionID, index) => {
-		let options = [];
-		const arr = questions.filter((question) => {
-			if (question.questionId !== questionID) {
-				return question;
-			}
-			for (let i = 0; i < question.options.length; i++) {
-				if (i === index) {
-					document.getElementById(i).checked = false;
-				} else {
-					document.getElementById(i).checked = true;
+	const singleoption = (questionID, id) => {
+		for (let i in questions) {
+			const question = questions[i];
+			if (question.questionId === questionID) {
+				for (let i = 0; i < question.options.length; i++) {
+					if (`${i}singleOption` === id) {
+						document.getElementById(`${i}singleOption`).checked = true;
+					} else {
+						document.getElementById(`${i}singleOption`).checked = false;
+					}
 				}
 			}
-
-			question.options = options;
-			return question;
-		});
-		setQuestions([...arr]);
+		}
 	};
 
 	const publish = () => {
