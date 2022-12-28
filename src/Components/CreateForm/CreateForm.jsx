@@ -7,6 +7,7 @@ import Text from "../QuestionTypes/Text";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwith";
 import MultipleChoice from "../QuestionTypes/MultipleChoice";
+import SingleChoice from "../QuestionTypes/SingleChoice";
 
 const CreateForm = () => {
 	const { currentUser } = useAuth();
@@ -62,7 +63,7 @@ const CreateForm = () => {
 	};
 	const questionTypes = [
 		{ value: "text", label: "text" },
-		// { value: "singleChoice", label: "single choice" },
+		{ value: "singleChoice", label: "single choice" },
 		{ value: "multipleChoice", label: "multiple choice" },
 	];
 	const setRequired = (questionId) => {
@@ -107,10 +108,15 @@ const CreateForm = () => {
 			for (let i = 0; i < question.options.length; i++) {
 				if (i === index) {
 					options.push(text);
+				
 				} else {
 					options.push(question.options[i]);
 				}
+				
+
 			}
+			
+
 			question.options = options;
 			return question;
 		});
@@ -125,6 +131,30 @@ const CreateForm = () => {
 			let a = question.options;
 			a.splice(index, 1);
 			question.options = a;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+	const singleoption = (questionID, index) => {
+		let options = [];
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			for (let i = 0; i < question.options.length; i++) {
+				if (i === index) {
+					document.getElementById(i).checked = false;
+					
+				
+				} else {
+					document.getElementById(i).checked = true;
+				}
+				
+
+			}
+			
+
+			question.options = options;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -185,6 +215,16 @@ const CreateForm = () => {
 												qid={question.questionId}
 												editOption={editOption}
 												deleteOption={deleteOption}
+											/>
+										)}
+										{question.questionType === "singleChoice" && (
+											<SingleChoice
+												options={question.options}
+												qid={question.questionId}
+												editOption={editOption}
+												deleteOption={deleteOption}
+												singleoption={singleoption}
+
 											/>
 										)}
 									</div>
