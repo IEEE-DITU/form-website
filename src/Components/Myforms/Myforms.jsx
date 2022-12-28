@@ -16,8 +16,10 @@ import { Link } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
 
 function Myforms() {
+	// eslint-disable-next-line
 	const [coinsData, setCoinsData] = useState([...cards1]);
 	const [currentPage, setCurrentPage] = useState(1);
+	// eslint-disable-next-line
 	const [postsPerPage, setPostsPerPage] = useState(3);
 
 	const indexOfLastCard = currentPage * postsPerPage;
@@ -69,19 +71,23 @@ function Myforms() {
 			>
 				<div className="leftcol">
 					<img src={dash1} alt="dash" className="dash1" />
-					<div className="myform">
-						<p>My Forms</p>
+					<div className="myFormTop">
+						<div className="myform">
+							<p>My Forms</p>
+						</div>
+						<Link to={"/newform"} style={{ zIndex: 10 }}>
+							<div className="createbutton">+ Create</div>
+						</Link>
 					</div>
 					{currentPosts.map((e, id) => {
 						return <Card key={id} {...e} />;
 					})}
-                    <Pagination totalPosts={coinsData.length} 
-                    postsPerPage={postsPerPage}
-                    setCurrentPage={setCurrentPage}/>
-					<Link to={"/newform"} style={{ zIndex: 10 }}>
-						{" "}
-						<div className="createbutton">+ Create</div>
-					</Link>
+					<Pagination
+						totalPosts={coinsData.length}
+						postsPerPage={postsPerPage}
+						setCurrentPage={setCurrentPage}
+						currentPage={currentPage}
+					/>
 				</div>
 				<img className="line1" src={line1} alt="misc"></img>
 				<div className="rightcol">

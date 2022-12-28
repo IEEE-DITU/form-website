@@ -7,7 +7,12 @@ import Text from "../QuestionTypes/Text";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwith";
 import MultipleChoice from "../QuestionTypes/MultipleChoice";
+
 import SingleChoice from "../QuestionTypes/SingleChoice";
+// import { doc, setDoc } from "firebase/firestore";
+// import { db } from "../../Firebase";
+import toast from "react-hot-toast";
+
 
 const CreateForm = () => {
 	const { currentUser } = useAuth();
@@ -17,6 +22,7 @@ const CreateForm = () => {
 		createdAt: "",
 		questions: [],
 		acceptingResponses: true,
+		id: v4(),
 	});
 	const [questions, setQuestions] = useState([
 		{
@@ -47,8 +53,10 @@ const CreateForm = () => {
 
 	const deleteQuestion = (index) => {
 		let a = questions;
-		a.splice(index, 1);
-		setQuestions([...a]);
+		if (a.length > 1) {
+			a.splice(index, 1);
+			setQuestions([...a]);
+		}
 	};
 
 	const changeQuestionType = (type, uuid) => {
@@ -129,13 +137,15 @@ const CreateForm = () => {
 				return question;
 			}
 			let a = question.options;
-			a.splice(index, 1);
-			question.options = a;
+			if (a.length > 1) {
+				a.splice(index, 1);
+				question.options = a;
+			}
 			return question;
 		});
 		setQuestions([...arr]);
 	};
-	const singleoption = (questionID, index) => {
+  	const singleoption = (questionID, index) => {
 		let options = [];
 		const arr = questions.filter((question) => {
 			if (question.questionId !== questionID) {
@@ -158,6 +168,53 @@ const CreateForm = () => {
 			return question;
 		});
 		setQuestions([...arr]);
+
+
+	const publish = () => {
+		// const promise = () => {
+		// 	return new Promise((resolve, reject) => {
+		// 		try {
+		// 			let data = formData;
+		// 			data.questions = questions;
+		// 			const d = new Date();
+		// 			let time = d.getTime();
+		// 			data.createdAt = time;
+		// 			setDoc(doc(db, "forms", formData.id), {
+		// 				...formData,
+		// 			})
+		// 				.then(
+		// 					db
+		// 						.collection("users")
+		// 						.where("uid", "==", currentUser.uid)
+		// 						.get()
+		// 						.then(function (querySnapshot) {
+		// 							querySnapshot.forEach(function (doc) {
+		// 								console.log(doc.id, " => ", doc.data());
+		// 								//   doc.update({forms: forms})
+		// 							});
+		// 						})
+		// 				)
+		// 				.then(() => resolve())
+		// 				.catch((err) => {
+		// 					reject(err);
+		// 				});
+		// 		} catch (err) {
+		// 			reject(err);
+		// 		}
+		// 	});
+		// };
+
+		// toast.promise(promise(), {
+		// 	loading: "publishing...",
+		// 	success: () => {
+		// 		return "published!";
+		// 	},
+		// 	error: (err) => {
+		// 		return `${err}`;
+		// 	},
+		// });
+		toast("Developer busy building this feature");
+
 	};
 	return (
 		<div className="newForm">
@@ -171,6 +228,13 @@ const CreateForm = () => {
 						}
 						placeholder="Enter you form title here..."
 					/>
+					<button
+						onClick={() => {
+							publish();
+						}}
+					>
+						publish
+					</button>
 				</div>
 				<div className="newFormQuestions">
 					{questions.map((question, id) => {
