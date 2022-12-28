@@ -1,8 +1,13 @@
 import "./QuestionTypes.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-
-const SingleChoice = ({ options, editOption, qid, deleteOption, singleoption }) => {
+const SingleChoice = ({
+	options,
+	editOption,
+	qid,
+	deleteOption,
+	singleoption,
+}) => {
 	return (
 		<div className="multipleChoiceType">
 			{options.map((option, id) => {
@@ -12,8 +17,14 @@ const SingleChoice = ({ options, editOption, qid, deleteOption, singleoption }) 
 							className="multichoiceIcon"
 							onClick={() => deleteOption(qid, id)}
 						/>
-						<input type="checkbox" name={id}  id ={id}
-                        onChange={() =>{singleoption(qid,id)}}/>
+						<input
+							type="radio"
+							name={id}
+							id={`${id}singleOption`}
+							onChange={() => {
+								singleoption(qid, `${id}singleOption`);
+							}}
+						/>
 						<input
 							type="text"
 							value={option}
