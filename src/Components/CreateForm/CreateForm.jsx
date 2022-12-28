@@ -13,7 +13,6 @@ import SingleChoice from "../QuestionTypes/SingleChoice";
 // import { db } from "../../Firebase";
 import toast from "react-hot-toast";
 
-
 const CreateForm = () => {
 	const { currentUser } = useAuth();
 	const [formData, setFormData] = useState({
@@ -116,14 +115,10 @@ const CreateForm = () => {
 			for (let i = 0; i < question.options.length; i++) {
 				if (i === index) {
 					options.push(text);
-				
 				} else {
 					options.push(question.options[i]);
 				}
-				
-
 			}
-			
 
 			question.options = options;
 			return question;
@@ -145,7 +140,7 @@ const CreateForm = () => {
 		});
 		setQuestions([...arr]);
 	};
-  	const singleoption = (questionID, index) => {
+	const singleoption = (questionID, index) => {
 		let options = [];
 		const arr = questions.filter((question) => {
 			if (question.questionId !== questionID) {
@@ -153,22 +148,17 @@ const CreateForm = () => {
 			}
 			for (let i = 0; i < question.options.length; i++) {
 				if (i === index) {
-					document.getElementById(i).checked = false;
-					
-				
+					document.getElementById(i).checked = false;
 				} else {
-					document.getElementById(i).checked = true;
+					document.getElementById(i).checked = true;
 				}
-				
-
 			}
-			
 
 			question.options = options;
 			return question;
 		});
 		setQuestions([...arr]);
-
+	};
 
 	const publish = () => {
 		// const promise = () => {
@@ -214,7 +204,6 @@ const CreateForm = () => {
 		// 	},
 		// });
 		toast("Developer busy building this feature");
-
 	};
 	return (
 		<div className="newForm">
@@ -288,7 +277,6 @@ const CreateForm = () => {
 												editOption={editOption}
 												deleteOption={deleteOption}
 												singleoption={singleoption}
-
 											/>
 										)}
 									</div>
