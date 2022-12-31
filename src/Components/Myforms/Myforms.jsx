@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Auth } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import avatar from "../../images/avatar 1.png";
 import { useAuth } from "../../context/AuthContext";
@@ -13,51 +12,53 @@ import Card from "../Card/Card";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
 import { toast } from "react-hot-toast";
-import { cards1 } from "../Constants/dummydata";
 import { Link } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
-import { Firestore } from "firebase/firestore";
-import { docs, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
-import { AiOutlineConsoleSql } from "react-icons/ai";
 
 function Myforms() {
-	// eslint-disable-next-line
 	const [coinsData, setCoinsData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [loading, setLoading] = useState(true);
 	// eslint-disable-next-line
 	const [postsPerPage, setPostsPerPage] = useState(3);
 
 	const indexOfLastCard = currentPage * postsPerPage;
 	const indexOfFirstCard = indexOfLastCard - postsPerPage;
 	const currentPosts = coinsData.slice(indexOfFirstCard, indexOfLastCard);
-
 	const { currentUser } = useAuth();
 
-	    
-	function componentDidMount(){
-		const q = query(collection(db, "forms"), where("creatorId", "==", currentUser.uid));
-		
-	    getDocs(q)
-		.then(snapshot => {
-			const forms =[]
-			snapshot.forEach(doc =>{
-				const data =doc.data()
-				forms.push(data)
-			})
-			this.setCoinsData({forms:forms})
-            console.log(snapshot)
-		})
-		.catch (error => console.log(error))
-	}
-	useEffect(()=>{
-		componentDidMount()
-	},[])
-	
+	useEffect(() => {
+		function fetchUserForms() {
+			const q = query(
+				collection(db, "forms"),
+				where("creatorId", "==", currentUser.uid)
+			);
+
+			getDocs(q)
+				.then((snapshot) => {
+					const forms = [];
+					snapshot.forEach((doc) => {
+						const data = doc.data();
+						forms.push(data);
+					});
+					setCoinsData([...forms]);
+					setLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					toast.error("error occured! reload page");
+					setLoading(false);
+				});
+		}
+		fetchUserForms();
+		// eslint-disable-next-line
+	}, []);
+
 	const logOut = () => {
 		toast.promise(
 			signOut(auth).catch((error) => {
-				console.log(toast.error("Error logging out"));
+				toast.error("Error logging out");
 				console.log(error);
 			}),
 			{
@@ -106,11 +107,16 @@ function Myforms() {
 							<div className="createbutton">+ Create</div>
 						</Link>
 					</div>
-					
-					
-					{currentPosts.map((e, id) => {
-						return <Card key={id} {...e} />;
-					})}
+
+					{loading && (
+						<div>
+							<b>Loading...</b>
+						</div>
+					)}
+					{!loading &&
+						currentPosts.map((e, id) => {
+							return <Card key={id} {...e} />;
+						})}
 
 					<Pagination
 						totalPosts={coinsData.length}

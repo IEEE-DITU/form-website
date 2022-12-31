@@ -6,10 +6,14 @@ function Card(e) {
 	return (
 		<div className="card">
 			<div className="cardleft">
-				<p className="cardcontent">Form Tittle - {e.FormTittle}</p>
-				<p className="cardcontent">Form Creation Date - {e.FormCreationDate}</p>
 				<p className="cardcontent">
-					Number of responces - {e.Numberofresponces}
+					<b>Form Tittle</b> - {e.title}
+				</p>
+				<p className="cardcontent">
+					<b>Form Creation Date</b> - {e.createdAt}
+				</p>
+				<p className="cardcontent">
+					<b>Number of responces</b> - {"in dvlpmnt..."}
 				</p>
 			</div>
 			<div className="cardright">

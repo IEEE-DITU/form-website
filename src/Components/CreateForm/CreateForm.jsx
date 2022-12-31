@@ -11,9 +11,11 @@ import SingleChoice from "../QuestionTypes/SingleChoice";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CreateForm = () => {
 	const { currentUser } = useAuth();
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		title: "Untitled Form",
 		creatorId: currentUser.uid,
@@ -46,7 +48,6 @@ const CreateForm = () => {
 			maxChoice: 1,
 		});
 		setQuestions([...a]);
-		console.log(questions);
 	};
 
 	const deleteQuestion = (index) => {
@@ -161,20 +162,48 @@ const CreateForm = () => {
 					let data = formData;
 					data.questions = questions;
 					const d = new Date();
-					let time = d.toGMTString();
+					const date = d.getDate();
+					const month = d.getMonth();
+					const year = d.getFullYear();
+					const hours = d.getHours();
+					const minutes = d.getMinutes();
+					const seconds = d.getSeconds();
+					const months = [
+						"Jan",
+						"Feb",
+						"Mar",
+						"Apr",
+						"May",
+						"Jun",
+						"Jul",
+						"Aug",
+						"Sep",
+						"Oct",
+						"Nov",
+						"Dec",
+					];
+					const time = `${date} ${months[month]} ${year} ${hours}:${minutes}:${seconds}`;
 					data.createdAt = time;
 					const ref = doc(db, "users", currentUser.uid);
 					setDoc(doc(db, "forms", formData.id), {
 						...formData,
 					})
+						.catch((err) => {
+							reject(err);
+						})
 						.then(
-							getDoc(ref).then((snapshot) => {
-								const oldData = snapshot.data();
-								updateDoc(ref, {
-									forms: [...oldData.forms, data.id],
-								});
-							})
+							getDoc(ref)
+								.then((snapshot) => {
+									const oldData = snapshot.data();
+									updateDoc(ref, {
+										forms: [...oldData.forms, data.id],
+									});
+								})
+								.catch((err) => {
+									reject(err);
+								})
 						)
+
 						.then(() => resolve())
 						.catch((err) => {
 							reject(err);
@@ -188,6 +217,7 @@ const CreateForm = () => {
 		toast.promise(promise(), {
 			loading: "publishing...",
 			success: () => {
+				navigate("/");
 				return "published!";
 			},
 			error: (err) => {
