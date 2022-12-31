@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Auth } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import avatar from "../../images/avatar 1.png";
 import { useAuth } from "../../context/AuthContext";
 import background from "../../images/authImg.png";
@@ -14,10 +16,14 @@ import { toast } from "react-hot-toast";
 import { cards1 } from "../Constants/dummydata";
 import { Link } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
+import { Firestore } from "firebase/firestore";
+import { docs, getDoc } from "firebase/firestore";
+import { db } from "../../Firebase";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 function Myforms() {
 	// eslint-disable-next-line
-	const [coinsData, setCoinsData] = useState([...cards1]);
+	const [coinsData, setCoinsData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	// eslint-disable-next-line
 	const [postsPerPage, setPostsPerPage] = useState(3);
@@ -27,6 +33,27 @@ function Myforms() {
 	const currentPosts = coinsData.slice(indexOfFirstCard, indexOfLastCard);
 
 	const { currentUser } = useAuth();
+
+	    
+	function componentDidMount(){
+		const q = query(collection(db, "forms"), where("creatorId", "==", currentUser.uid));
+		
+	    getDocs(q)
+		.then(snapshot => {
+			const forms =[]
+			snapshot.forEach(doc =>{
+				const data =doc.data()
+				forms.push(data)
+			})
+			this.setCoinsData({forms:forms})
+            console.log(snapshot)
+		})
+		.catch (error => console.log(error))
+	}
+	useEffect(()=>{
+		componentDidMount()
+	},[])
+	
 	const logOut = () => {
 		toast.promise(
 			signOut(auth).catch((error) => {
@@ -79,9 +106,12 @@ function Myforms() {
 							<div className="createbutton">+ Create</div>
 						</Link>
 					</div>
+					
+					
 					{currentPosts.map((e, id) => {
 						return <Card key={id} {...e} />;
 					})}
+
 					<Pagination
 						totalPosts={coinsData.length}
 						postsPerPage={postsPerPage}

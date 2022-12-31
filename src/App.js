@@ -20,6 +20,7 @@ import CreateForm from "./Components/CreateForm/CreateForm";
 function MainApp() {
 	const { currentUser } = useAuth();
 	return (
+		
 		<div className="App">
 			<Toaster />
 
@@ -95,6 +96,7 @@ function MainApp() {
 				</Routes>
 			</Router>
 		</div>
+		
 	);
 }
 function App() {
