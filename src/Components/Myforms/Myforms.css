@@ -90,7 +90,6 @@
 	flex-direction: column;
 	gap: 0.5rem;
 	align-self: flex-start;
-	white-space: nowrap;
 }
 .logoutbutton {
 	padding: 1vw 3.5vw;
@@ -161,14 +160,14 @@
 	.leftcol {
 		min-width: 0 !important;
 	}
-}
-
-@media only screen and (max-width: 426px) {
 	.card {
 		flex-direction: column;
 		align-items: flex-start !important;
 		justify-content: flex-start !important;
 	}
+}
+
+@media only screen and (max-width: 426px) {
 	.myform {
 		margin-bottom: 1rem;
 	}
