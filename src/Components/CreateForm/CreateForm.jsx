@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 import Dropdown from "react-dropdown";
 import Text from "../QuestionTypes/Text";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwith";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import MultipleChoice from "../QuestionTypes/MultipleChoice";
 import SingleChoice from "../QuestionTypes/SingleChoice";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
