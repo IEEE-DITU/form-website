@@ -1,0 +1,45 @@
+.Authentication {
+	display: flex;
+	width: 100vw;
+	min-height: var(--vh);
+}
+.AuthLeft {
+	width: 100%;
+	height: var(--vh);
+	background: url("../../images/authImg.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: left;
+}
+
+.AuthRight {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-width: 283px;
+	max-width: 400px;
+	min-height: var(--vh);
+}
+
+.AuthChilds {
+	width: 80%;
+}
+
+@media only screen and (max-width: 426px) {
+	.Authentication {
+		justify-content: center;
+	}
+	.AuthLeft {
+		display: none;
+	}
+	.AuthRight {
+		min-width: 0;
+		justify-content: flex-start;
+		padding-top: 2rem;
+	}
+	.AuthChilds {
+		width: 90%;
+	}
+}

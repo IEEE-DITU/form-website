@@ -1,48 +1,22 @@
-.signup {
-	display: flex;
-	width: 100vw;
-	min-height: var(--vh);
-}
-.signup > .leftside {
-	width: 65vw;
-	width: 100%;
-	height: var(--vh);
-	background: url("../../images/authImg.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: left;
-}
-
-.signup > .rightside {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	min-width: 283px;
-	max-width: 400px;
-	min-height: var(--vh);
-}
-
-.signup > .rightside > .child {
+.SignUp {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	width: 80%;
+	width: 100%;
 }
 
-.signup > .rightside > .child > .heading {
+.SignUp > .heading {
 	font-size: 2.5rem;
 	font-weight: 700;
 }
-.signup > .rightside > .child > .haveaccount {
+.SignUp > .haveaccount {
 	font-size: 1.1rem;
 	margin-top: 0.5rem;
 	font-weight: 500;
 }
 
-.signup > .rightside > .child > .loginlink {
+.SignUp > .loginlink {
 	text-decoration: none;
 	color: #ff432a;
 	font-size: 1.1rem;
@@ -50,23 +24,23 @@
 	transition: all 0.2s;
 }
 
-.signup > .rightside > .child > .loginlink:hover {
+.SignUp > .loginlink:hover {
 	font-weight: 700;
 }
 
-.signup > .rightside > .child > .signupbox {
+.SignUp > .signupbox {
 	margin-top: 2rem;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
 
-.signup > .rightside > .child > .signupbox > .emailheading {
+.SignUp > .signupbox > .emailheading {
 	font-weight: 600;
 	font-size: 1rem;
 }
 
-.signup > .rightside > .child > .signupbox > .emailHolder {
+.SignUp > .signupbox > .emailHolder {
 	display: flex;
 	align-items: center;
 	margin-top: 0.5rem;
@@ -84,10 +58,10 @@
 	font-size: 1rem;
 }
 
-.signup > .rightside > .child > .signupbox > .emailHolder > .emailarea,
-.signup > .rightside > .child > .signupbox > .emailHolder > .userarea,
-.signup > .rightside > .child > .signupbox > .emailHolder > .passwordarea,
-.signup > .rightside > .child > .signupbox > .emailHolder > .cfmpasswordarea {
+.SignUp > .signupbox > .emailHolder > .emailarea,
+.SignUp > .signupbox > .emailHolder > .userarea,
+.SignUp > .signupbox > .emailHolder > .passwordarea,
+.SignUp > .signupbox > .emailHolder > .cfmpasswordarea {
 	outline: none;
 	border: none;
 	padding-left: 0.5rem;
@@ -123,21 +97,21 @@
 	color: black;
 }
 
-.signup > .rightside > .child > .signupbox > .userheading,
-.signup > .rightside > .child > .signupbox > .passwordheading,
-.signup > .rightside > .child > .signupbox > .cfmpasswordarea {
+.SignUp > .signupbox > .userheading,
+.SignUp > .signupbox > .passwordheading,
+.SignUp > .signupbox > .cfmpasswordarea {
 	font-weight: 600;
 	font-size: 1rem;
 }
 
-.signup > .rightside > .child > .errormsg {
+.SignUp > .errormsg {
 	color: #ff432a;
 	position: absolute;
 	right: 10vw;
 	margin-top: 0.5vw;
 }
 
-.signup > .rightside > .child > .registerbtn {
+.SignUp > .registerbtn {
 	width: 100%;
 	margin-top: 2rem;
 	padding: 0.75rem;
@@ -150,7 +124,7 @@
 	cursor: pointer;
 }
 
-.signup > .rightside > .child > .registerbtn:disabled {
+.SignUp > .registerbtn:disabled {
 	background-color: grey;
 }
 .pass {
@@ -167,21 +141,10 @@
 }
 
 @media only screen and (max-width: 426px) {
-	.signup > .leftside {
-		display: none;
-	}
-	.signup {
-		justify-content: center;
-	}
-	.signup > .rightside {
-		min-width: 0;
-		justify-content: flex-start;
-		padding-top: 2rem;
-	}
-	.signup > .rightside > .child {
-		width: 90%;
-	}
-	.signup > .rightside > .child > .registerbtn {
+	.SignUp > .registerbtn {
 		margin-top: 5rem;
+	}
+	.SignUp > .registerbtn {
+		margin-bottom: 2rem;
 	}
 }
