@@ -16,11 +16,24 @@ import { Toaster } from "react-hot-toast";
 
 import Loading from "./Components/Loading/Loading";
 import CreateForm from "./Components/CreateForm/CreateForm";
+import { useEffect } from "react";
 
 function MainApp() {
 	const { currentUser } = useAuth();
+
+	useEffect(() => {
+		let vh = window.innerHeight;
+		document.documentElement.style.setProperty("--vh", `${vh}px`);
+		window.addEventListener("resize", function () {
+			let vh = window.innerHeight;
+			document.documentElement.style.setProperty("--vh", `${vh}px`);
+		});
+		window.addEventListener("load", function () {
+			let vh = window.innerHeight;
+			document.documentElement.style.setProperty("--vh", `${vh}px`);
+		});
+	}, []);
 	return (
-		
 		<div className="App">
 			<Toaster />
 
@@ -96,7 +109,6 @@ function MainApp() {
 				</Routes>
 			</Router>
 		</div>
-		
 	);
 }
 function App() {

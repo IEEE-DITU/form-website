@@ -1,6 +1,6 @@
 .newForm {
 	width: 100vw;
-	height: 100vh;
+	height: var(--vh);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -13,7 +13,7 @@
 .newForm-main {
 	background-color: #fff7f2;
 	width: 90vw;
-	height: 90vh;
+	height: calc(var(--vh) - 10vh);
 	border-radius: 20px;
 	padding: 2rem;
 	display: flex;
@@ -32,7 +32,7 @@
 	border-radius: 25px;
 	color: white;
 	padding: 0.5rem 0.75rem;
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 	font-weight: 300;
 	outline: none;
 	border: none;
@@ -266,11 +266,21 @@
 	font-size: 0.8rem;
 }
 
+@media only screen and (max-width: 1205px) {
+	.newForm-main {
+		width: 97vw !important;
+		height: calc(var(--vh) - 3vh);
+		padding: 1rem;
+		padding-top: 2rem;
+	}
+}
+
 @media only screen and (max-width: 430px) {
 	.newForm-main {
-		width: 96vw;
-		height: 96vh;
-		padding: 0.75rem;
+		width: 98vw;
+		height: calc(var(--vh) - 2vh);
+		padding: 0.5rem;
+		padding-top: 1.25rem;
 	}
 	.newFormQuestionUpper {
 		flex-direction: column;
