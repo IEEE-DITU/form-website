@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import avatar from "../../images/avatar 1.png";
 import { useAuth } from "../../context/AuthContext";
 import background from "../../images/authImg.png";
@@ -34,30 +34,18 @@ function Myforms() {
 				collection(db, "forms"),
 				where("creatorId", "==", currentUser.uid)
 			);
-
-			getDocs(q)
-				.then((snapshot) => {
-					const forms = [];
-					snapshot.forEach((doc) => {
-						const data = doc.data();
-						forms.push(data);
-					});
-					setCoinsData([...forms]);
-					setLoading(false);
-				})
-				.catch((error) => {
-					console.log(error);
-					toast.error("error occured! reload page");
-					setLoading(false);
+			onSnapshot(q, (querySnapshot) => {
+				const forms = [];
+				querySnapshot.forEach((doc) => {
+					forms.push(doc.data());
 				});
+				setCoinsData([...forms]);
+				setLoading(false);
+			});
 		}
-		fetchUserForms();
+		return fetchUserForms();
 		// eslint-disable-next-line
 	}, []);
-
-	
-	
-	
 
 	const logOut = () => {
 		toast.promise(

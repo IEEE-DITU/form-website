@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Card.css";
-import Togglebutton from "../Togglebutton/Togglebutton";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../Firebase";
+import toast from "react-hot-toast";
 
 function Card(e) {
-	const [state, setstate] = useState(false);
-	const toggleBtn = () => {
-		setstate((prevState) => !prevState);
+	const promise = () => {
+		return new Promise((resolve, reject) => {
+			const ref = doc(db, "forms", e.id);
+			updateDoc(ref, {
+				acceptingResponses: !e.acceptingResponses,
+			})
+				.then(() => resolve())
+				.catch((err) => {
+					reject(err);
+				});
+		});
 	};
-	
+	const handleChange = () => {
+		toast.promise(promise(), {
+			loading: e.acceptingResponses ? "Closing..." : "Opening...",
+			success: () => {
+				return e.acceptingResponses ? "Closed..." : "Opened...";
+			},
+			error: (err) => {
+				return `${err}`;
+			},
+		});
+	};
 	return (
 		<div className="card">
 			<div className="cardleft">
@@ -22,8 +43,19 @@ function Card(e) {
 					<b>Number of responces</b> - {"in dvlpmnt..."}
 				</p>
 			</div>
-			<div className="cardright" >
-				<Togglebutton/>
+			<div className="cardright">
+				<div className="responceCloserOpener">
+					<p className={e.acceptingResponses ? "open" : "closed"}>
+						{e.acceptingResponses ? "Open" : "Closed"}
+					</p>
+					<ToggleSwitch
+						id={`${e.id}responceAccSwitcher`}
+						checked={e.acceptingResponses}
+						onChange={handleChange}
+						small={true}
+					/>
+				</div>
+
 				<Link className="viewresponse">view responses</Link>
 			</div>
 		</div>
