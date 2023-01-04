@@ -69,7 +69,7 @@ function Myforms() {
 				backgroundRepeat: "no-repeat",
 				backgroundSize: "cover",
 				backgroundPosition: "center",
-				height: "100vh",
+				height: "var(--vh)",
 				width: "100vw",
 				display: "flex",
 				justifyContent: "center",
@@ -80,7 +80,7 @@ function Myforms() {
 				className="main"
 				style={{
 					background: "#FFF7F2",
-					height: "90vh",
+					height: "calc(var(--vh) - 10vh)",
 					width: "90vw",
 					borderRadius: "20px",
 					padding: "2rem",
