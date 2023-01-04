@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Card.css";
+import Togglebutton from "../Togglebutton/Togglebutton";
 
 function Card(e) {
+	const [state, setstate] = useState(false);
+	const toggleBtn = () => {
+		setstate((prevState) => !prevState);
+	};
+	
 	return (
 		<div className="card">
 			<div className="cardleft">
@@ -16,8 +22,8 @@ function Card(e) {
 					<b>Number of responces</b> - {"in dvlpmnt..."}
 				</p>
 			</div>
-			<div className="cardright">
-				<div className="openclose">open</div>
+			<div className="cardright" >
+				<Togglebutton/>
 				<Link className="viewresponse">view responses</Link>
 			</div>
 		</div>

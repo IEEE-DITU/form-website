@@ -21,8 +21,12 @@
 	align-items: flex-start;
 	justify-content: center;
 }
-.openclose {
+.open {
 	color: rgb(47, 162, 29);
+	background-color: transparent;
+}
+.closed {
+	color: red;
 	background-color: transparent;
 }
 .card:hover {
