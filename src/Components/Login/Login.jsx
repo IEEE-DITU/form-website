@@ -11,12 +11,26 @@ import { FaLock } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 function Login() {
-	const { login } = useAuth();
+	const { login ,googleSignIn} = useAuth();
+	
 	const [values, setValues] = useState({
 		email: "",
 		password: "",
 	});
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
+    const handleGoogleLogIn = async () =>{
+		try{
+            await googleSignIn();
+		}
+		catch(error){
+			console.log(error);
+
+		}
+	}
+
+
+
 
 	const handleSubmission = async (e) => {
 		e.preventDefault();
@@ -139,9 +153,7 @@ function Login() {
 							<img
 								src={google}
 								alt=""
-								onClick={() => {
-									toast("Google authentication coming soon...");
-								}}
+								onClick={handleGoogleLogIn}
 							/>
 							<img
 								src={facebook}
