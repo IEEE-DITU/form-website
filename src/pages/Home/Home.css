@@ -12,8 +12,8 @@
 
 .HomeContent {
 	background-color: #fff7f2;
-	width: 90vw;
-	height: calc(var(--vh) - 10vh);
+	width: 93vw;
+	height: calc(var(--vh) - 7vh);
 	border-radius: 20px;
 	padding: 2rem;
 	overflow: hidden;
