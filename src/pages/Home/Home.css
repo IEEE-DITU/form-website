@@ -16,6 +16,7 @@
 	height: calc(var(--vh) - 10vh);
 	border-radius: 20px;
 	padding: 2rem;
+	overflow: hidden;
 }
 
 @media only screen and (max-width: 1205px) {

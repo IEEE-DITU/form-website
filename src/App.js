@@ -13,6 +13,7 @@ import EmailVerify from "./Components/EmailVerify/EmailVerify";
 import Loading from "./Components/Loading/Loading";
 import Authentication from "./pages/Authentication/Authentication";
 import "./App.css";
+import NotFound from "./pages/404/NotFound";
 
 function MainApp() {
 	const { currentUser } = useAuth();
@@ -83,6 +84,7 @@ function MainApp() {
 							)
 						}
 					/>
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>
 		</div>
