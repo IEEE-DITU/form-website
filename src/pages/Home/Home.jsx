@@ -1,12 +1,22 @@
-import Myforms from "../../Components/Myforms/Myforms";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Newform from "../../Containers/Newform/Newform";
+import Dashboard from "../../Containers/Dashboard/Dashboard";
+import NotFound from "../404/NotFound";
 import "./Home.css";
 
-function Home() {
+const Home = () => {
 	return (
-		<div className="home">
-			<Myforms />
+		<div className="Home">
+			<div className="HomeContent">
+				<Routes>
+					<Route path="/" element={<Navigate to="/user/dashboard" />} />
+					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/newform" element={<Newform />} />
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</div>
 		</div>
 	);
-}
+};
 
 export default Home;

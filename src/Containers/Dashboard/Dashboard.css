@@ -1,4 +1,13 @@
-.main > .leftcol {
+.Dashboard {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.DashboardLeft {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -9,41 +18,14 @@
 	min-width: 450px;
 }
 
-.myFormTop {
+.DashboardLeftTop {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
 	width: 100%;
 }
 
-.avatar {
-	margin-top: 2.5rem;
-	width: 8rem;
-	height: 8rem;
-	position: relative;
-}
-
-.avatar > img:nth-child(1) {
-	width: 8rem;
-	height: 8rem;
-}
-
-.avatar > img:nth-child(2) {
-	position: absolute;
-	right: 0.25rem;
-	bottom: 0.25rem;
-	cursor: pointer;
-}
-
-.dash1 {
-	position: absolute;
-	bottom: 0rem;
-	left: -0.3rem;
-	width: 16vw;
-	z-index: 0;
-}
-
-.myform {
+.DashboardLeftTop .heading {
 	background: transparent;
 	padding-bottom: 0.65rem;
 	width: max-content;
@@ -51,7 +33,7 @@
 	margin-bottom: 2rem;
 }
 
-.myform p {
+.DashboardLeftTop .heading p {
 	font-size: 1.75rem;
 	font-weight: 100;
 	font-family: Arial, Helvetica, sans-serif;
@@ -60,7 +42,19 @@
 	width: max-content;
 }
 
-.rightcol {
+.DashboardCreateButton {
+	box-shadow: 0px 4px 4px 0px #00000040;
+	background: #ff432a;
+	border-radius: 25px;
+	color: white;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.9rem;
+	font-weight: 300;
+	outline: none;
+	border: none;
+}
+
+.DashboardRight {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -73,13 +67,32 @@
 	z-index: 10;
 }
 
-.rightcol > .myprofile {
+.DashboardRight > .myprofile {
 	font-size: 1.75rem;
 	font-weight: 100;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-.rightcol > .profilecontent {
+.Dashboard .avatar {
+	margin-top: 2.5rem;
+	width: 8rem;
+	height: 8rem;
+	position: relative;
+}
+
+.Dashboard .avatar > img:nth-child(1) {
+	width: 8rem;
+	height: 8rem;
+}
+
+.Dashboard .avatar > img:nth-child(2) {
+	position: absolute;
+	right: 0.25rem;
+	bottom: 0.25rem;
+	cursor: pointer;
+}
+
+.DashboardRight > .profilecontent {
 	font-size: 1.1rem;
 	font-weight: 500;
 	margin-top: 2.5rem;
@@ -91,7 +104,8 @@
 	gap: 0.5rem;
 	align-self: flex-start;
 }
-.logoutbutton {
+
+.DashboardLogout {
 	padding: 1vw 3.5vw;
 	border-radius: 50px;
 	background-color: #ff432a;
@@ -105,70 +119,37 @@
 	cursor: pointer;
 }
 
-.dash2 {
+.Dashboardbg1 {
+	position: absolute;
+	bottom: 0rem;
+	left: -0.3rem;
+	width: 16vw;
+	z-index: 0;
+}
+
+.Dashboardbg2 {
 	position: absolute;
 	bottom: 0rem;
 	right: -0.1rem;
 	width: 16vw;
 	z-index: 0;
 }
-.division {
-	align-items: center;
-}
-.background {
-	background-size: cover;
-}
-.createbutton {
-	padding: 1vw 3.5vw;
-	border-radius: 50px;
-	background-color: #ff432a;
-	float: right;
-	color: white;
-	font-weight: 400;
-	font-size: 1rem;
-	box-shadow: 0px 4px 4px 0px #00000040;
-}
-
-.editprofilebutton {
-	border: none;
-	background-color: transparent;
+.line1 {
+	height: 100%;
 }
 
 @media only screen and (max-width: 940px) {
-	.main {
-		width: 95vw !important;
-		height: 95vh !important;
-		padding: 1rem !important;
-		gap: 0.5rem !important;
-	}
-	.rightcol {
+	.DashboardRight {
 		padding-left: 0;
 	}
 }
 
 @media only screen and (max-width: 755px) {
-	.main {
-		width: 96vw !important;
-		height: 96vh !important;
-		padding: 1rem !important;
-		display: block;
-	}
-	.rightcol,
+	.DashboardRight,
 	.line1 {
 		display: none;
 	}
-	.leftcol {
+	.DashboardLeft {
 		min-width: 0 !important;
-	}
-	.card {
-		flex-direction: column;
-		align-items: flex-start !important;
-		justify-content: flex-start !important;
-	}
-}
-
-@media only screen and (max-width: 426px) {
-	.myform {
-		margin-bottom: 1rem;
 	}
 }

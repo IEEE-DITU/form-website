@@ -20,6 +20,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
+	white-space: nowrap;
 }
 .open {
 	color: rgb(47, 162, 29);
@@ -28,12 +29,12 @@
 	color: red;
 }
 .card:hover {
-	box-shadow: 0.5rem 0.75rem 1.5rem;
+	box-shadow: 0px 4px 6px 0px #00000073;
 }
 .cardcontent {
 	font-style: normal;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 2.8vh;
+	font-size: 1.25rem;
 	margin-top: 1.5%;
 }
 
@@ -42,4 +43,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+@media only screen and (max-width: 940px) {
+	.card {
+		flex-direction: column;
+		align-items: flex-start !important;
+		justify-content: flex-start !important;
+	}
 }
