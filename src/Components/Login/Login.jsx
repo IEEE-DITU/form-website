@@ -9,9 +9,12 @@ import { useAuth } from "../../context/AuthContext";
 import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../Firebase";
 
 function Login() {
-	const { login ,googleSignIn} = useAuth();
+	const { login ,googleSignIn,verifyUser} = useAuth();
 	
 	const [values, setValues] = useState({
 		email: "",
@@ -27,7 +30,9 @@ function Login() {
 			console.log(error);
 
 		}
+		
 	}
+						
 
 
 
