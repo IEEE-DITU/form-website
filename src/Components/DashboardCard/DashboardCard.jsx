@@ -1,12 +1,12 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import "./Card.css";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
+import React from "react";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import toast from "react-hot-toast";
+import "./DashboardCard.css";
 
-function Card(e) {
+function DashboardCard(e) {
 	const promise = () => {
 		return new Promise((resolve, reject) => {
 			const ref = doc(db, "forms", e.id);
@@ -56,9 +56,11 @@ function Card(e) {
 					/>
 				</div>
 
-				<Link className="viewresponse">view responses</Link>
+				<Link className="viewresponse" to={`/user/forms/checkresponse/${e.id}`}>
+					view responses
+				</Link>
 			</div>
 		</div>
 	);
 }
-export default Card;
+export default DashboardCard;
