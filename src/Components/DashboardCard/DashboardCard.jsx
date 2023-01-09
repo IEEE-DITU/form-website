@@ -210,7 +210,10 @@ function DashboardCard(e) {
 							</span>
 							|
 							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>
-								<span style={{ cursor: "pointer" }}> Edit</span>
+								<span style={{ cursor: "pointer" }} className="cardLinks">
+									{" "}
+									Edit
+								</span>
 							</Link>
 						</p>
 					</div>
