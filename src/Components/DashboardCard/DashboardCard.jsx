@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
-import { doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
+import {
+	doc,
+	updateDoc,
+	deleteDoc,
+	getDoc,
+	onSnapshot,
+} from "firebase/firestore";
 import { Modal } from "@mantine/core";
 import { db } from "../../Firebase";
 import { useAuth } from "../../context/AuthContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import toast from "react-hot-toast";
 import "./DashboardCard.css";
@@ -12,6 +18,7 @@ function DashboardCard(e) {
 	const { currentUser } = useAuth();
 	const [modalOpened, setModalOpened] = useState(false);
 	const [deletemodalOpened, setdeleteModalOpened] = useState(false);
+	const [len, setLen] = useState(0);
 	const promise = () => {
 		return new Promise((resolve, reject) => {
 			const ref = doc(db, "forms", e.id);
@@ -77,6 +84,17 @@ function DashboardCard(e) {
 			},
 		});
 	};
+	useEffect(() => {
+		const unsub = () => {
+			onSnapshot(doc(db, "responses", e.id), (doc) => {
+				const len = doc.data();
+				setLen(len.responses.length);
+			});
+		};
+		return unsub();
+		// eslint-disable-next-line
+	}, []);
+
 	return (
 		<>
 			<Modal
@@ -157,7 +175,7 @@ function DashboardCard(e) {
 					</p>
 					<p className="cardcontent">
 						<span style={{ fontWeight: "600" }}>Number of responces</span> -{" "}
-						{"in dvlpmnt..."}
+						{len}
 					</p>
 				</div>
 				<div className="cardright">
@@ -175,18 +193,31 @@ function DashboardCard(e) {
 					<div>
 						<Link
 							className="viewresponse"
-							to={`/user/forms/checkresponse/${e.id}`}
+							to={`/user/form/checkresponse/${e.id}`}
 						>
-							<p className="cardLinks">view responses</p>
+							<p className="cardLinks" style={{ cursor: "pointer" }}>
+								view responses
+							</p>
 						</Link>
 					</div>
 					<div>
 						<p className="cardLinks">
-							<span onClick={() => setModalOpened(true)}>Get Link </span>|
-							<span> Edit</span>
+							<span
+								onClick={() => setModalOpened(true)}
+								style={{ cursor: "pointer" }}
+							>
+								Get Link{" "}
+							</span>
+							|
+							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>
+								<span style={{ cursor: "pointer" }}> Edit</span>
+							</Link>
 						</p>
 					</div>
-					<div onClick={() => setdeleteModalOpened(true)}>
+					<div
+						onClick={() => setdeleteModalOpened(true)}
+						style={{ cursor: "pointer" }}
+					>
 						<p className="closed">Delete</p>
 					</div>
 				</div>
