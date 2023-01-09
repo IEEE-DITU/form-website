@@ -59,6 +59,19 @@ function DashboardCard(e) {
 				<Link className="viewresponse" to={`/user/forms/checkresponse/${e.id}`}>
 					view responses
 				</Link>
+				<div
+					onClick={() =>
+						toast.success(
+							<span>
+								To share <b>Copy link from address bar</b>
+							</span>
+						)
+					}
+				>
+					<Link className="viewresponse" to={`/form/${e.id}`}>
+						Preview / Get Link
+					</Link>
+				</div>
 			</div>
 		</div>
 	);

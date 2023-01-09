@@ -12,8 +12,9 @@ import PasswordReset from "./Components/PasswordReset/PasswordReset";
 import EmailVerify from "./Components/EmailVerify/EmailVerify";
 import Loading from "./Components/Loading/Loading";
 import Authentication from "./pages/Authentication/Authentication";
-import "./App.css";
 import NotFound from "./pages/404/NotFound";
+import "./App.css";
+import Submit from "./pages/Submit/Submit";
 
 function MainApp() {
 	const { currentUser } = useAuth();
@@ -84,6 +85,7 @@ function MainApp() {
 							)
 						}
 					/>
+					<Route path="/form/:id" element={<Submit />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

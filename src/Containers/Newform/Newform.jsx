@@ -185,6 +185,11 @@ const Newform = () => {
 					const time = `${date} ${months[month]} ${year} ${hours}:${minutes}:${seconds}`;
 					data.createdAt = time;
 					const ref = doc(db, "users", currentUser.uid);
+					setDoc(doc(db, "responses", formData.id), {
+						responses: [],
+					}).catch((err) => {
+						reject(err);
+					});
 					setDoc(doc(db, "forms", formData.id), {
 						...formData,
 					})
