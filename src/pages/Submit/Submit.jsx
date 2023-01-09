@@ -8,7 +8,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import MultipleChoiceSubmit from "../../Components/QuestionTypes/MultipleChoiceSubmit";
 import SingleChoiceSubmit from "../../Components/QuestionTypes/SingleChoiceSubmit";
 import toast from "react-hot-toast";
-// import SingleChoice from "../../Components/QuestionTypes/SingleChoice";
 
 const Submit = () => {
 	const { id } = useParams();

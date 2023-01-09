@@ -15,8 +15,10 @@
 	width: 93vw;
 	height: calc(var(--vh) - 7vh);
 	border-radius: 20px;
-	padding: 2rem;
+	padding: 0.75rem 2rem;
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 .SubmitFormTop {
@@ -28,6 +30,9 @@
 .submitFormTitle {
 	font-size: 1.5rem;
 	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-right: 1rem;
 }
 
 .SubmitFormTop > button {
@@ -39,6 +44,7 @@
 	font-weight: 300;
 	outline: none;
 	border: none;
+	flex-shrink: 0;
 }
 
 .SubmitFormQuestions {
@@ -47,10 +53,11 @@
 	align-items: flex-start;
 	gap: 1rem;
 	width: 100%;
-	margin-top: 1.5rem;
-	max-height: calc(90vh - 3rem - 37px);
+	margin-top: 0.75rem;
+	max-height: 100%;
 	overflow: scroll;
-	padding: 0 0.25rem 1rem 0.25rem;
+	padding: 0 0.25rem;
+	padding-bottom: 0.5rem;
 }
 
 .SubmitFormQuestion {

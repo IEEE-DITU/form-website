@@ -3,6 +3,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
+	height: 100%;
 }
 
 .newForm-title {
@@ -43,8 +44,8 @@
 	align-items: flex-start;
 	gap: 1rem;
 	width: 100%;
-	margin-top: 2rem;
-	max-height: calc(90vh - 8rem - 37px);
+	margin-top: 0.75rem;
+	max-height: 100%;
 	overflow: scroll;
 	padding: 0 0.25rem 1rem 0.25rem;
 }

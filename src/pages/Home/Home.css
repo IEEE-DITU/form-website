@@ -15,7 +15,7 @@
 	width: 93vw;
 	height: calc(var(--vh) - 7vh);
 	border-radius: 20px;
-	padding: 2rem;
+	padding: 0.75rem 2rem;
 	overflow: hidden;
 }
 

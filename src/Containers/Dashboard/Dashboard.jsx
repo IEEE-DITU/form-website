@@ -79,10 +79,19 @@ function Dashboard() {
 						<b>Loading...</b>
 					</div>
 				)}
-				{!loading &&
-					currentPosts.map((e, id) => {
-						return <DashboardCard key={id} {...e} />;
-					})}
+				<div
+					style={{
+						width: "100%",
+						overflow: "scroll",
+						height: "100%",
+						paddingTop: "2rem",
+					}}
+				>
+					{!loading &&
+						currentPosts.map((e, id) => {
+							return <DashboardCard key={id} {...e} />;
+						})}
+				</div>
 
 				<Pagination
 					totalPosts={forms.length}
