@@ -96,6 +96,7 @@ function Dashboard() {
 						<b>Loading...</b>
 					</div>
 				)}
+
 				<div
 					style={{
 						width: "100%",
@@ -104,6 +105,11 @@ function Dashboard() {
 						paddingTop: "2rem",
 					}}
 				>
+					{!loading && currentPosts.length < 1 && (
+						<div>
+							<p>Seems like you havn't created any form yet ;)</p>
+						</div>
+					)}
 					{!loading &&
 						currentPosts.map((e, id) => {
 							return <DashboardCard key={id} {...e} />;
