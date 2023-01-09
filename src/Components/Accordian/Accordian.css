@@ -1,0 +1,21 @@
+.Accordian {
+	display: flex;
+	width: 100%;
+	background-color: rgb(255, 242, 0);
+	color: red;
+	gap: 1rem;
+}
+
+.accordianData {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.accordianChild {
+	padding: 0.15rem;
+	padding-left: 1rem;
+	width: 100%;
+}
