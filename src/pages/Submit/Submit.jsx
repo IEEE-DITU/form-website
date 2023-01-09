@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
 import "./Submit.css";
-import Text from "../../Components/QuestionTypes/Text";
+import Text from "../../Components/QuestionTypes/TextSubmit";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import MultipleChoiceSubmit from "../../Components/QuestionTypes/MultipleChoiceSubmit";
 import SingleChoiceSubmit from "../../Components/QuestionTypes/SingleChoiceSubmit";
@@ -11,9 +11,44 @@ import toast from "react-hot-toast";
 
 const Submit = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
+
 	const [data, setData] = useState("");
 	const [loading, setLoading] = useState(true);
-	const navigate = useNavigate();
+	const [responses, setResponses] = useState({});
+
+	const setAnsText = (questionID, ans) => {
+		const a = responses;
+		a[questionID] = ans;
+		setResponses({ ...a });
+	};
+
+	const setAnsMultiple = (questionID, ans) => {
+		const a = responses;
+		if (a[questionID]) {
+			if (a[questionID].includes(ans)) {
+				const index = a[questionID].indexOf(ans);
+				a[questionID].splice(index, 1);
+			} else {
+				a[questionID].push(ans);
+			}
+		} else {
+			a[questionID] = [ans];
+		}
+		setResponses({ ...a });
+	};
+
+	const setAnsSingle = (questionID, ans) => {
+		const a = responses;
+		a[questionID] = ans;
+		setResponses({ ...a });
+	};
+
+	const clearAns = (questionID) => {
+		const a = responses;
+		a[questionID] = "";
+		setResponses({ ...a });
+	};
 	useEffect(() => {
 		const docRef = doc(db, "forms", id);
 		getDoc(docRef)
@@ -31,6 +66,67 @@ const Submit = () => {
 			});
 		// eslint-disable-next-line
 	}, []);
+
+	const SubmitResponse = () => {
+		const promise = () => {
+			return new Promise((resolve, reject) => {
+				try {
+					const a = responses;
+					const d = new Date();
+					const date = d.getDate();
+					const month = d.getMonth();
+					const year = d.getFullYear();
+					const hours = d.getHours();
+					const minutes = d.getMinutes();
+					const seconds = d.getSeconds();
+					const months = [
+						"Jan",
+						"Feb",
+						"Mar",
+						"Apr",
+						"May",
+						"Jun",
+						"Jul",
+						"Aug",
+						"Sep",
+						"Oct",
+						"Nov",
+						"Dec",
+					];
+					const time = `${date} ${months[month]} ${year} ${hours}:${minutes}:${seconds}`;
+					a.time = time;
+					const docRef = doc(db, "responses", id);
+					getDoc(docRef)
+						.then((snapshot) => {
+							const oldData = snapshot.data();
+							updateDoc(docRef, {
+								responses: [...oldData.responses, a],
+							})
+								.then(resolve())
+								.catch((err) => {
+									reject(err.message);
+								});
+						})
+
+						.catch((err) => {
+							reject(err.message);
+						});
+				} catch {
+					reject("some error occured");
+				}
+			});
+		};
+		toast.promise(promise(), {
+			loading: "submitting...",
+			success: () => {
+				navigate("/user/dashboard");
+				return "response submitted";
+			},
+			error: (err) => {
+				return `${err}`;
+			},
+		});
+	};
 
 	return (
 		<div className="Submit">
@@ -54,7 +150,7 @@ const Submit = () => {
 					<>
 						<div className="SubmitFormTop">
 							<div className="submitFormTitle">{data.title}</div>
-							<button onClick={() => toast("Under development")}>Submit</button>
+							<button onClick={() => SubmitResponse()}>Submit</button>
 						</div>
 						<div className="SubmitFormQuestions">
 							{data.questions &&
@@ -71,16 +167,35 @@ const Submit = () => {
 												)}
 											</div>
 											<div className="SubmitFormQuestionMiddle">
-												{question.questionType === "text" && <Text />}
+												{question.questionType === "text" && (
+													<Text
+														setAnsText={setAnsText}
+														responses={responses}
+														questionID={question.questionId}
+													/>
+												)}
 												{question.questionType === "multipleChoice" && (
-													<MultipleChoiceSubmit options={question.options} />
+													<MultipleChoiceSubmit
+														options={question.options}
+														questionID={question.questionId}
+														setAnsMultiple={setAnsMultiple}
+														responses={responses}
+													/>
 												)}
 												{question.questionType === "singleChoice" && (
-													<SingleChoiceSubmit options={question.options} />
+													<SingleChoiceSubmit
+														options={question.options}
+														questionID={question.questionId}
+														setAnsSingle={setAnsSingle}
+														responses={responses}
+													/>
 												)}
 											</div>
 											<div className="SubmitFormQuestionLower">
-												<div className="SubmitFormQuestionClear">
+												<div
+													className="SubmitFormQuestionClear"
+													onClick={() => clearAns(question.questionId)}
+												>
 													<p>Clear</p>
 													<RiDeleteBin6Line className="SubmitFormQuestionClear-icon" />
 												</div>
