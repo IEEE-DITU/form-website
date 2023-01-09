@@ -39,6 +39,23 @@ function Dashboard() {
 				querySnapshot.forEach((doc) => {
 					forms.push(doc.data());
 				});
+				function dynamicSort(property) {
+					var sortOrder = 1;
+					if (property[0] === "-") {
+						sortOrder = -1;
+						property = property.substr(1);
+					}
+					return function (a, b) {
+						var result =
+							a[property] < b[property]
+								? -1
+								: a[property] > b[property]
+								? 1
+								: 0;
+						return result * sortOrder;
+					};
+				}
+				forms.sort(dynamicSort("-createdAt"));
 				setForms([...forms]);
 				setLoading(false);
 			});
@@ -79,6 +96,7 @@ function Dashboard() {
 						<b>Loading...</b>
 					</div>
 				)}
+
 				<div
 					style={{
 						width: "100%",
@@ -87,6 +105,11 @@ function Dashboard() {
 						paddingTop: "2rem",
 					}}
 				>
+					{!loading && currentPosts.length < 1 && (
+						<div>
+							<p>Seems like you havn't created any form yet ;)</p>
+						</div>
+					)}
 					{!loading &&
 						currentPosts.map((e, id) => {
 							return <DashboardCard key={id} {...e} />;
