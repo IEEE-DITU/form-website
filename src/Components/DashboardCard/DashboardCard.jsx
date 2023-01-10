@@ -93,7 +93,7 @@ function DashboardCard(e) {
 		};
 		return unsub();
 		// eslint-disable-next-line
-	}, []);
+	}, [e]);
 
 	return (
 		<>
