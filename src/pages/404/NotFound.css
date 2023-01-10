@@ -1,0 +1,695 @@
+.NotFoundPageContainer {
+	width: 100vw;
+	height: var(--vh);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url("../../images/authImg.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+.NotFoundPage {
+	background-color: #fff7f2;
+	width: 93vw;
+	height: calc(var(--vh) - 7vh);
+	border-radius: 20px;
+	overflow: hidden;
+}
+.NotFoundPage .container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	background: transparent;
+	color: black;
+	font-family: arial, sans-serif;
+	overflow: hidden;
+}
+.NotFoundPage .content {
+	position: relative;
+	width: 600px;
+	max-width: 100%;
+	margin: 20px;
+	background: #fff7f2;
+	padding: 60px 40px;
+	text-align: center;
+	box-shadow: -10px 10px 67px -12px rgba(0, 0, 0, 0.2);
+	opacity: 0;
+	animation: apparition 0.8s 1.2s cubic-bezier(0.39, 0.575, 0.28, 0.995)
+		forwards;
+}
+.NotFoundPage .content p {
+	font-size: 1.3rem;
+	margin-top: 0;
+	margin-bottom: 0.6rem;
+	letter-spacing: 0.1rem;
+	color: #595959;
+}
+.NotFoundPage .content p:last-child {
+	margin-bottom: 0;
+}
+.NotFoundPage .content button {
+	display: inline-block;
+	margin-top: 2rem;
+	padding: 0.5rem 1rem;
+	border: 3px solid #595959;
+	background: transparent;
+	font-size: 1rem;
+	color: #595959;
+	text-decoration: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+.NotFoundPage .particle {
+	position: absolute;
+	display: block;
+	pointer-events: none;
+}
+.NotFoundPage .particle:nth-child(1) {
+	top: 72.2832722833%;
+	left: 22.5711481845%;
+	font-size: 19px;
+	filter: blur(0.02px);
+	animation: 38s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(2) {
+	top: 35.3808353808%;
+	left: 56.2130177515%;
+	font-size: 14px;
+	filter: blur(0.04px);
+	animation: 26s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(3) {
+	top: 58.1113801453%;
+	left: 85.7699805068%;
+	font-size: 26px;
+	filter: blur(0.06px);
+	animation: 22s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(4) {
+	top: 96.7032967033%;
+	left: 63.7880274779%;
+	font-size: 19px;
+	filter: blur(0.08px);
+	animation: 21s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(5) {
+	top: 51.7073170732%;
+	left: 79.4117647059%;
+	font-size: 20px;
+	filter: blur(0.1px);
+	animation: 28s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(6) {
+	top: 37.3464373464%;
+	left: 23.6686390533%;
+	font-size: 14px;
+	filter: blur(0.12px);
+	animation: 22s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(7) {
+	top: 54.8347613219%;
+	left: 16.7158308751%;
+	font-size: 17px;
+	filter: blur(0.14px);
+	animation: 21s float infinite;
+}
+.NotFoundPage .particle:nth-child(8) {
+	top: 59.9508599509%;
+	left: 51.2820512821%;
+	font-size: 14px;
+	filter: blur(0.16px);
+	animation: 30s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(9) {
+	top: 89.4348894349%;
+	left: 39.4477317554%;
+	font-size: 14px;
+	filter: blur(0.18px);
+	animation: 38s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(10) {
+	top: 18.401937046%;
+	left: 6.8226120858%;
+	font-size: 26px;
+	filter: blur(0.2px);
+	animation: 37s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(11) {
+	top: 95.3771289538%;
+	left: 10.7632093933%;
+	font-size: 22px;
+	filter: blur(0.22px);
+	animation: 22s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(12) {
+	top: 28.9505428227%;
+	left: 75.8017492711%;
+	font-size: 29px;
+	filter: blur(0.24px);
+	animation: 32s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(13) {
+	top: 82.3244552058%;
+	left: 19.4931773879%;
+	font-size: 26px;
+	filter: blur(0.26px);
+	animation: 22s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(14) {
+	top: 88.7792848335%;
+	left: 48.4668644906%;
+	font-size: 11px;
+	filter: blur(0.28px);
+	animation: 26s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(15) {
+	top: 9.6501809409%;
+	left: 37.9008746356%;
+	font-size: 29px;
+	filter: blur(0.3px);
+	animation: 39s float infinite;
+}
+.NotFoundPage .particle:nth-child(16) {
+	top: 44.9877750611%;
+	left: 40.2750491159%;
+	font-size: 18px;
+	filter: blur(0.32px);
+	animation: 29s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(17) {
+	top: 83.7438423645%;
+	left: 8.8932806324%;
+	font-size: 12px;
+	filter: blur(0.34px);
+	animation: 21s float infinite;
+}
+.NotFoundPage .particle:nth-child(18) {
+	top: 67.8787878788%;
+	left: 17.5609756098%;
+	font-size: 25px;
+	filter: blur(0.36px);
+	animation: 23s float infinite;
+}
+.NotFoundPage .particle:nth-child(19) {
+	top: 86.6180048662%;
+	left: 9.7847358121%;
+	font-size: 22px;
+	filter: blur(0.38px);
+	animation: 34s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(20) {
+	top: 93.9467312349%;
+	left: 79.9220272904%;
+	font-size: 26px;
+	filter: blur(0.4px);
+	animation: 35s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(21) {
+	top: 12.729498164%;
+	left: 19.6656833825%;
+	font-size: 17px;
+	filter: blur(0.42px);
+	animation: 27s float infinite;
+}
+.NotFoundPage .particle:nth-child(22) {
+	top: 74.5762711864%;
+	left: 68.2261208577%;
+	font-size: 26px;
+	filter: blur(0.44px);
+	animation: 33s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(23) {
+	top: 25.6473489519%;
+	left: 54.4015825915%;
+	font-size: 11px;
+	filter: blur(0.46px);
+	animation: 37s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(24) {
+	top: 62.8992628993%;
+	left: 14.7928994083%;
+	font-size: 14px;
+	filter: blur(0.48px);
+	animation: 23s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(25) {
+	top: 93.5960591133%;
+	left: 37.5494071146%;
+	font-size: 12px;
+	filter: blur(0.5px);
+	animation: 21s float infinite;
+}
+.NotFoundPage .particle:nth-child(26) {
+	top: 84.6248462485%;
+	left: 63.1786771964%;
+	font-size: 13px;
+	filter: blur(0.52px);
+	animation: 37s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(27) {
+	top: 28.6066584464%;
+	left: 52.4233432245%;
+	font-size: 11px;
+	filter: blur(0.54px);
+	animation: 24s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(28) {
+	top: 95.145631068%;
+	left: 64.453125%;
+	font-size: 24px;
+	filter: blur(0.56px);
+	animation: 32s float infinite;
+}
+.NotFoundPage .particle:nth-child(29) {
+	top: 19.536019536%;
+	left: 65.7507360157%;
+	font-size: 19px;
+	filter: blur(0.58px);
+	animation: 32s float infinite;
+}
+.NotFoundPage .particle:nth-child(30) {
+	top: 59.0084643289%;
+	left: 67.1859785784%;
+	font-size: 27px;
+	filter: blur(0.6px);
+	animation: 38s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(31) {
+	top: 54.303030303%;
+	left: 73.1707317073%;
+	font-size: 25px;
+	filter: blur(0.62px);
+	animation: 40s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(32) {
+	top: 82.8915662651%;
+	left: 66.0194174757%;
+	font-size: 30px;
+	filter: blur(0.64px);
+	animation: 40s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(33) {
+	top: 41.8491484185%;
+	left: 14.6771037182%;
+	font-size: 22px;
+	filter: blur(0.66px);
+	animation: 40s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(34) {
+	top: 8.7272727273%;
+	left: 16.5853658537%;
+	font-size: 25px;
+	filter: blur(0.68px);
+	animation: 33s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(35) {
+	top: 16.3855421687%;
+	left: 93.2038834951%;
+	font-size: 30px;
+	filter: blur(0.7px);
+	animation: 39s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(36) {
+	top: 20.3143893591%;
+	left: 60.3700097371%;
+	font-size: 27px;
+	filter: blur(0.72px);
+	animation: 30s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(37) {
+	top: 71.8446601942%;
+	left: 3.90625%;
+	font-size: 24px;
+	filter: blur(0.74px);
+	animation: 34s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(38) {
+	top: 80%;
+	left: 89.2156862745%;
+	font-size: 20px;
+	filter: blur(0.76px);
+	animation: 32s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(39) {
+	top: 83.9565741858%;
+	left: 69.970845481%;
+	font-size: 29px;
+	filter: blur(0.78px);
+	animation: 28s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(40) {
+	top: 27.4509803922%;
+	left: 40.3543307087%;
+	font-size: 16px;
+	filter: blur(0.8px);
+	animation: 27s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(41) {
+	top: 44.2804428044%;
+	left: 55.2813425469%;
+	font-size: 13px;
+	filter: blur(0.82px);
+	animation: 29s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(42) {
+	top: 58.1280788177%;
+	left: 63.2411067194%;
+	font-size: 12px;
+	filter: blur(0.84px);
+	animation: 22s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(43) {
+	top: 87.2549019608%;
+	left: 82.6771653543%;
+	font-size: 16px;
+	filter: blur(0.86px);
+	animation: 22s float infinite;
+}
+.NotFoundPage .particle:nth-child(44) {
+	top: 60.6356968215%;
+	left: 83.4970530452%;
+	font-size: 18px;
+	filter: blur(0.88px);
+	animation: 22s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(45) {
+	top: 23.6744759556%;
+	left: 46.4886251236%;
+	font-size: 11px;
+	filter: blur(0.9px);
+	animation: 33s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(46) {
+	top: 66.6666666667%;
+	left: 7.874015748%;
+	font-size: 16px;
+	filter: blur(0.92px);
+	animation: 28s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(47) {
+	top: 15.7248157248%;
+	left: 76.9230769231%;
+	font-size: 14px;
+	filter: blur(0.94px);
+	animation: 33s float infinite;
+}
+.NotFoundPage .particle:nth-child(48) {
+	top: 0.9650180941%;
+	left: 6.8027210884%;
+	font-size: 29px;
+	filter: blur(0.96px);
+	animation: 39s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(49) {
+	top: 19.680196802%;
+	left: 91.8065153011%;
+	font-size: 13px;
+	filter: blur(0.98px);
+	animation: 35s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(50) {
+	top: 91.7874396135%;
+	left: 64.2023346304%;
+	font-size: 28px;
+	filter: blur(1px);
+	animation: 21s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(51) {
+	top: 74.7847478475%;
+	left: 76.011846002%;
+	font-size: 13px;
+	filter: blur(1.02px);
+	animation: 21s float infinite;
+}
+.NotFoundPage .particle:nth-child(52) {
+	top: 80.6888068881%;
+	left: 92.7936821323%;
+	font-size: 13px;
+	filter: blur(1.04px);
+	animation: 21s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(53) {
+	top: 34.1463414634%;
+	left: 21.568627451%;
+	font-size: 20px;
+	filter: blur(1.06px);
+	animation: 22s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(54) {
+	top: 30.3921568627%;
+	left: 52.1653543307%;
+	font-size: 16px;
+	filter: blur(1.08px);
+	animation: 37s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(55) {
+	top: 12.6829268293%;
+	left: 13.7254901961%;
+	font-size: 20px;
+	filter: blur(1.1px);
+	animation: 32s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(56) {
+	top: 53.7897310513%;
+	left: 82.5147347741%;
+	font-size: 18px;
+	filter: blur(1.12px);
+	animation: 24s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(57) {
+	top: 67.3170731707%;
+	left: 37.2549019608%;
+	font-size: 20px;
+	filter: blur(1.14px);
+	animation: 23s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(58) {
+	top: 35.1648351648%;
+	left: 94.2100098135%;
+	font-size: 19px;
+	filter: blur(1.16px);
+	animation: 38s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(59) {
+	top: 18.7192118227%;
+	left: 6.9169960474%;
+	font-size: 12px;
+	filter: blur(1.18px);
+	animation: 29s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(60) {
+	top: 3.8834951456%;
+	left: 18.5546875%;
+	font-size: 24px;
+	filter: blur(1.2px);
+	animation: 23s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(61) {
+	top: 30.1336573512%;
+	left: 40.0782013685%;
+	font-size: 23px;
+	filter: blur(1.22px);
+	animation: 33s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(62) {
+	top: 38.188494492%;
+	left: 98.3284169125%;
+	font-size: 17px;
+	filter: blur(1.24px);
+	animation: 29s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(63) {
+	top: 62.8220858896%;
+	left: 90.6403940887%;
+	font-size: 15px;
+	filter: blur(1.26px);
+	animation: 21s float infinite;
+}
+.NotFoundPage .particle:nth-child(64) {
+	top: 8.8779284834%;
+	left: 96.9337289812%;
+	font-size: 11px;
+	filter: blur(1.28px);
+	animation: 36s float infinite;
+}
+.NotFoundPage .particle:nth-child(65) {
+	top: 40.2948402948%;
+	left: 79.8816568047%;
+	font-size: 14px;
+	filter: blur(1.3px);
+	animation: 23s float infinite;
+}
+.NotFoundPage .particle:nth-child(66) {
+	top: 29.5930949445%;
+	left: 58.3580613254%;
+	font-size: 11px;
+	filter: blur(1.32px);
+	animation: 23s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(67) {
+	top: 57.2121212121%;
+	left: 31.2195121951%;
+	font-size: 25px;
+	filter: blur(1.34px);
+	animation: 39s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(68) {
+	top: 28.3618581907%;
+	left: 12.7701375246%;
+	font-size: 18px;
+	filter: blur(1.36px);
+	animation: 26s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(69) {
+	top: 51.9607843137%;
+	left: 81.6929133858%;
+	font-size: 16px;
+	filter: blur(1.38px);
+	animation: 35s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(70) {
+	top: 39.7094430993%;
+	left: 68.2261208577%;
+	font-size: 26px;
+	filter: blur(1.4px);
+	animation: 32s float infinite;
+}
+.NotFoundPage .particle:nth-child(71) {
+	top: 76.5133171913%;
+	left: 94.5419103314%;
+	font-size: 26px;
+	filter: blur(1.42px);
+	animation: 22s float infinite;
+}
+.NotFoundPage .particle:nth-child(72) {
+	top: 52.0481927711%;
+	left: 33.0097087379%;
+	font-size: 30px;
+	filter: blur(1.44px);
+	animation: 35s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(73) {
+	top: 27.2174969623%;
+	left: 13.6852394917%;
+	font-size: 23px;
+	filter: blur(1.46px);
+	animation: 39s float2 infinite;
+}
+.NotFoundPage .particle:nth-child(74) {
+	top: 70.7616707617%;
+	left: 49.3096646943%;
+	font-size: 14px;
+	filter: blur(1.48px);
+	animation: 21s float infinite;
+}
+.NotFoundPage .particle:nth-child(75) {
+	top: 33.734939759%;
+	left: 18.4466019417%;
+	font-size: 30px;
+	filter: blur(1.5px);
+	animation: 29s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(76) {
+	top: 83.6408364084%;
+	left: 53.3070088845%;
+	font-size: 13px;
+	filter: blur(1.52px);
+	animation: 30s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(77) {
+	top: 89.7466827503%;
+	left: 86.491739553%;
+	font-size: 29px;
+	filter: blur(1.54px);
+	animation: 27s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(78) {
+	top: 14.5278450363%;
+	left: 60.4288499025%;
+	font-size: 26px;
+	filter: blur(1.56px);
+	animation: 28s floatReverse infinite;
+}
+.NotFoundPage .particle:nth-child(79) {
+	top: 86.0635696822%;
+	left: 86.4440078585%;
+	font-size: 18px;
+	filter: blur(1.58px);
+	animation: 22s floatReverse2 infinite;
+}
+.NotFoundPage .particle:nth-child(80) {
+	top: 4.8899755501%;
+	left: 55.0098231827%;
+	font-size: 18px;
+	filter: blur(1.6px);
+	animation: 27s float2 infinite;
+}
+@keyframes apparition {
+	from {
+		opacity: 0;
+		transform: translateY(100px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(180px);
+	}
+}
+@keyframes floatReverse {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-180px);
+	}
+}
+@keyframes float2 {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(28px);
+	}
+}
+@keyframes floatReverse2 {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-28px);
+	}
+}
+
+@media only screen and (max-width: 1205px) {
+	.NotFoundPage {
+		width: 97vw !important;
+		height: calc(var(--vh) - 3vh);
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	.NotFoundPage {
+		width: 98vw;
+		height: calc(var(--vh) - 2vh);
+	}
+}

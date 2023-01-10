@@ -1,0 +1,36 @@
+.Home {
+	width: 100vw;
+	height: var(--vh);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url("../../images/authImg.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.HomeContent {
+	background-color: #fff7f2;
+	width: 93vw;
+	height: calc(var(--vh) - 7vh);
+	border-radius: 20px;
+	padding: 0.75rem 2rem;
+	overflow: hidden;
+}
+
+@media only screen and (max-width: 1205px) {
+	.HomeContent {
+		width: 97vw !important;
+		height: calc(var(--vh) - 3vh);
+		padding: 1rem;
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	.HomeContent {
+		width: 98vw;
+		height: calc(var(--vh) - 2vh);
+		padding: 0.5rem;
+	}
+}

@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import eyeclose from "../../images/eye-close.png";
-import eyeopen from "../../images/eye-open.png";
-import "./Signup.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { IoMdMail } from "react-icons/io";
-import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
-import { FaLock, FaUser } from "react-icons/fa";
+import toast from "react-hot-toast";
+import eyeclose from "../../images/eye-close.png";
+import eyeopen from "../../images/eye-open.png";
+import "./Signup.css";
 
-function Signup() {
+function Signup({ setLogin }) {
 	const { signup, verifyUser } = useAuth();
 	const [values, setValues] = useState({
 		email: "",
@@ -89,116 +87,111 @@ function Signup() {
 		setstate1((prevState) => !prevState);
 	};
 	return (
-		<div className="signup">
-			<div className="leftside"></div>
-			<div className="rightside">
-				<div className="child">
-					<h2 className="heading">Sign up</h2>
-					<p className="haveaccount">Already have an account with us?</p>
-					<Link className="loginlink" to="/login">
-						Login Here !
-					</Link>
-					<div className="signupbox">
-						<label className="emailheading" htmlFor="email">
-							Email
-						</label>
-						<div className="emailHolder">
-							<IoMdMail className="signup-email" />
-							<input
-								className="emailarea"
-								type="email"
-								placeholder="Enter your Email address"
-								name="email"
-								onChange={(event) =>
-									setValues((prev) => ({ ...prev, email: event.target.value }))
-								}
-								required
-							/>
-						</div>
+		<div className="SignUp">
+			<h2 className="heading">Sign up</h2>
+			<p className="haveaccount">Already have an account with us?</p>
+			<div className="loginlink" onClick={() => setLogin(true)}>
+				Login Here !
+			</div>
+			<div className="signupbox">
+				<label className="emailheading" htmlFor="email">
+					Email
+				</label>
+				<div className="emailHolder">
+					<IoMdMail className="signup-email" />
+					<input
+						className="emailarea"
+						type="email"
+						placeholder="Enter your Email address"
+						name="email"
+						onChange={(event) =>
+							setValues((prev) => ({ ...prev, email: event.target.value }))
+						}
+						required
+					/>
+				</div>
 
-						<label className="userheading" htmlFor="user">
-							Username
-						</label>
-						<div className="emailHolder">
-							<FaUser className="signup-email" />
-							<input
-								className="userarea"
-								type="text"
-								placeholder="Enter your Username"
-								name="user"
-								onChange={(event) =>
-									setValues((prev) => ({
-										...prev,
-										username: event.target.value,
-									}))
-								}
-								required
-							/>
-						</div>
+				<label className="userheading" htmlFor="user">
+					Username
+				</label>
+				<div className="emailHolder">
+					<IoMdMail className="signup-email" />
+					<input
+						className="userarea"
+						type="text"
+						placeholder="Enter your Username"
+						name="user"
+						onChange={(event) =>
+							setValues((prev) => ({
+								...prev,
+								username: event.target.value,
+							}))
+						}
+						required
+					/>
+				</div>
 
-						<label className="passwordheading" htmlFor="password">
-							Password
-						</label>
-						<div className="emailHolder">
-							<FaLock className="signup-email" />
-							<input
-								className="passwordarea"
-								type={state ? "text" : "password"}
-								placeholder="Enter your password"
-								name="password"
-								onChange={(event) =>
-									setValues((prev) => ({
-										...prev,
-										password: event.target.value,
-									}))
-								}
-								required
-							/>
-							<div className="eyeclose" onClick={toggleBtn}>
-								{state ? (
-									<img src={eyeopen} alt="" className="eyeclose1"></img>
-								) : (
-									<img src={eyeclose} alt="" className="eyeclose1"></img>
-								)}
-							</div>
-						</div>
-						<label className="cfmpasswordheading" htmlFor="cfmpassword">
-							Confirm Password
-						</label>
-						<div className="emailHolder">
-							<FaLock className="signup-email" />
-							<input
-								className="cfmpasswordarea"
-								type={state1 ? "text" : "password"}
-								placeholder="Enter your password"
-								name="cfmpassword"
-								onChange={(event) =>
-									setValues((prev) => ({
-										...prev,
-										cfmpassword: event.target.value,
-									}))
-								}
-								required
-							/>
-
-							<div className="eyeclose" onClick={toggleBtn1}>
-								{state1 ? (
-									<img src={eyeopen} alt="" className="eyeclose1"></img>
-								) : (
-									<img src={eyeclose} alt="" className="eyeclose1"></img>
-								)}
-							</div>
-						</div>
+				<label className="passwordheading" htmlFor="password">
+					Password
+				</label>
+				<div className="emailHolder">
+					<IoMdMail className="signup-email" />
+					<input
+						className="passwordarea"
+						type={state ? "text" : "password"}
+						placeholder="Enter your password"
+						name="password"
+						onChange={(event) =>
+							setValues((prev) => ({
+								...prev,
+								password: event.target.value,
+							}))
+						}
+						required
+					/>
+					<div className="eyeclose" onClick={toggleBtn}>
+						{state ? (
+							<img src={eyeopen} alt="" className="eyeclose1"></img>
+						) : (
+							<img src={eyeclose} alt="" className="eyeclose1"></img>
+						)}
 					</div>
-					<button
-						className="registerbtn"
-						disabled={submitButtonDisabled}
-						onClick={handleSubmission}
-					>
-						Register
-					</button>
+				</div>
+				<label className="cfmpasswordheading" htmlFor="cfmpassword">
+					Confirm Password
+				</label>
+				<div className="emailHolder">
+					<IoMdMail className="signup-email" />
+					<input
+						className="cfmpasswordarea"
+						type={state1 ? "text" : "password"}
+						placeholder="Enter your password"
+						name="cfmpassword"
+						onChange={(event) =>
+							setValues((prev) => ({
+								...prev,
+								cfmpassword: event.target.value,
+							}))
+						}
+						required
+					/>
+
+					<div className="eyeclose" onClick={toggleBtn1}>
+						{state1 ? (
+							<img src={eyeopen} alt="" className="eyeclose1"></img>
+						) : (
+							<img src={eyeclose} alt="" className="eyeclose1"></img>
+						)}
+					</div>
 				</div>
 			</div>
+			<button
+				className="registerbtn"
+				disabled={submitButtonDisabled}
+				onClick={handleSubmission}
+			>
+				Register
+			</button>
 		</div>
 	);
 }

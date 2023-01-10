@@ -1,0 +1,18 @@
+.pagination {
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	margin-top: auto;
+	z-index: 10;
+}
+
+.pagination > p {
+	margin-right: 0.5rem;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+.paginationIcon {
+	font-size: 1.25rem;
+}

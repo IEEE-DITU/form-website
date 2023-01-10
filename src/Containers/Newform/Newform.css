@@ -1,29 +1,25 @@
-.newForm {
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: url("../../images/authImg.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-}
-
-.newForm-main {
-	background-color: #fff7f2;
-	width: 90vw;
-	height: 90vh;
-	border-radius: 20px;
-	padding: 2rem;
+.NewForm {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
+	height: 100%;
 }
 
 .newForm-title {
 	width: 100%;
+	display: flex;
+}
+
+.newForm-title > button {
+	background: #ff432a;
+	border-radius: 25px;
+	color: white;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.9rem;
+	font-weight: 300;
+	outline: none;
+	border: none;
 }
 
 .newForm-title > input {
@@ -31,7 +27,7 @@
 	outline: none;
 	font-size: 1.5rem;
 	font-weight: 500;
-	width: 100%;
+	width: 95%;
 	overflow: visible;
 	text-decoration: underline;
 	background: none;
@@ -45,14 +41,17 @@
 .newFormQuestions {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: flex-start;
 	gap: 1rem;
 	width: 100%;
-	margin-top: 2rem;
+	margin-top: 0.75rem;
+	max-height: 100%;
+	overflow: scroll;
+	padding: 0 0.25rem 1rem 0.25rem;
 }
 
 .newFormQuestion {
+	flex-shrink: 0;
 	background: white;
 	width: 100%;
 	min-height: 1rem;
@@ -76,6 +75,23 @@
 .newFormQuestionUpper > .left {
 	display: flex;
 	gap: 0.75rem;
+	width: 100%;
+}
+
+.newFormQuestionTitle {
+	width: 90%;
+}
+
+.newFormQuestionTitle > input {
+	border: none;
+	outline: none;
+	background: none;
+	font-size: 1rem;
+	width: 100%;
+}
+
+.newFormQuestionTitle > input::placeholder {
+	font-size: 1rem;
 }
 
 .newFormQuestionMiddle {
@@ -95,6 +111,8 @@
 	font-size: 0.8rem;
 	font-weight: 300;
 	margin-left: 0.5rem;
+	margin-top: 1rem;
+	align-self: flex-start;
 }
 
 .newFormQuestionAnswerArea {
@@ -107,6 +125,20 @@
 	align-items: center;
 	width: 100%;
 	margin-top: 1rem;
+}
+
+.newFormAddOption {
+	margin-right: auto;
+	margin-left: 1.35rem;
+}
+
+.newFormAddOption > p {
+	font-size: 0.85rem;
+	color: #f86552;
+}
+
+.newFormAddOption > p:hover {
+	color: #ff432a;
 }
 
 .newFormQuestionDelete {
@@ -129,29 +161,35 @@
 /* drop down */
 .Dropdown-root {
 	position: relative;
+	width: max-content;
 }
 
 .Dropdown-control {
 	position: relative;
 	overflow: hidden;
 	background-color: white;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+	border: 1px solid rgb(0, 0, 0);
+	border-radius: 15px;
 	box-sizing: border-box;
-	color: #333;
+	color: rgb(0, 0, 0);
 	cursor: default;
 	outline: none;
 	padding: 8px 52px 8px 10px;
 	transition: all 200ms ease;
 }
 
+.is-open .Dropdown-control {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
 .is-open .Dropdown-arrow {
-	border-color: transparent transparent #999;
+	border-color: transparent transparent rgb(0, 0, 0);
 	border-width: 0 5px 5px;
 }
 
 .Dropdown-arrow {
-	border-color: #999 transparent transparent;
+	border-color: rgb(0, 0, 0) transparent transparent;
 	border-style: solid;
 	border-width: 5px 5px 0;
 	content: " ";
@@ -166,8 +204,10 @@
 
 .Dropdown-menu {
 	background-color: white;
-	border: 1px solid #ccc;
+	border: 1px solid rgb(0, 0, 0);
 	box-shadow: 0 1px 0 rgb(0 0 0 / 6%);
+	border-bottom-right-radius: 15px;
+	border-bottom-left-radius: 15px;
 	box-sizing: border-box;
 	margin-top: -1px;
 	max-height: 200px;
@@ -181,7 +221,8 @@
 
 .Dropdown-option {
 	box-sizing: border-box;
-	color: rgba(51, 51, 51, 0.8);
+	color: rgba(0, 0, 0, 0.8);
+	border-bottom: 1px solid black;
 	cursor: pointer;
 	display: block;
 	padding: 8px 10px;
@@ -189,10 +230,32 @@
 
 .Dropdown-option.is-selected {
 	background-color: #f2f9fc;
-	color: #333;
+	color: #000000;
+	font-weight: 500;
 }
 
 .Dropdown-option:last-child {
 	border-bottom-right-radius: 2px;
 	border-bottom-left-radius: 2px;
+	border: none;
+}
+
+.requiredSwitch {
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+}
+
+.requiredSwitch > p {
+	font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 430px) {
+	.newFormQuestionUpper {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.newFormQuestionMiddle {
+		padding-left: 0;
+	}
 }
