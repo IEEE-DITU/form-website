@@ -1,19 +1,15 @@
 import { useEffect } from "react";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
 } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home/Home";
 import PasswordReset from "./Components/PasswordReset/PasswordReset";
-import EmailVerify1 from "./Components/EmailVerify/EmailVeify1";
-// import ResponsePage from "./pages/ResponsePage/ResponsePage";
-// import Temp from "./Components/Temporary/Temp";
-
-// import EmailVerify from "./Components/verify/verify";
+import EmailVerify from "./Components/EmailVerify/EmailVeify";
 import Loading from "./Components/Loading/Loading";
 import Authentication from "./pages/Authentication/Authentication";
 import NotFound from "./pages/404/NotFound";
@@ -82,7 +78,7 @@ function MainApp() {
 								currentUser.emailVerified ? (
 									<Navigate to="/user" />
 								) : (
-									<EmailVerify1 />
+									<EmailVerify />
 								)
 							) : (
 								<Navigate to="/auth" />
