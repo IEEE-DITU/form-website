@@ -6,6 +6,7 @@ import { auth } from "../../Firebase";
 import { Link } from "react-router-dom";
 import { db } from "../../Firebase";
 import { toast } from "react-hot-toast";
+import { Tabs } from "@mantine/core";
 import avatar from "../../images/avatar 1.png";
 import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
@@ -91,29 +92,51 @@ function Dashboard() {
 					</Link>
 				</div>
 
-				{loading && (
-					<div>
-						<b>Loading...</b>
-					</div>
-				)}
-
 				<div
 					style={{
 						width: "100%",
 						overflow: "scroll",
 						height: "100%",
-						paddingTop: "2rem",
+						paddingTop: "0.75rem",
 					}}
 				>
-					{!loading && currentPosts.length < 1 && (
-						<div>
-							<p>Seems like you havn't created any form yet ;)</p>
-						</div>
-					)}
-					{!loading &&
-						currentPosts.map((e, id) => {
-							return <DashboardCard key={id} {...e} />;
-						})}
+					<Tabs
+						color="red"
+						variant="outline"
+						radius="md"
+						defaultValue="myforms"
+					>
+						<Tabs.List grow position="center">
+							<Tabs.Tab value="myforms">MyForms</Tabs.Tab>
+							<Tabs.Tab value="shared">Shared with me</Tabs.Tab>
+						</Tabs.List>
+
+						<Tabs.Panel value="myforms" pt="xs">
+							{loading && (
+								<div>
+									<b>Loading...</b>
+								</div>
+							)}
+							{!loading && currentPosts.length < 1 && (
+								<div>
+									<p>Seems like you havn't created any form yet ;)</p>
+								</div>
+							)}
+							{!loading &&
+								currentPosts.map((e, id) => {
+									return <DashboardCard key={id} {...e} />;
+								})}
+						</Tabs.Panel>
+
+						<Tabs.Panel value="shared" pt="xs">
+							{loading && (
+								<div>
+									<b>Loading...</b>
+								</div>
+							)}
+							This feature is under development
+						</Tabs.Panel>
+					</Tabs>
 				</div>
 
 				<Pagination
