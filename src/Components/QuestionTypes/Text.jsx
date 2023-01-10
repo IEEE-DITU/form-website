@@ -1,9 +1,16 @@
 import "./QuestionTypes.css";
 
-const Text = () => {
+const Text = (e) => {
 	return (
-		<div className="TextType">
-			<input type="text" placeholder="Insert answer" />
+		<div className="TextTypeLimit">
+			<label htmlFor="number">Enter word limit:</label>
+			<input
+				type="number"
+				id="number"
+				placeholder="Word Limit for text type question"
+				value={e.limit}
+				onChange={(event) => e.changeWordLimit(event.target.value, e.qid)}
+			/>
 		</div>
 	);
 };

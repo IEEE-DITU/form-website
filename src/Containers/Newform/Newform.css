@@ -162,6 +162,7 @@
 .Dropdown-root {
 	position: relative;
 	width: max-content;
+	min-width: 146px;
 }
 
 .Dropdown-control {
@@ -174,7 +175,7 @@
 	color: rgb(0, 0, 0);
 	cursor: default;
 	outline: none;
-	padding: 8px 52px 8px 10px;
+	padding: 5px 31px 5px 10px;
 	transition: all 200ms ease;
 }
 
@@ -225,7 +226,7 @@
 	border-bottom: 1px solid black;
 	cursor: pointer;
 	display: block;
-	padding: 8px 10px;
+	padding: 5px 0px 5px 10px;
 }
 
 .Dropdown-option.is-selected {
