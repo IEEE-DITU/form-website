@@ -44,7 +44,6 @@ function Signup({ setLogin }) {
 							updateProfile(user, {
 								displayName: values.username,
 							});
-							console.log(data);
 							setDoc(doc(db, "users", data.user.uid), {
 								name: values.username,
 								email: values.email,
