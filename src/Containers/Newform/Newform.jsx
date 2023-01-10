@@ -32,7 +32,7 @@ const Newform = () => {
 			isRequired: false,
 			options: ["enter option"],
 			minChoice: 1,
-			maxChoice: 1,
+			maxChoice: 50,
 		},
 	]);
 
@@ -45,7 +45,7 @@ const Newform = () => {
 			isRequired: false,
 			options: ["enter option"],
 			minChoice: 1,
-			maxChoice: 1,
+			maxChoice: 50,
 		});
 		setQuestions([...a]);
 	};
@@ -90,6 +90,16 @@ const Newform = () => {
 				return question;
 			}
 			question.questionTitle = title;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+	const changeWordLimit = (limit, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.maxChoice = limit;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -282,7 +292,13 @@ const Newform = () => {
 							</div>
 							<div className="newFormQuestionMiddle">
 								<div className="newFormQuestionAnswerArea">
-									{question.questionType === "text" && <Text />}
+									{question.questionType === "text" && (
+										<Text
+											changeWordLimit={changeWordLimit}
+											qid={question.questionId}
+											limit={question.maxChoice}
+										/>
+									)}
 									{question.questionType === "multipleChoice" && (
 										<MultipleChoice
 											options={question.options}
