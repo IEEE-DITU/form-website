@@ -60,7 +60,7 @@ const Response = () => {
 					</Tabs.Panel>
 
 					<Tabs.Panel value="individual" pt="xs">
-						this is section in under development
+						
 						<div className="individualContainer">
 							{loading && (
 								<b
