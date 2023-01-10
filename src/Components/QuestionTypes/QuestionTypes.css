@@ -1,0 +1,15 @@
+.TextType {
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
+	width: 100%;
+	max-width: 500px;
+	border-bottom: 2px solid black;
+}
+
+.TextType > input {
+	outline: none;
+	border: none;
+	background: transparent;
+	width: 100%;
+}

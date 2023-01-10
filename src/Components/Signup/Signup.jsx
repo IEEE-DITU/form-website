@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import eyeclose from "../../images/eye-close.png";
 import eyeopen from "../../images/eye-open.png";
 import "./Signup.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { IoMdMail } from "react-icons/io";
 import toast from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../Firebase";
 import { FaLock, FaUser } from "react-icons/fa";
 
 function Signup() {
 	const { signup, verifyUser } = useAuth();
-	const navigate = useNavigate();
 	const [values, setValues] = useState({
 		email: "",
 		username: "",
@@ -34,19 +36,50 @@ function Signup() {
 			toast.error("Please Enter same password !");
 			return;
 		}
-		try {
-			setSubmitButtonDisabled(true);
-			await signup(values.email, values.password);
-			await verifyUser();
-			navigate("/emailverify");
-		} catch (error) {
-			if (error.message === "Firebase: Error (auth/email-already-in-use).") {
-				toast.error("User Already exists !");
-			} else {
-				toast.error("Can't Register now !");
-			}
-		}
+		const promise = () => {
+			return new Promise((resolve, reject) => {
+				try {
+					signup(values.email, values.password)
+						.then((data) => {
+							signup(values.email, values.password);
+							const user = data.user;
+							updateProfile(user, {
+								displayName: values.username,
+							});
+							console.log(data);
+							setDoc(doc(db, "users", data.user.uid), {
+								name: values.username,
+								email: values.email,
+								uid: data.user.uid,
+								forms: [],
+							})
+								.then(() => verifyUser())
+								.then(() => setSubmitButtonDisabled(false));
+						})
+
+						.then(() => resolve())
+						.catch((err) => {
+							reject(err);
+						});
+				} catch (err) {
+					reject(err);
+				}
+			});
+		};
+
+		setSubmitButtonDisabled(true);
+		toast.promise(promise(), {
+			loading: "Signing up...",
+			success: () => {
+				return "Signed up!";
+			},
+			error: (err) => {
+				setSubmitButtonDisabled(false);
+				return `${err.code.split("/")[1]}`;
+			},
+		});
 	};
+
 	const [state, setstate] = useState(false);
 	const [state1, setstate1] = useState(false);
 	const toggleBtn = () => {
@@ -66,7 +99,7 @@ function Signup() {
 						Login Here !
 					</Link>
 					<div className="signupbox">
-						<label className="emailheading" for="email">
+						<label className="emailheading" htmlFor="email">
 							Email
 						</label>
 						<div className="emailHolder">
@@ -83,7 +116,7 @@ function Signup() {
 							/>
 						</div>
 
-						<label className="userheading" for="user">
+						<label className="userheading" htmlFor="user">
 							Username
 						</label>
 						<div className="emailHolder">
@@ -103,7 +136,7 @@ function Signup() {
 							/>
 						</div>
 
-						<label className="passwordheading" for="password">
+						<label className="passwordheading" htmlFor="password">
 							Password
 						</label>
 						<div className="emailHolder">
@@ -129,7 +162,7 @@ function Signup() {
 								)}
 							</div>
 						</div>
-						<label className="cfmpasswordheading" for="cfmpassword">
+						<label className="cfmpasswordheading" htmlFor="cfmpassword">
 							Confirm Password
 						</label>
 						<div className="emailHolder">

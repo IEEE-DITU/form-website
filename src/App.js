@@ -8,18 +8,21 @@ import {
 } from "react-router-dom";
 import Signup from "./Components/Signup/Signup";
 import Home from "./pages/Home/Home";
-import Myforms from "./Components/Myforms/Myforms";
 import PasswordReset from "./Components/PasswordReset/PasswordReset";
-import EmailVerify from "./Components/EmailVerify/EmailVerify";
+import EmailVerify1 from "./Components/EmailVerify/EmailVeify1";
 import ResponsePage from "./pages/ResponsePage/ResponsePage";
 import Temp from "./Components/Temporary/Temp";
 import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
-function App() {
-  const { currentUser } = useAuth();
-  return (
-    <div className="App">
-      <Toaster />
+
+import Loading from "./Components/Loading/Loading";
+import CreateForm from "./Components/CreateForm/CreateForm";
+
+function MainApp() {
+	const { currentUser } = useAuth();
+	return (
+		<div className="App">
+			<Toaster />
 
       <Router>
         <Temp />
@@ -32,26 +35,73 @@ function App() {
             path="/signup"
             element={currentUser ? <Navigate to="/" /> : <Signup />}
           />
-          {/* <Route
+           <Route
 						exact
 						path="/"
-						element={currentUser ? <Home /> : <Navigate to="/login" />}
-					/> */}
-          <Route
-            exact
-            path="/"
-            element={currentUser ? <Myforms /> : <Navigate to="/login" />}
-          />
-          <Route path="/resetpass" element={<PasswordReset />} />
-          <Route path="/emailverify" element={<EmailVerify />} />
-          <Route
-            path="/forms/responses"
-            element={currentUser ? <ResponsePage /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </Router>
-    </div>
-  );
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<Home />
+								) : (
+									<Navigate to="/verify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
+					<Route path="/resetpass" element={<PasswordReset />} />
+					<Route
+						path="/verify"
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<Navigate to="/" />
+								) : (
+									<EmailVerify1 />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
+					
+					<Route
+						path="/forms/responses"
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<ResponsePage />
+								) : (
+									<Navigate to="/verify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
+					<Route
+						path="/newform"
+						element={
+							currentUser ? (
+								currentUser.emailVerified ? (
+									<CreateForm />
+								) : (
+									<Navigate to="/verify" />
+								)
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
+				</Routes>
+			</Router>
+		</div>
+	);
+}
+function App() {
+	const { loading } = useAuth();
+	return <>{loading ? <Loading /> : <MainApp />}</>;
 }
 
 export default App;

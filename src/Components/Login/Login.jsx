@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import eyeclose from "../../images/eye-close.png";
 import eyeopen from "../../images/eye-open.png";
 import google from "../../images/google.png";
@@ -12,7 +12,6 @@ import toast from "react-hot-toast";
 
 function Login() {
 	const { login } = useAuth();
-	const navigate = useNavigate();
 	const [values, setValues] = useState({
 		email: "",
 		password: "",
@@ -25,12 +24,24 @@ function Login() {
 			toast.error("Please fill all the feilds !");
 			return;
 		}
-
-		try {
-			setSubmitButtonDisabled(true);
-			await login(values.email, values.password);
-			navigate("/");
-		} catch (err) {
+		setSubmitButtonDisabled(true);
+		toast.promise(
+			login(values.email, values.password),
+			{
+				loading: "Logging in....",
+				success: "Logged in!",
+				error: (err) => {
+					handleError(err);
+				},
+			},
+			{
+				error: {
+					duration: 1,
+				},
+			}
+		);
+		const handleError = (err) => {
+			setSubmitButtonDisabled(false);
 			if (err.message === "Firebase: Error (auth/wrong-password).") {
 				toast.error("wrong credentials !");
 			} else if (err.message === "Firebase: Error (auth/user-not-found).") {
@@ -38,8 +49,7 @@ function Login() {
 			} else {
 				toast.error("Error logging in ! Try again later");
 			}
-			setSubmitButtonDisabled(false);
-		}
+		};
 	};
 
 	const [state, setstate] = useState(false);
@@ -57,7 +67,7 @@ function Login() {
 						Register Here !
 					</Link>
 					<div className="loginbox">
-						<label className="emailheading" for="email">
+						<label className="emailheading" htmlFor="email">
 							Email
 						</label>
 						<div className="emailHolder">
@@ -73,7 +83,7 @@ function Login() {
 								required
 							/>
 						</div>
-						<label className="passwordheading" for="password">
+						<label className="passwordheading" htmlFor="password">
 							Password
 						</label>
 						<div className="passwordHolder">
@@ -109,7 +119,7 @@ function Login() {
 								name="rememberMe"
 								value="rememberMe"
 							/>
-							<label for="rememberMe"> Remember Me</label>
+							<label htmlFor="rememberMe"> Remember Me</label>
 						</div>
 						<Link className="forgotPassword" to="/resetpass">
 							forgot password?

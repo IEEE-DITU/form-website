@@ -1,84 +1,112 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import bigphone from "../../images/Allura Giant Phone.png";
+import React, { useState } from "react";
 import avatar from "../../images/avatar 1.png";
-import brazuka from "../../images/Brazuca Planning.png";
-import formbg from "../../images/pagebg.png";
-import { useAuth } from '../../context/AuthContext'
-import background from "../../images/bg1.png"
-import "./Myforms.css"
+import { useAuth } from "../../context/AuthContext";
+import background from "../../images/authImg.png";
+import "./Myforms.css";
 import line2 from "../../images/Line 2.png";
-import line1 from "../../images/Line1.png"
-import editprofile from  "../../images/profile edit button.png";
-import Card from '../Card/Card';
-import { signOut } from '@firebase/auth'
-import { auth } from '../../Firebase'
-import { useNavigate } from 'react-router'
+import line1 from "../../images/Line1.png";
+import dash1 from "../../images/dash1.png";
+import dash2 from "../../images/dash2.png";
+import editprofile from "../../images/profile edit button.png";
+import Card from "../Card/Card";
+import { signOut } from "@firebase/auth";
+import { auth } from "../../Firebase";
+import { toast } from "react-hot-toast";
+import { async } from "@firebase/util";
+import { cards1 } from "../Constants/dummydata";
 
-function Myforms(){
-    const navigate=useNavigate();
-    const {currentUser}=useAuth();
-    console.log(currentUser);
-    const handleclick=()=>{
-        signOut(auth).then(() => {
-          navigate('/login');
-        }).catch((error) => {
-          console.log("error:",error)
-        });
-    }
+function Myforms() {
+    const [coinsData,setCoinsData]=useState([]);
+    const [currentPage ,setCurrentPage]=useState(1);
+    const [postsPerPage,setPostsPerPage]=useState(5);
+
     
-    return(
-        
-    <div className='background' style={{ backgroundImage:`url(${background})`,backgroundRepeat:"no-repeat",backgroundSize:"contain" }}>
-        <div className='main'>
-            <div className='leftcol'>
-                <p className='myform'>My Forms</p>
-                <img src={line2} className='line2'></img>
-                
-                <Card></Card>
-                <Card></Card>
-                <Card></Card>
-                <Card></Card>
-                
-                <button className='createbutton' >Create</button>
-                
 
-            </div>
-    
-            <img className='line1' src={line1}></img>
-            
-            <div className='rightcol'>
-            <div className='profile'>
-                    <p className='myprofile'><center>My Profile</center></p><br></br>
-                    <div className='avatar'>
-                    <img src={avatar}></img>
-                    <button className="editprofilebutton"><img src={editprofile} ></img></button>
-                    </div>
-            </div>
-            <div className='profilecontent'>
-                
-                <p>Username-{currentUser.displayName}</p><br/>
-                <p>User Id- {currentUser.uid}</p><br/>
-                <p>Email-{currentUser.email}</p>
-            </div>  
-               <br/> 
-               <div className='lobutton'>
-                <button className='logoutbutton' onClick={handleclick}>Log Out</button>
-               </div> 
-               
-                
-                
+    const indexOfLastCard = currentPage * postsPerPage;
+    const indexOfFirstCard = indexOfLastCard - postsPerPage;
+    const currentPosts=coinsData.slice(indexOfFirstCard,indexOfLastCard);
 
+	const { currentUser } = useAuth();
+	const logOut = () => {
+		toast.promise(
+			signOut(auth).catch((error) => {
+				console.log(toast.error("Error logging out"));
+				console.log(error);
+			}),
+			{
+				loading: "Logging out....",
+				success: "Logged out!",
+				error: "Error logging out",
+			}
+		);
+	};
 
-            </div>
-        </div>
-</div>
+	return (
+		<div
+			className="background"
+			style={{
+				backgroundImage: `url(${background})`,
+				backgroundRepeat: "no-repeat",
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+				height: "100vh",
+				width: "100vw",
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+		>
+			<div
+				className="main"
+				style={{
+					background: "white",
+					height: "90vh",
+					width: "90vw",
+					borderRadius: "20px",
+					padding: "2rem",
+				}}
+			>
+				<div className="leftcol">
+					<img src={dash1} alt="dash" className="dash1" />
+					<p className="myform">My Forms</p>
+					<img src={line2} className="line2" alt="misc"></img>
 
+					<Card coinsData={currentPosts}/>
+					<button className="createbutton">Create</button>
+				</div>
 
-        
+				<img className="line1" src={line1} alt="misc"></img>
 
-    )
-
+				<div className="rightcol">
+					<img src={dash2} alt="dash" className="dash2" />
+					<div className="profile">
+						<p className="myprofile">
+							<center>My Profile</center>
+						</p>
+						<br></br>
+						<div className="avatar">
+							<img src={avatar} alt="user profile"></img>
+							<button className="editprofilebutton">
+								<img src={editprofile} alt="edit profile"></img>
+							</button>
+						</div>
+					</div>
+					<div className="profilecontent">
+						<p>Username-{currentUser.displayName}</p>
+						<br />
+						<p>User Id- {currentUser.uid}</p>
+						<br />
+						<p>Email-{currentUser.email}</p>
+					</div>
+					<br />
+					<div className="lobutton">
+						<button className="logoutbutton" onClick={() => logOut()}>
+							Log Out
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 export default Myforms;
- 
