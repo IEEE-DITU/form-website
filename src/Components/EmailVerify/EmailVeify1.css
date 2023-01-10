@@ -1,0 +1,78 @@
+.emailVerification1{
+    background-image: url("../../images/authImg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.emailVerification1>.card {
+    background: #FFF7F2;
+    position: absolute;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 80vh;
+    width: 70vw;
+    margin: 10vh 15vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.msgImg{
+    align-self: center;
+    margin-top: 8vh;
+}
+.msgImg>img{
+    width: 12rem;
+}
+
+/* .hand1{
+    margin-top: -15vh;
+}
+
+.heading{
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 500;
+    margin-top: -8vh;
+}
+
+.hand2{
+    display: flex;
+    justify-content: right;
+    margin-top: -9vh;
+    height: 25vh;
+} */
+
+.heading{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.para{
+    text-align: center;
+    margin-top: 4vh;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+.buttons{
+    align-self: center;
+    margin-top: 6vh;
+    padding: 0.75rem;
+}
+
+.buttons>button{
+    padding: 0.75rem;
+    border-radius: 50px;
+    margin-right: 2rem;
+    background-color: #ff432a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
