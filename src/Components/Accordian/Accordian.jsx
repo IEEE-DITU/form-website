@@ -2,8 +2,6 @@ import "./Accordian.css";
 import React, { useState } from "react";
 
 const Accordian = ({ response, fdata }) => {
-	console.log(response, fdata);
-	
 	const[show,setShow]=useState(true);
 	return (
 		<>
