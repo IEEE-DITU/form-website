@@ -12,7 +12,9 @@ const IndividualResponse = ({ loading, rdata, fdata }) => {
 					Loading...
 				</b>
 			)}
-			{!loading && rdata.length < 1 && <h2>No responses recieved yet</h2>}
+			{!loading && rdata && rdata.length < 1 && (
+				<h3 style={{ marginTop: "2rem" }}>No responses recieved yet</h3>
+			)}
 			{rdata &&
 				rdata.map((response, id) => {
 					return <Accordian key={id} response={response} fdata={fdata} />;

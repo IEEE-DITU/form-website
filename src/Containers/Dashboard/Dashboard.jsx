@@ -6,7 +6,6 @@ import { auth } from "../../Firebase";
 import { Link } from "react-router-dom";
 import { db } from "../../Firebase";
 import { toast } from "react-hot-toast";
-import { Tabs } from "@mantine/core";
 import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import avatar from "../../images/avatar 1.png";
@@ -28,6 +27,7 @@ function Dashboard() {
 	const [profile, setProfile] = useState(false);
 	// eslint-disable-next-line
 	const [postsPerPage, setPostsPerPage] = useState(3);
+	const [myform, setMyform] = useState(true);
 	const indexOfLastCard = currentPage * postsPerPage;
 	const indexOfFirstCard = indexOfLastCard - postsPerPage;
 	const currentPosts = forms.slice(indexOfFirstCard, indexOfLastCard);
@@ -99,38 +99,41 @@ function Dashboard() {
 						</Link>
 					</div>
 
+					<div className="formSwitcher">
+						<div
+							className={`myFormsS ${myform ? "active" : ""}`}
+							onClick={() => setMyform(true)}
+						>
+							<p>Summary</p>
+						</div>
+						<div
+							className={`sharedWithMes  ${myform ? "" : "active"}`}
+							onClick={() => setMyform(false)}
+						>
+							<p>Individual</p>
+						</div>
+					</div>
+
 					<div
 						style={{
 							width: "100%",
 							overflow: "scroll",
 							height: "100%",
 							paddingTop: "0.75rem",
+							marginTop: "2px",
 						}}
 					>
-						<Tabs
-							color="red"
-							variant="outline"
-							radius="md"
-							defaultValue="myforms"
-						>
-							<Tabs.List grow position="center">
-								<Tabs.Tab value="myforms">MyForms</Tabs.Tab>
-								<Tabs.Tab value="shared">Shared with me</Tabs.Tab>
-							</Tabs.List>
+						{myform ? (
+							<MyForms currentPosts={currentPosts} loading={loading} />
+						) : (
+							<p>This feature is under development</p>
+						)}
 
-							<Tabs.Panel value="myforms" pt="xs">
-								<MyForms currentPosts={currentPosts} loading={loading} />
-							</Tabs.Panel>
-
-							<Tabs.Panel value="shared" pt="xs">
-								{loading && (
-									<div>
-										<b>Loading...</b>
-									</div>
-								)}
-								This feature is under development
-							</Tabs.Panel>
-						</Tabs>
+						{loading && (
+							<div>
+								<b>Loading...</b>
+							</div>
+						)}
 					</div>
 
 					<Pagination

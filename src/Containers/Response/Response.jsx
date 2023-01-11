@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { Tabs } from "@mantine/core";
 import { BsShareFill } from "react-icons/bs";
 import "./Response.css";
 import { FaBars } from "react-icons/fa";
@@ -7,12 +6,14 @@ import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase";
 import IndividualResponse from "../../Components/IndividualResponse/IndividualResponse";
+import SummaryResponse from "../../Components/SummaryResponse/SummaryResponse";
 
 const Response = () => {
 	const { id } = useParams();
 	const [rdata, setRdata] = useState("");
 	const [fdata, setFdata] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [summary, setSummary] = useState(true);
 	useEffect(() => {
 		const unsub = () => {
 			onSnapshot(doc(db, "responses", id), (doc) => {
@@ -49,21 +50,25 @@ const Response = () => {
 				</div>
 			</div>
 			<div className="responseContent">
-				<Tabs radius="md" color="red" defaultValue="individual">
-					<Tabs.List grow position="center">
-						<Tabs.Tab value="summary">Summary</Tabs.Tab>
-						<Tabs.Tab value="individual">Individual</Tabs.Tab>
-					</Tabs.List>
-
-					<Tabs.Panel value="summary" pt="xs">
-						summary section is on hold! :) <br /> that's all we know
-					</Tabs.Panel>
-
-					<Tabs.Panel value="individual" pt="xs">
-						<IndividualResponse rdata={rdata} loading={loading} fdata={fdata} />
-
-					</Tabs.Panel>
-				</Tabs>
+				<div className="responseSwitcher">
+					<div
+						className={`Summary ${summary ? "active" : ""}`}
+						onClick={() => setSummary(true)}
+					>
+						<p>Summary</p>
+					</div>
+					<div
+						className={`Individual  ${summary ? "" : "active"}`}
+						onClick={() => setSummary(false)}
+					>
+						<p>Individual</p>
+					</div>
+				</div>
+				{summary ? (
+					<SummaryResponse rdata={rdata} loading={loading} fdata={fdata} />
+				) : (
+					<IndividualResponse rdata={rdata} loading={loading} fdata={fdata} />
+				)}
 			</div>
 		</div>
 	);
