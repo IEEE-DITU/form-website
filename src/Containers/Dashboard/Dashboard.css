@@ -53,6 +53,44 @@
 	border: none;
 }
 
+.formSwitcher {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.25rem;
+}
+
+.formSwitcher .myFormsS,
+.formSwitcher .sharedWithMes {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 0.35rem 0;
+	cursor: pointer;
+	border-radius: 8px 8px 0px 0px;
+	border: 1px solid transparent;
+	border-bottom-color: rgb(198, 202, 206);
+
+	-webkit-tap-highlight-color: transparent;
+}
+
+.formSwitcher .myFormsS p,
+.formSwitcher .sharedWithMes p {
+	font-weight: 400;
+	font-size: 1rem;
+}
+
+.formSwitcher .active {
+	border-color: rgb(198, 202, 206);
+	border-bottom-color: rgba(255, 255, 255, 0.971);
+}
+
+.formSwitcher .active p {
+	font-weight: 500;
+}
+
 .DashboardRight {
 	position: relative;
 	width: 100%;
