@@ -49,20 +49,38 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 								)}
 								{question.questionType === "singleChoice" && (
 									<div className="singleChoice">
-										<Piechart
-											rdata={rdata}
-											options={question.options}
-											qid={question.questionId}
-										/>
+										<div>
+											<Piechart
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
+										<div>
+											<Bargraph
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
 									<div className="multipleleChoice">
-										<Bargraph
-											rdata={rdata}
-											options={question.options}
-											qid={question.questionId}
-										/>
+										<div>
+											<Piechart
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
+										<div>
+											<Bargraph
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
 									</div>
 								)}
 							</div>

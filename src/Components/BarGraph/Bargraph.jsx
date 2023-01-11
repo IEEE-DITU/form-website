@@ -1,35 +1,52 @@
+import {
+	Chart as ChartJS,
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend,
+} from "chart.js";
 import { useEffect, useState } from "react";
-import { Chart } from "react-google-charts";
-
+import { Radar } from "react-chartjs-2";
+ChartJS.register(
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend
+);
 const Bargraph = (e) => {
-	const [data, setData] = useState([]);
-	const a = [
-		["Year", "Sales", "Expenses", "Profit"],
-		["2014", 1000, 400, 200],
-		["2015", 1170, 460, 250],
-		["2016", 660, 1120, 300],
-		["2017", 1030, 540, 350],
-	];
+	const [responses, setResponses] = useState([]);
+
 	useEffect(() => {
-		const makeData = () => {
-			const a = [["option", "no. of responses"]];
-			for (let i in e.options) {
-				let count = 0;
-				for (let res in e.rdata) {
-					if (e.rdata[res][e.qid].includes(e.options[i])) {
-						count = count + 1;
-					}
+		setResponses([]);
+		let a = [];
+		for (let i in e.options) {
+			let count = 0;
+			for (let j in e.rdata) {
+				if (e.rdata[j][e.qid].includes(e.options[i])) {
+					count = count + 1;
 				}
-				a.push([e.options[i], count]);
 			}
-
-			setData(a);
-		};
-		makeData();
+			a.push(count);
+			setResponses(a);
+		}
 	}, [e]);
-	console.log(e.rdata);
-
-	return <Chart chartType="Table" width="100%" data={data} />;
+	const data = {
+		labels: e.options,
+		datasets: [
+			{
+				label: "No. of responses",
+				data: responses,
+				backgroundColor: "rgba(255, 99, 132, 0.2)",
+				borderColor: "rgba(255, 99, 132, 1)",
+				borderWidth: 1,
+			},
+		],
+	};
+	return <Radar data={data} />;
 };
 
 export default Bargraph;
