@@ -61,6 +61,7 @@ const Response = () => {
 
 					<Tabs.Panel value="individual" pt="xs">
 						<IndividualResponse rdata={rdata} loading={loading} fdata={fdata} />
+
 					</Tabs.Panel>
 				</Tabs>
 			</div>
