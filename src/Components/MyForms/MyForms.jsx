@@ -3,11 +3,6 @@ import DashboardCard from "../DashboardCard/DashboardCard";
 const MyForms = ({ currentPosts, loading }) => {
 	return (
 		<>
-			{loading && (
-				<div>
-					<b>Loading...</b>
-				</div>
-			)}
 			{!loading && currentPosts.length === 0 && (
 				<div>
 					<p>Seems like you havn't created any form yet ;)</p>

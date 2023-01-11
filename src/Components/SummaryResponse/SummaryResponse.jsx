@@ -8,19 +8,19 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 			{loading && (
 				<b
 					style={{
-						marginTop: "5rem",
+						margin: "auto",
 					}}
 				>
 					Loading...
 				</b>
 			)}
 			{!loading && rdata && rdata.length < 1 && (
-				<h3 style={{ marginTop: "2rem" }}>No responses recieved yet</h3>
+				<h3 style={{ margin: "auto" }}>No responses recieved yet</h3>
 			)}
 			{!loading &&
 				fdata &&
 				rdata &&
-				fdata.length > 0 &&
+				rdata.length > 0 &&
 				fdata.map((question, id) => {
 					return (
 						<div className="summaryQuestionContainer" key={id}>
@@ -49,20 +49,38 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 								)}
 								{question.questionType === "singleChoice" && (
 									<div className="singleChoice">
-										<Piechart
-											rdata={rdata}
-											options={question.options}
-											qid={question.questionId}
-										/>
+										<div>
+											<Piechart
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
+										<div>
+											<Bargraph
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
 									<div className="multipleleChoice">
-										<Bargraph
-											rdata={rdata}
-											options={question.options}
-											qid={question.questionId}
-										/>
+										<div>
+											<Piechart
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
+										<div>
+											<Bargraph
+												rdata={rdata}
+												options={question.options}
+												qid={question.questionId}
+											/>
+										</div>
 									</div>
 								)}
 							</div>

@@ -56,19 +56,34 @@
 	padding-left: 2rem;
 	margin-top: 1rem;
 	gap: 0.5rem;
+	max-height: 23rem;
+	overflow: scroll;
 }
 
-.summaryResponses .singleChoice {
-	padding-left: 1rem;
-	width: 100%;
-	margin-top: 1rem;
-}
-
+.summaryResponses .singleChoice,
 .summaryResponses .multipleleChoice {
 	padding-left: 1rem;
 	width: 100%;
 	margin-top: 1rem;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
+	flex-wrap: wrap;
+}
+
+.summaryResponses .singleChoice > div,
+.summaryResponses .multipleleChoice > div {
+	width: 50%;
+	max-width: 400px;
+}
+
+@media only screen and (max-width: 430px) {
+	.summaryResponses .singleChoice,
+	.summaryResponses .multipleleChoice {
+		flex-direction: column;
+	}
+	.summaryResponses .singleChoice > div,
+	.summaryResponses .multipleleChoice > div {
+		width: 100%;
+	}
 }

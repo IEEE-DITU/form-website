@@ -130,7 +130,7 @@ function Dashboard() {
 						)}
 
 						{loading && (
-							<div>
+							<div style={{ marginTop: "1rem" }}>
 								<b>Loading...</b>
 							</div>
 						)}
