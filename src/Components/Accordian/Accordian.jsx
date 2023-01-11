@@ -1,7 +1,6 @@
 import "./Accordian.css";
 
 const Accordian = ({ response, fdata }) => {
-	console.log(response, fdata);
 	return (
 		<div className="Accordian">
 			<div className="accordianData">

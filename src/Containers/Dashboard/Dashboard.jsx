@@ -14,10 +14,10 @@ import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
 import dashboardBgImage2 from "../../images/dash2.png";
 import editprofile from "../../images/profile edit button.png";
-import DashboardCard from "../../Components/DashboardCard/DashboardCard";
 import Pagination from "../../Components/Pagination/Pagination";
 
 import "./Dashboard.css";
+import MyForms from "../../Components/MyForms/MyForms";
 
 function Dashboard() {
 	const { currentUser } = useAuth();
@@ -119,20 +119,7 @@ function Dashboard() {
 							</Tabs.List>
 
 							<Tabs.Panel value="myforms" pt="xs">
-								{loading && (
-									<div>
-										<b>Loading...</b>
-									</div>
-								)}
-								{!loading && currentPosts.length < 1 && (
-									<div>
-										<p>Seems like you havn't created any form yet ;)</p>
-									</div>
-								)}
-								{!loading &&
-									currentPosts.map((e, id) => {
-										return <DashboardCard key={id} {...e} />;
-									})}
+								<MyForms currentPosts={currentPosts} loading={loading} />
 							</Tabs.Panel>
 
 							<Tabs.Panel value="shared" pt="xs">

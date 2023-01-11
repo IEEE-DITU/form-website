@@ -6,7 +6,7 @@ import { FaBars } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase";
-import Accordian from "../../Components/Accordian/Accordian";
+import IndividualResponse from "../../Components/IndividualResponse/IndividualResponse";
 
 const Response = () => {
 	const { id } = useParams();
@@ -60,24 +60,7 @@ const Response = () => {
 					</Tabs.Panel>
 
 					<Tabs.Panel value="individual" pt="xs">
-						this is section in under development
-						<div className="individualContainer">
-							{loading && (
-								<b
-									style={{
-										marginTop: "5rem",
-									}}
-								>
-									Loading...
-								</b>
-							)}
-							{rdata &&
-								rdata.map((response, id) => {
-									return (
-										<Accordian key={id} response={response} fdata={fdata} />
-									);
-								})}
-						</div>
+						<IndividualResponse rdata={rdata} loading={loading} fdata={fdata} />
 					</Tabs.Panel>
 				</Tabs>
 			</div>

@@ -22,6 +22,7 @@
 	font-size: 1.1rem;
 	font-weight: 500;
 	transition: all 0.2s;
+	cursor: pointer;
 }
 
 .Login > .registerbtn:hover {
@@ -193,6 +194,7 @@
 .Login > .otheroption > .otheroptionimg > img {
 	width: 2.5rem;
 	height: 2.5rem;
+	cursor: pointer;
 }
 .Login > .errormsg {
 	color: #ff432a;
