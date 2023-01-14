@@ -23,6 +23,7 @@ const Newform = () => {
 		questions: [],
 		acceptingResponses: true,
 		id: v4(),
+		collaborators: [],
 	});
 	const [questions, setQuestions] = useState([
 		{

@@ -95,6 +95,40 @@
 	background-color: #ff361c;
 }
 
+.collaboratorInput {
+	outline: none;
+	border: none;
+	background: none;
+	border-bottom: 2px solid #ff432a;
+	padding: 0.15rem;
+	max-width: 12rem;
+	width: 100%;
+	font-size: 1rem;
+	color: black;
+}
+
+.collaboratorButton {
+	width: 4.8rem;
+	height: 2rem;
+	border-radius: 15px;
+	border: none;
+	font-size: 1rem;
+	font-weight: 400;
+	color: white;
+	background: #ff432a;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.collaboratorInput::placeholder {
+	font-size: 0.8rem;
+}
+
+.collaboratorButton:disabled {
+	background: grey;
+}
+
 @media only screen and (max-width: 940px) {
 	.card {
 		flex-direction: column;
