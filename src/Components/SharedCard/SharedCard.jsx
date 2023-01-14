@@ -1,15 +1,10 @@
 import { Link } from "react-router-dom";
-import QRCode from "react-qr-code";
 import {
 	doc,
 	updateDoc,
 	deleteDoc,
 	getDoc,
 	onSnapshot,
-	query,
-	collection,
-	where,
-	getDocs,
 } from "firebase/firestore";
 import { Modal } from "@mantine/core";
 import { db } from "../../Firebase";
@@ -17,19 +12,11 @@ import { useAuth } from "../../context/AuthContext";
 import React, { useEffect, useState } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import toast from "react-hot-toast";
-import LoaderSmall from "../LoaderSmall/LoaderSmall";
-import "./DashboardCard.css";
 
-function DashboardCard(e) {
+const SharedCard = (e) => {
 	const { currentUser } = useAuth();
 	const [modalOpened, setModalOpened] = useState(false);
-	const [qr, setQr] = useState(false);
-
-
 	const [deletemodalOpened, setdeleteModalOpened] = useState(false);
-	const [collaboratorModal, setCollaboratorModal] = useState(false);
-	const [collaboratorLoading, setcollaboratorLoading] = useState(false);
-	const [collaboratorMail, setcollaboratorMail] = useState("");
 	const [len, setLen] = useState(0);
 	const promise = () => {
 		return new Promise((resolve, reject) => {
@@ -54,7 +41,6 @@ function DashboardCard(e) {
 			},
 		});
 	};
-	
 
 	const deleteForm = () => {
 		const promise = () => {
@@ -93,72 +79,6 @@ function DashboardCard(e) {
 				return "Deleted!";
 			},
 			error: (err) => {
-				return `${err}`;
-			},
-		});
-	};
-
-	const addColab = () => {
-		const promise = () => {
-			return new Promise((resolve, reject) => {
-				setcollaboratorLoading(true);
-				if (!collaboratorMail) {
-					reject("enter collaborator mail");
-					return;
-				}
-				if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(collaboratorMail)) {
-					reject("Enter a valid mail");
-					return;
-				}
-				if (collaboratorMail === currentUser.email) {
-					reject("Cannot add self as collaborator");
-					return;
-				}
-				const q = query(
-					collection(db, "users"),
-					where("email", "==", collaboratorMail)
-				);
-				getDocs(q).then((querySnapshot) => {
-					if (querySnapshot.empty) {
-						reject("User does not exist\nMake sure user is signed up");
-						return;
-					} else {
-						const ref = doc(db, "forms", e.id);
-						getDoc(ref)
-							.then((snapshot) => {
-								const abc = snapshot.data();
-								const oldData = abc.collaborators;
-								if (oldData.includes(collaboratorMail)) {
-									reject("user already added");
-									return;
-								}
-								updateDoc(ref, {
-									collaborators: [...oldData, collaboratorMail],
-								}).then(() => {
-									setcollaboratorMail("");
-									resolve();
-								});
-							})
-
-							.catch((err) => {
-								reject(err);
-							});
-					}
-				});
-			});
-		};
-		toast.promise(promise(), {
-			loading: "adding...",
-			success: () => {
-				setTimeout(() => {
-					setcollaboratorLoading(false);
-				}, 200);
-				return "added!";
-			},
-			error: (err) => {
-				setTimeout(() => {
-					setcollaboratorLoading(false);
-				}, 200);
 				return `${err}`;
 			},
 		});
@@ -216,28 +136,6 @@ function DashboardCard(e) {
 				</div>
 			</Modal>
 			<Modal
-				opened={qr}
-				onClose={() => setQr(false)}
-				title={e.title}
-			>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: "1rem",
-					}}
-				>
-					<QRCode className="qr"
-						
-						onChange={(e) => e.preventDefault()}
-						value={`https://form-website-seven.vercel.app/form/${e.id}`}
-					/>
-					<a href={QRCode} className="modalButton" download = "qrcode.png">Download as png</a>
-				</div>
-			</Modal>
-			
-
-			<Modal
 				opened={deletemodalOpened}
 				onClose={() => setdeleteModalOpened(false)}
 				title="Confirm Deletion"
@@ -262,61 +160,6 @@ function DashboardCard(e) {
 						>
 							Cancel
 						</div>
-					</div>
-				</div>
-			</Modal>
-			<Modal
-				opened={collaboratorModal}
-				onClose={() => setCollaboratorModal(false)}
-				title="Add collaborators"
-			>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: "1rem",
-					}}
-				>
-					<p style={{ fontSize: "1rem", fontWeight: "300" }}>
-						Collaborators can view, export responses and delete or modify the
-						contents.
-					</p>
-					<div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-						<input
-							type="text"
-							placeholder="Enter collaborator's email"
-							className="collaboratorInput"
-							value={collaboratorMail}
-							onChange={(e) => setcollaboratorMail(e.target.value)}
-						/>
-						<button
-							className="collaboratorButton"
-							disabled={collaboratorLoading}
-							onClick={() => addColab()}
-						>
-							{collaboratorLoading ? <LoaderSmall /> : <p>Add</p>}
-						</button>
-					</div>
-					<div
-						style={{
-							width: "100%",
-							height: "10rem",
-							overflow: "scroll",
-							display: "flex",
-							flexDirection: "column",
-							gap: "0.15rem",
-							marginTop: "1rem",
-						}}
-					>
-						{e.collaborators &&
-							e.collaborators.map((collaborator, id) => {
-								return <p key={id}>{collaborator}</p>;
-							})}
-						{(!e.collaborators || e.collaborators.length < 1) && (
-							<p style={{ color: "grey", margin: "auto", fontSize: "0.8rem" }}>
-								No collaborators added
-							</p>
-						)}
 					</div>
 				</div>
 			</Modal>
@@ -364,12 +207,6 @@ function DashboardCard(e) {
 							>
 								Get Link{" "}
 							</span>
-							<span
-								onClick={() => setQr(true)}
-								style={{ cursor: "pointer" }}
-							>
-							| generate QR{" "}
-							</span>
 							|
 							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>
 								<span style={{ cursor: "pointer" }} className="cardLinks">
@@ -377,9 +214,6 @@ function DashboardCard(e) {
 									Edit
 								</span>
 							</Link>
-						</p>
-						<p className="cardLinks" onClick={() => setCollaboratorModal(true)}>
-							Collaborators
 						</p>
 					</div>
 					<div
@@ -392,5 +226,5 @@ function DashboardCard(e) {
 			</div>
 		</>
 	);
-}
-export default DashboardCard;
+};
+export default SharedCard;
