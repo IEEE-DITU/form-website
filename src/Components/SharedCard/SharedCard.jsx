@@ -12,6 +12,8 @@ import { useAuth } from "../../context/AuthContext";
 import React, { useEffect, useState } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import toast from "react-hot-toast";
+import QRCode from "react-qr-code";
+import html2canvas from "html2canvas";
 
 const SharedCard = (e) => {
 	const { currentUser } = useAuth();
@@ -83,6 +85,21 @@ const SharedCard = (e) => {
 			},
 		});
 	};
+	function downloadURI(uri, name) {
+		var link = document.createElement("a");
+		link.download = name;
+		link.href = uri;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	}
+	const getImage = () => {
+		const domElement = document.getElementById(`${e.title}-${e.createdAt}`);
+		html2canvas(domElement).then((canvas) => {
+			const img = canvas.toDataURL("image/jpeg");
+			downloadURI(img, `${e.title}-${e.createdAt}`);
+		});
+	};
 	useEffect(() => {
 		const unsub = () => {
 			onSnapshot(doc(db, "responses", e.id), (doc) => {
@@ -106,8 +123,24 @@ const SharedCard = (e) => {
 						display: "flex",
 						flexDirection: "column",
 						gap: "1rem",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "100%",
 					}}
 				>
+					<div
+						id={`${e.title}-${e.createdAt}`}
+						style={{
+							width: "160px",
+							background: "none",
+						}}
+					>
+						<QRCode
+							className="qr"
+							value={`https://form-website-seven.vercel.app/form/${e.id}`}
+							style={{ minWidth: "10rem" }}
+						/>
+					</div>
 					<input
 						style={{
 							whiteSpace: "nowrap",
@@ -118,20 +151,31 @@ const SharedCard = (e) => {
 							padding: "0.25rem",
 							outline: "none",
 							background: "rgb(243, 243, 243)",
+							width: "100%",
 						}}
 						onChange={(e) => e.preventDefault()}
 						value={`https://form-website-seven.vercel.app/form/${e.id}`}
 					/>
 					<div
-						className="modalButton"
-						onClick={() => {
-							navigator.clipboard
-								.writeText(`https://form-website-seven.vercel.app/form/${e.id}`)
-								.then(toast.success("link copied to clipboard"))
-								.catch((err) => toast.error(err));
-						}}
+						style={{ display: "flex", gap: "0.5rem", width: "100%" }}
+						className="c253Md"
 					>
-						click to copy
+						<div className="modalButton" onClick={() => getImage()}>
+							Download QR
+						</div>
+						<div
+							className="modalButton"
+							onClick={() => {
+								navigator.clipboard
+									.writeText(
+										`https://form-website-seven.vercel.app/form/${e.id}`
+									)
+									.then(toast.success("link copied to clipboard"))
+									.catch((err) => toast.error(err));
+							}}
+						>
+							Click to copy
+						</div>
 					</div>
 				</div>
 			</Modal>
@@ -201,26 +245,26 @@ const SharedCard = (e) => {
 					</div>
 					<div>
 						<p className="cardLinks">
-							<span
-								onClick={() => setModalOpened(true)}
-								style={{ cursor: "pointer" }}
-							>
-								Get Link{" "}
-							</span>
-							|
 							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>
 								<span style={{ cursor: "pointer" }} className="cardLinks">
-									{" "}
-									Edit
+									Edit{" "}
 								</span>
 							</Link>
+							|
+							<span className="cardLinks" onClick={() => setModalOpened(true)}>
+								{" "}
+								Get Link
+							</span>
 						</p>
 					</div>
-					<div
-						onClick={() => setdeleteModalOpened(true)}
-						style={{ cursor: "pointer" }}
-					>
-						<p className="closed">Delete</p>
+					<div>
+						<span
+							className="closed"
+							onClick={() => setdeleteModalOpened(true)}
+							style={{ cursor: "pointer" }}
+						>
+							Delete
+						</span>
 					</div>
 				</div>
 			</div>

@@ -133,13 +133,13 @@ function Dashboard() {
 							className={`myFormsS ${myform ? "active" : ""}`}
 							onClick={() => setMyform(true)}
 						>
-							<p>Summary</p>
+							<p>My Forms</p>
 						</div>
 						<div
 							className={`sharedWithMes  ${myform ? "" : "active"}`}
 							onClick={() => setMyform(false)}
 						>
-							<p>Individual</p>
+							<p>Shared With Me</p>
 						</div>
 					</div>
 
