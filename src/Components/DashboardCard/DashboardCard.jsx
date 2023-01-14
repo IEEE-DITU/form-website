@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import QRCode from "react-qr-code";
 import {
 	doc,
 	updateDoc,
@@ -17,6 +18,9 @@ import "./DashboardCard.css";
 function DashboardCard(e) {
 	const { currentUser } = useAuth();
 	const [modalOpened, setModalOpened] = useState(false);
+	const [qr, setQr] = useState(false);
+
+
 	const [deletemodalOpened, setdeleteModalOpened] = useState(false);
 	const [len, setLen] = useState(0);
 	const promise = () => {
@@ -42,6 +46,7 @@ function DashboardCard(e) {
 			},
 		});
 	};
+	
 
 	const deleteForm = () => {
 		const promise = () => {
@@ -137,6 +142,28 @@ function DashboardCard(e) {
 				</div>
 			</Modal>
 			<Modal
+				opened={qr}
+				onClose={() => setQr(false)}
+				title={e.title}
+			>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						gap: "1rem",
+					}}
+				>
+					<QRCode className="qr"
+						
+						onChange={(e) => e.preventDefault()}
+						value={`https://form-website-seven.vercel.app/form/${e.id}`}
+					/>
+					<a href={QRCode} className="modalButton" download = "qrcode.png">Download as png</a>
+				</div>
+			</Modal>
+			
+
+			<Modal
 				opened={deletemodalOpened}
 				onClose={() => setdeleteModalOpened(false)}
 				title="Confirm Deletion"
@@ -207,6 +234,12 @@ function DashboardCard(e) {
 								style={{ cursor: "pointer" }}
 							>
 								Get Link{" "}
+							</span>
+							<span
+								onClick={() => setQr(true)}
+								style={{ cursor: "pointer" }}
+							>
+							| generate QR{" "}
 							</span>
 							|
 							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>

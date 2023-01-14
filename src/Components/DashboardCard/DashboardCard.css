@@ -115,3 +115,8 @@
 		padding-left: 1.25rem;
 	}
 }
+.qr{
+	width: 30%;
+	height: 30%;
+	align-self: center;
+}
