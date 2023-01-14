@@ -5,6 +5,7 @@ import NotFound from "../404/NotFound";
 import Response from "../../Containers/Response/Response";
 import EditForm from "../../Containers/EditForm/EditForm";
 import "./Home.css";
+import Verify from "../../Components/Verify/Verify";
 
 const Home = () => {
 	return (
@@ -14,6 +15,7 @@ const Home = () => {
 					<Route path="/" element={<Navigate to="/user/dashboard" />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/newform" element={<Newform />} />
+					<Route path="/userverify" element={<Verify/>} />
 					<Route path="/form/checkresponse/:id" element={<Response />} />
 					<Route path="/form/edit/:id" element={<EditForm />} />
 					<Route path="*" element={<NotFound />} />
