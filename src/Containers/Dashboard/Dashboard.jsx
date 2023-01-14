@@ -59,6 +59,7 @@ function Dashboard() {
 				});
 				setForms([...forms]);
 				setLoading(false);
+                                fetchSharedForms()
 			});
 		}
 		function fetchSharedForms() {
@@ -79,10 +80,7 @@ function Dashboard() {
 				setSharedLoading(false);
 			});
 		}
-		return () => {
-			fetchSharedForms();
-			fetchUserForms();
-		};
+		return fetchUserForms();
 		// eslint-disable-next-line
 	}, []);
 
