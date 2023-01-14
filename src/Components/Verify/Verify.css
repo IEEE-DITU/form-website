@@ -1,0 +1,38 @@
+.msgImg{
+    position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.buttons{
+    position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    margin-top: 6vh;
+    padding: 0.75rem;
+}
+.heading{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.para{
+    text-align: center;
+    margin-top: 4vh;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+.buttons>button{
+    padding: 0.75rem;
+    border-radius: 50px;
+    margin-right: 2rem;
+    background-color: #ff432a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}

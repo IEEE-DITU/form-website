@@ -15,6 +15,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import NotFound from "./pages/404/NotFound";
 import "./App.css";
 import Submit from "./pages/Submit/Submit";
+import Verify from "./Components/Verify/Verify";
 
 function MainApp() {
 	const { currentUser } = useAuth();
@@ -78,7 +79,7 @@ function MainApp() {
 								currentUser.emailVerified ? (
 									<Navigate to="/user" />
 								) : (
-									<EmailVerify />
+									<EmailVerify/>
 								)
 							) : (
 								<Navigate to="/auth" />
