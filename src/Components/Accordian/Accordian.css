@@ -9,8 +9,9 @@
 
 .accordian_response{
 	background-color: white;
-	width:80vw;
-	height:8vw;
+	width:95%;
+	height:100%;
+	overflow:scroll;
 	padding-left: 0.5rem;
 	justify-content: left;
 	border-radius: 1rem;
@@ -18,12 +19,13 @@
 	padding-right: 2rem;
 	border-width: 2rem;
 	margin-left: 1rem;
-	margin-right: 1rem;
+	margin-right: 3rem;
 }
 .mainclass{
 	background-color: #7F92D4;
 	border-radius: 0.5rem;
 	margin-bottom: 0.5rem;
+	
 	
 }
 .mainclass > .accordian_title > .responses{
