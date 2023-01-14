@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import QRCode from "react-qr-code";
 import {
 	doc,
 	updateDoc,
@@ -18,14 +17,13 @@ import React, { useEffect, useState } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import toast from "react-hot-toast";
 import LoaderSmall from "../LoaderSmall/LoaderSmall";
+import QRCode from "react-qr-code";
+import html2canvas from "html2canvas";
 import "./DashboardCard.css";
 
 function DashboardCard(e) {
 	const { currentUser } = useAuth();
 	const [modalOpened, setModalOpened] = useState(false);
-	const [qr, setQr] = useState(false);
-
-
 	const [deletemodalOpened, setdeleteModalOpened] = useState(false);
 	const [collaboratorModal, setCollaboratorModal] = useState(false);
 	const [collaboratorLoading, setcollaboratorLoading] = useState(false);
@@ -54,7 +52,6 @@ function DashboardCard(e) {
 			},
 		});
 	};
-	
 
 	const deleteForm = () => {
 		const promise = () => {
@@ -163,6 +160,22 @@ function DashboardCard(e) {
 			},
 		});
 	};
+	function downloadURI(uri, name) {
+		var link = document.createElement("a");
+		link.download = name;
+		link.href = uri;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	}
+	const getImage = () => {
+		const domElement = document.getElementById(`${e.title}-${e.createdAt}`);
+		html2canvas(domElement).then((canvas) => {
+			const img = canvas.toDataURL("image/jpeg");
+			downloadURI(img, `${e.title}-${e.createdAt}`);
+		});
+	};
+
 	useEffect(() => {
 		const unsub = () => {
 			onSnapshot(doc(db, "responses", e.id), (doc) => {
@@ -186,8 +199,24 @@ function DashboardCard(e) {
 						display: "flex",
 						flexDirection: "column",
 						gap: "1rem",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "100%",
 					}}
 				>
+					<div
+						id={`${e.title}-${e.createdAt}`}
+						style={{
+							width: "160px",
+							background: "none",
+						}}
+					>
+						<QRCode
+							className="qr"
+							value={`https://form-website-seven.vercel.app/form/${e.id}`}
+							style={{ minWidth: "10rem" }}
+						/>
+					</div>
 					<input
 						style={{
 							whiteSpace: "nowrap",
@@ -198,45 +227,34 @@ function DashboardCard(e) {
 							padding: "0.25rem",
 							outline: "none",
 							background: "rgb(243, 243, 243)",
+							width: "100%",
 						}}
 						onChange={(e) => e.preventDefault()}
 						value={`https://form-website-seven.vercel.app/form/${e.id}`}
 					/>
 					<div
-						className="modalButton"
-						onClick={() => {
-							navigator.clipboard
-								.writeText(`https://form-website-seven.vercel.app/form/${e.id}`)
-								.then(toast.success("link copied to clipboard"))
-								.catch((err) => toast.error(err));
-						}}
+						style={{ display: "flex", gap: "0.5rem", width: "100%" }}
+						className="c253Md"
 					>
-						click to copy
+						<div className="modalButton" onClick={() => getImage()}>
+							Download QR
+						</div>
+						<div
+							className="modalButton"
+							onClick={() => {
+								navigator.clipboard
+									.writeText(
+										`https://form-website-seven.vercel.app/form/${e.id}`
+									)
+									.then(toast.success("link copied to clipboard"))
+									.catch((err) => toast.error(err));
+							}}
+						>
+							Click to copy
+						</div>
 					</div>
 				</div>
 			</Modal>
-			<Modal
-				opened={qr}
-				onClose={() => setQr(false)}
-				title={e.title}
-			>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: "1rem",
-					}}
-				>
-					<QRCode className="qr"
-						
-						onChange={(e) => e.preventDefault()}
-						value={`https://form-website-seven.vercel.app/form/${e.id}`}
-					/>
-					<a href={QRCode} className="modalButton" download = "qrcode.png">Download as png</a>
-				</div>
-			</Modal>
-			
-
 			<Modal
 				opened={deletemodalOpened}
 				onClose={() => setdeleteModalOpened(false)}
@@ -357,36 +375,32 @@ function DashboardCard(e) {
 						</Link>
 					</div>
 					<div>
-						<p className="cardLinks">
-							<span
-								onClick={() => setModalOpened(true)}
-								style={{ cursor: "pointer" }}
-							>
-								Get Link{" "}
-							</span>
-							<span
-								onClick={() => setQr(true)}
-								style={{ cursor: "pointer" }}
-							>
-							| generate QR{" "}
-							</span>
-							|
-							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>
-								<span style={{ cursor: "pointer" }} className="cardLinks">
-									{" "}
-									Edit
-								</span>
-							</Link>
-						</p>
 						<p className="cardLinks" onClick={() => setCollaboratorModal(true)}>
 							Collaborators
 						</p>
 					</div>
-					<div
-						onClick={() => setdeleteModalOpened(true)}
-						style={{ cursor: "pointer" }}
-					>
-						<p className="closed">Delete</p>
+					<div>
+						<p className="cardLinks">
+							<Link className="viewresponse" to={`/user/form/edit/${e.id}`}>
+								<span style={{ cursor: "pointer" }} className="cardLinks">
+									Edit{" "}
+								</span>
+							</Link>
+							|
+							<span className="cardLinks" onClick={() => setModalOpened(true)}>
+								{" "}
+								Get Link
+							</span>
+						</p>
+					</div>
+					<div>
+						<span
+							className="closed"
+							onClick={() => setdeleteModalOpened(true)}
+							style={{ cursor: "pointer" }}
+						>
+							Delete
+						</span>
 					</div>
 				</div>
 			</div>

@@ -149,8 +149,14 @@
 		padding-left: 1.25rem;
 	}
 }
-.qr{
+.qr {
 	width: 30%;
 	height: 30%;
 	align-self: center;
+}
+
+@media only screen and (max-width: 361px) {
+	.c253Md {
+		flex-wrap: wrap;
+	}
 }
