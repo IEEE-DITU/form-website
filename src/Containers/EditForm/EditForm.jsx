@@ -15,9 +15,7 @@ import toast from "react-hot-toast";
 const EditForm = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [formData, setFormData] = useState({
-		description:""
-	});
+	const [formData, setFormData] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [questions, setQuestions] = useState([]);
 
