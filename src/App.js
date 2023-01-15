@@ -9,12 +9,11 @@ import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home/Home";
 import PasswordReset from "./Components/PasswordReset/PasswordReset";
-import EmailVerify from "./Components/EmailVerify/EmailVeify";
 import Loading from "./Components/Loading/Loading";
 import Authentication from "./pages/Authentication/Authentication";
 import NotFound from "./pages/404/NotFound";
-import "./App.css";
 import Submit from "./pages/Submit/Submit";
+import "./App.css";
 
 function MainApp() {
 	const { currentUser } = useAuth();
@@ -41,15 +40,7 @@ function MainApp() {
 						exact
 						path="/"
 						element={
-							currentUser ? (
-								currentUser.emailVerified ? (
-									<Navigate to="/user" />
-								) : (
-									<Navigate to="/verify" />
-								)
-							) : (
-								<Navigate to="/auth" />
-							)
+							currentUser ? <Navigate to="/user" /> : <Navigate to="/auth" />
 						}
 					/>
 					<Route
@@ -58,33 +49,9 @@ function MainApp() {
 					/>
 					<Route
 						path="/user/*"
-						element={
-							currentUser ? (
-								currentUser.emailVerified ? (
-									<Home />
-								) : (
-									<Navigate to="/verify" />
-								)
-							) : (
-								<Navigate to="/auth" />
-							)
-						}
+						element={currentUser ? <Home /> : <Navigate to="/auth" />}
 					/>
 					<Route path="/resetpass" element={<PasswordReset />} />
-					<Route
-						path="/verify"
-						element={
-							currentUser ? (
-								currentUser.emailVerified ? (
-									<Navigate to="/user" />
-								) : (
-									<EmailVerify />
-								)
-							) : (
-								<Navigate to="/auth" />
-							)
-						}
-					/>
 					<Route path="/form/:id" element={<Submit />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>

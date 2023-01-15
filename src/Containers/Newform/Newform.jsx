@@ -24,6 +24,7 @@ const Newform = () => {
 		acceptingResponses: true,
 		id: v4(),
 		description: "",
+		collaborators: [],
 	});
 	console.log(formData.description)
 	

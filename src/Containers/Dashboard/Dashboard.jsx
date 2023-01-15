@@ -14,16 +14,20 @@ import dashboardBgImage1 from "../../images/dash1.png";
 import dashboardBgImage2 from "../../images/dash2.png";
 import editprofile from "../../images/profile edit button.png";
 import Pagination from "../../Components/Pagination/Pagination";
-
-import "./Dashboard.css";
 import MyForms from "../../Components/MyForms/MyForms";
+import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
+import "./Dashboard.css";
 
 function Dashboard() {
 	const { currentUser } = useAuth();
 
 	const [forms, setForms] = useState([]);
+	const [sharedForms, setSharedForms] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
+	// eslint-disable-next-line
+	const [sharedCurrentPage, setSharedCurrentPage] = useState(1);
 	const [loading, setLoading] = useState(true);
+	const [sharedLoading, setSharedLoading] = useState(true);
 	const [profile, setProfile] = useState(false);
 	// eslint-disable-next-line
 	const [postsPerPage, setPostsPerPage] = useState(3);
@@ -31,6 +35,12 @@ function Dashboard() {
 	const indexOfLastCard = currentPage * postsPerPage;
 	const indexOfFirstCard = indexOfLastCard - postsPerPage;
 	const currentPosts = forms.slice(indexOfFirstCard, indexOfLastCard);
+	const indexOfLastCardShared = sharedCurrentPage * postsPerPage;
+	const indexOfFirstCardShared = indexOfLastCardShared - postsPerPage;
+	const currentPostsShared = sharedForms.slice(
+		indexOfFirstCardShared,
+		indexOfLastCardShared
+	);
 
 	useEffect(() => {
 		function fetchUserForms() {
@@ -49,6 +59,25 @@ function Dashboard() {
 				});
 				setForms([...forms]);
 				setLoading(false);
+                                fetchSharedForms()
+			});
+		}
+		function fetchSharedForms() {
+			const q = query(
+				collection(db, "forms"),
+				where("collaborators", "array-contains", currentUser.email)
+			);
+			onSnapshot(q, (querySnapshot) => {
+				const forms = [];
+				querySnapshot.forEach((doc) => {
+					forms.push(doc.data());
+				});
+
+				forms.sort(function (a, b) {
+					return new Date(b.createdAt) - new Date(a.createdAt);
+				});
+				setSharedForms([...forms]);
+				setSharedLoading(false);
 			});
 		}
 		return fetchUserForms();
@@ -104,13 +133,13 @@ function Dashboard() {
 							className={`myFormsS ${myform ? "active" : ""}`}
 							onClick={() => setMyform(true)}
 						>
-							<p>Summary</p>
+							<p>My Forms</p>
 						</div>
 						<div
 							className={`sharedWithMes  ${myform ? "" : "active"}`}
 							onClick={() => setMyform(false)}
 						>
-							<p>Individual</p>
+							<p>Shared With Me</p>
 						</div>
 					</div>
 
@@ -126,22 +155,39 @@ function Dashboard() {
 						{myform ? (
 							<MyForms currentPosts={currentPosts} loading={loading} />
 						) : (
-							<p>This feature is under development</p>
+							<SharedWithMe
+								currentPosts={currentPostsShared}
+								loading={sharedLoading}
+							/>
 						)}
 
-						{loading && (
+						{myform && loading && (
+							<div style={{ marginTop: "1rem" }}>
+								<b>Loading...</b>
+							</div>
+						)}
+						{!myform && sharedLoading && (
 							<div style={{ marginTop: "1rem" }}>
 								<b>Loading...</b>
 							</div>
 						)}
 					</div>
 
-					<Pagination
-						totalPosts={forms.length}
-						postsPerPage={postsPerPage}
-						setCurrentPage={setCurrentPage}
-						currentPage={currentPage}
-					/>
+					{myform ? (
+						<Pagination
+							totalPosts={forms.length}
+							postsPerPage={postsPerPage}
+							setCurrentPage={setCurrentPage}
+							currentPage={currentPage}
+						/>
+					) : (
+						<Pagination
+							totalPosts={sharedForms.length}
+							postsPerPage={postsPerPage}
+							setCurrentPage={setSharedCurrentPage}
+							currentPage={sharedCurrentPage}
+						/>
+					)}
 				</div>
 				<img className="line1" src={line1} alt="misc"></img>
 				<div className={`DashboardRight ${profile ? "" : "dNone"}`}>
