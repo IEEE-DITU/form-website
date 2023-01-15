@@ -12,6 +12,9 @@ import toast from "react-hot-toast";
 const Submit = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const [formData, setFormData] = useState({
+		description: "",
+	});
 
 	const [data, setData] = useState("");
 	const [loading, setLoading] = useState(true);
@@ -152,6 +155,12 @@ const Submit = () => {
 							<div className="submitFormTitle">{data.title}</div>
 							<button onClick={() => SubmitResponse()}>Submit</button>
 						</div>
+				<p 
+				type="text"
+				className="inputfield"
+				placeholder="Enter the description for the form..."
+				value={formData.description}
+				/>
 						<div className="SubmitFormQuestions">
 							{data.questions &&
 								data.questions.map((question, id) => {

@@ -23,7 +23,10 @@ const Newform = () => {
 		questions: [],
 		acceptingResponses: true,
 		id: v4(),
+		description: "",
 	});
+	console.log(formData.description)
+	
 	const [questions, setQuestions] = useState([
 		{
 			questionTitle: "Enter question..?",
@@ -242,6 +245,7 @@ const Newform = () => {
 	};
 	return (
 		<div className="NewForm">
+			
 			<div className="newForm-title">
 				<input
 					type="text"
@@ -251,6 +255,7 @@ const Newform = () => {
 					}
 					placeholder="Enter you form title here..."
 				/>
+				
 				<button
 					onClick={() => {
 						publish();
@@ -258,7 +263,22 @@ const Newform = () => {
 				>
 					publish
 				</button>
+				
 			</div>
+			<input
+				type="text"
+				className="inputfield"
+				placeholder="Enter the description for the form..."
+				value={formData.description}
+				onChange={(e) =>
+				{let a = formData ;
+					a.description=e.target.value;
+					setFormData({...a});
+				}
+				
+						}
+			/>
+			
 			<div className="newFormQuestions">
 				{questions.map((question, id) => {
 					return (

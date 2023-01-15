@@ -15,7 +15,9 @@ import toast from "react-hot-toast";
 const EditForm = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [formData, setFormData] = useState({});
+	const [formData, setFormData] = useState({
+		description:""
+	});
 	const [loading, setLoading] = useState(true);
 	const [questions, setQuestions] = useState([]);
 
@@ -210,6 +212,19 @@ const EditForm = () => {
 							Update
 						</button>
 					</div>
+				<input
+				type="text"
+				className="inputfield"
+				placeholder="Enter the description for the form..."
+				value={formData.description}
+				onChange={(e) =>
+				{let a = formData ;
+					a.description=e.target.value;
+					setFormData({...a});
+				}
+				
+						}
+			    />
 					<div className="newFormQuestions">
 						{questions.map((question, id) => {
 							return (

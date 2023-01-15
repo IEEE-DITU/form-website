@@ -40,7 +40,7 @@
 	font-weight: 500;
 	color: white;
 }
-.main-heading > .questiontitle{
+.main-heading >.title > .questiontitle{
 	
 		color:black;
 		font-size: 1rem;
@@ -57,8 +57,9 @@
 }
 .main-heading{
 	display: flex;
+	flex-direction: column;
 }
-.main-heading>.questiontype {
+.main-heading>.type>.questiontype {
 	
 	width: 100%;
 	display: flex;

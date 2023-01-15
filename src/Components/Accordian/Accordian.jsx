@@ -24,12 +24,20 @@ const Accordian = ({ response, fdata }) => {
 								{show && (
 									<div className="accordian_response">
 										<div className="main-heading">
-											<h3 className="questiontitle">
+                                            <div className="title">
+                                                <h3 className="questiontitle">
 												{id+1}.{question.questionTitle}
-											</h3>
-											<h3 className="questiontype">{question.questionType}</h3>
+											</h3>  
+											</div>
+											<div className="type">
+                                                <p className="questiontype">{question.questionType}</p>
+											</div>
+											
 										</div>
-										<p className="answer">{response[question.questionId]}</p>
+										<div>
+											<p className="answer">{response[question.questionId]}</p>
+										</div>
+										
 									</div>
 								)}
 							</div>
