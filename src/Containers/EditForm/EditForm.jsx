@@ -210,6 +210,19 @@ const EditForm = () => {
 							Update
 						</button>
 					</div>
+				<input
+				type="text"
+				className="inputfield"
+				placeholder="Enter the description for the form..."
+				value={formData.description}
+				onChange={(e) =>
+				{let a = formData ;
+					a.description=e.target.value;
+					setFormData({...a});
+				}
+				
+						}
+			    />
 					<div className="newFormQuestions">
 						{questions.map((question, id) => {
 							return (
