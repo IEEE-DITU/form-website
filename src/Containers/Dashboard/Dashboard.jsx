@@ -8,6 +8,8 @@ import { db } from "../../Firebase";
 import { toast } from "react-hot-toast";
 import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import { Modal } from "@mantine/core";
 import avatar from "../../images/no-profile.png";
 import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
@@ -16,11 +18,10 @@ import editprofile from "../../images/profile edit button.png";
 import Pagination from "../../Components/Pagination/Pagination";
 import MyForms from "../../Components/MyForms/MyForms";
 import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
+// import avatarBoy from '../../images/boy-avatar.png'
+// import avatarGirl from '../../images/girl-avatar.png'
+
 import "./Dashboard.css";
-import { Modal } from "@mantine/core";
-import avatarBoy from '../../images/boy-avatar.png'
-import avatarGirl from '../../images/girl-avatar.png'
-import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 
 function Dashboard() {
 	const { currentUser } = useAuth();
@@ -28,7 +29,6 @@ function Dashboard() {
 	const [forms, setForms] = useState([]);
 	const [sharedForms, setSharedForms] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
-	// eslint-disable-next-line
 	const [sharedCurrentPage, setSharedCurrentPage] = useState(1);
 	const [loading, setLoading] = useState(true);
 	const [sharedLoading, setSharedLoading] = useState(true);
@@ -46,35 +46,23 @@ function Dashboard() {
 		indexOfLastCardShared
 	);
 	const [modalOpened, setModalOpened] = useState(false);
-	// let avatars = []
 	const [avatarUrl, setAvatarUrl] = useState([]);
 	const storage = getStorage();
-	const profileRef = ref(storage, 'Profile_Image/');
-	useEffect(()=>{
 
-		listAll(profileRef)
-		.then((res) => {
-			let a = avatarUrl;
-			res.items.forEach((itemRef) => {
-				getDownloadURL(ref(storage, itemRef.fullPath))
-				.then((url) => {
-							// avatarUrl.push(url)
-							// console.log(url);
-							// avatarUrl[avatarUrl.length] = '' + url
-							a.push(url)
-						})
-						.catch((err) => {
-							console.log("error ", err);
-						})
-					})
-					setAvatarUrl([...a]);
-			})
-			.catch((err) => {
-				console.log("error", err);
-			})
-		
-		console.log(avatarUrl.length);
-	},[])
+	useEffect(() => {
+		const getProfile = async () => {
+			const profileRef = ref(storage, "Profile_Image/");
+			const profiles = await listAll(profileRef);
+			for (let i in profiles.items) {
+				const profileUrl = await getDownloadURL(
+					ref(storage, profiles.items[i].fullPath)
+				);
+				setAvatarUrl((prev) => [...new Set([...prev, profileUrl])]);
+			}
+		};
+		getProfile();
+	}, []);
+
 	useEffect(() => {
 		function fetchUserForms() {
 			const q = query(
@@ -92,7 +80,7 @@ function Dashboard() {
 				});
 				setForms([...forms]);
 				setLoading(false);
-				fetchSharedForms()
+				fetchSharedForms();
 			});
 		}
 		function fetchSharedForms() {
@@ -131,17 +119,14 @@ function Dashboard() {
 		);
 	};
 
-
-
 	return (
 		<>
 			<Modal
 				className="mainModal"
 				opened={modalOpened}
 				onClose={() => setModalOpened(false)}
-				title={<h2 className="avatarHeading">Choose the avatar</h2>}>
-
-
+				title={<h2 className="avatarHeading">Choose the avatar</h2>}
+			>
 				<div className="avatarsModal">
 					{/* <img src={avatarBoy} alt="" />
 						<img src={avatarGirl} alt="" />
@@ -150,8 +135,6 @@ function Dashboard() {
 						<img src={avatar} alt="" /> */}
 					<img src={avatarUrl[0]} alt="" />
 				</div>
-
-
 			</Modal>
 			<div className="sideButtonsDashboard">
 				<div
@@ -248,11 +231,20 @@ function Dashboard() {
 					<p className="myprofile">My Profile</p>
 					<div className="avatar">
 						<img src={avatar} alt="user profile"></img>
-						<img src={editprofile} onClick={() => setModalOpened(true)} alt="edit profile"></img>
+						<img
+							src={editprofile}
+							onClick={() => setModalOpened(true)}
+							alt="edit profile"
+						></img>
 					</div>
 					<div className="profilecontent">
 						<p>Name- {currentUser.displayName}</p>
 						<p>Email- {currentUser.email}</p>
+						{/* delete this after */}
+						{/* console log isliye nhi kra kyunki value baad me fetch hori log pehle ho jaara */}
+						<p>Avatar url ki length: {avatarUrl.length}</p>
+						<p>Avatar url: {JSON.stringify(avatarUrl)}</p>
+						{/* ///////////////// */}
 					</div>
 					<button className="DashboardLogout" onClick={() => logOut()}>
 						Log Out
