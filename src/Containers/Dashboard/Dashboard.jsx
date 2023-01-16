@@ -8,7 +8,7 @@ import { db } from "../../Firebase";
 import { toast } from "react-hot-toast";
 import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
-import avatar from "../../images/avatar 1.png";
+import avatar from "../../images/no-profile.png";
 import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
 import dashboardBgImage2 from "../../images/dash2.png";
@@ -17,6 +17,10 @@ import Pagination from "../../Components/Pagination/Pagination";
 import MyForms from "../../Components/MyForms/MyForms";
 import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
 import "./Dashboard.css";
+import { Modal } from "@mantine/core";
+import avatarBoy from '../../images/boy-avatar.png'
+import avatarGirl from '../../images/girl-avatar.png'
+import { RiH1 } from "react-icons/ri";
 
 function Dashboard() {
 	const { currentUser } = useAuth();
@@ -41,6 +45,7 @@ function Dashboard() {
 		indexOfFirstCardShared,
 		indexOfLastCardShared
 	);
+	const [modalOpened, setModalOpened] = useState(false);
 
 	useEffect(() => {
 		function fetchUserForms() {
@@ -59,7 +64,7 @@ function Dashboard() {
 				});
 				setForms([...forms]);
 				setLoading(false);
-                                fetchSharedForms()
+				fetchSharedForms()
 			});
 		}
 		function fetchSharedForms() {
@@ -97,9 +102,24 @@ function Dashboard() {
 			}
 		);
 	};
+	
+
 
 	return (
 		<>
+			<Modal
+				opened={modalOpened}
+				onClose={() => setModalOpened(false)}
+				title={<h2 className="avatarHeading">Choose the avatar</h2>}>
+				
+
+					<div className="avatarsModal">
+						<img src={avatarBoy} alt="" />
+						<img src={avatarGirl} alt="" />
+						{/* <img src={avatar} alt="" /> */}
+					</div>
+
+			</Modal>
 			<div className="sideButtonsDashboard">
 				<div
 					className={`sideButtonDashboard ${profile ? "" : "active"}`}
@@ -195,7 +215,7 @@ function Dashboard() {
 					<p className="myprofile">My Profile</p>
 					<div className="avatar">
 						<img src={avatar} alt="user profile"></img>
-						<img src={editprofile} alt="edit profile"></img>
+						<img src={editprofile} onClick={() => setModalOpened(true)} alt="edit profile"></img>
 					</div>
 					<div className="profilecontent">
 						<p>Name- {currentUser.displayName}</p>
