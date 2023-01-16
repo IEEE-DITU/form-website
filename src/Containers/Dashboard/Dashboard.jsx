@@ -18,8 +18,6 @@ import editprofile from "../../images/profile edit button.png";
 import Pagination from "../../Components/Pagination/Pagination";
 import MyForms from "../../Components/MyForms/MyForms";
 import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
-// import avatarBoy from '../../images/boy-avatar.png'
-// import avatarGirl from '../../images/girl-avatar.png'
 
 import "./Dashboard.css";
 
@@ -60,7 +58,7 @@ function Dashboard() {
 				setAvatarUrl((prev) => [...new Set([...prev, profileUrl])]);
 			}
 		};
-		getProfile();
+		getProfile();		//eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -128,12 +126,11 @@ function Dashboard() {
 				title={<h2 className="avatarHeading">Choose the avatar</h2>}
 			>
 				<div className="avatarsModal">
-					{/* <img src={avatarBoy} alt="" />
-						<img src={avatarGirl} alt="" />
-						<img src={avatar} alt="" />
-						<img src={avatar} alt="" />
-						<img src={avatar} alt="" /> */}
-					<img src={avatarUrl[0]} alt="" />
+					{avatarUrl.map((m) => {
+						return (
+							<img src={m} alt="" />
+						)
+					})}
 				</div>
 			</Modal>
 			<div className="sideButtonsDashboard">
@@ -240,11 +237,11 @@ function Dashboard() {
 					<div className="profilecontent">
 						<p>Name- {currentUser.displayName}</p>
 						<p>Email- {currentUser.email}</p>
-						{/* delete this after */}
-						{/* console log isliye nhi kra kyunki value baad me fetch hori log pehle ho jaara */}
+						{/* delete this after
+						console log isliye nhi kra kyunki value baad me fetch hori log pehle ho jaara
 						<p>Avatar url ki length: {avatarUrl.length}</p>
 						<p>Avatar url: {JSON.stringify(avatarUrl)}</p>
-						{/* ///////////////// */}
+						///////////////// */}
 					</div>
 					<button className="DashboardLogout" onClick={() => logOut()}>
 						Log Out
