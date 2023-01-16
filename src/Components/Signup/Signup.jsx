@@ -39,7 +39,6 @@ function Signup({ setLogin }) {
 				try {
 					signup(values.email, values.password)
 						.then((data) => {
-							signup(values.email, values.password);
 							const user = data.user;
 							updateProfile(user, {
 								displayName: values.username,
@@ -49,6 +48,7 @@ function Signup({ setLogin }) {
 								email: values.email,
 								uid: data.user.uid,
 								forms: [],
+								profileImg:0
 							})
 								.then(() => verifyUser())
 								.then(() => setSubmitButtonDisabled(false));
