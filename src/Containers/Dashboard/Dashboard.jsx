@@ -20,7 +20,7 @@ import "./Dashboard.css";
 import { Modal } from "@mantine/core";
 import avatarBoy from '../../images/boy-avatar.png'
 import avatarGirl from '../../images/girl-avatar.png'
-import { RiH1 } from "react-icons/ri";
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 
 function Dashboard() {
 	const { currentUser } = useAuth();
@@ -46,7 +46,35 @@ function Dashboard() {
 		indexOfLastCardShared
 	);
 	const [modalOpened, setModalOpened] = useState(false);
+	// let avatars = []
+	const [avatarUrl, setAvatarUrl] = useState([]);
+	const storage = getStorage();
+	const profileRef = ref(storage, 'Profile_Image/');
+	useEffect(()=>{
 
+		listAll(profileRef)
+		.then((res) => {
+			let a = avatarUrl;
+			res.items.forEach((itemRef) => {
+				getDownloadURL(ref(storage, itemRef.fullPath))
+				.then((url) => {
+							// avatarUrl.push(url)
+							// console.log(url);
+							// avatarUrl[avatarUrl.length] = '' + url
+							a.push(url)
+						})
+						.catch((err) => {
+							console.log("error ", err);
+						})
+					})
+					setAvatarUrl([...a]);
+			})
+			.catch((err) => {
+				console.log("error", err);
+			})
+		
+		console.log(avatarUrl.length);
+	},[])
 	useEffect(() => {
 		function fetchUserForms() {
 			const q = query(
@@ -102,22 +130,27 @@ function Dashboard() {
 			}
 		);
 	};
-	
+
 
 
 	return (
 		<>
 			<Modal
+				className="mainModal"
 				opened={modalOpened}
 				onClose={() => setModalOpened(false)}
 				title={<h2 className="avatarHeading">Choose the avatar</h2>}>
-				
 
-					<div className="avatarsModal">
-						<img src={avatarBoy} alt="" />
+
+				<div className="avatarsModal">
+					{/* <img src={avatarBoy} alt="" />
 						<img src={avatarGirl} alt="" />
-						{/* <img src={avatar} alt="" /> */}
-					</div>
+						<img src={avatar} alt="" />
+						<img src={avatar} alt="" />
+						<img src={avatar} alt="" /> */}
+					<img src={avatarUrl[0]} alt="" />
+				</div>
+
 
 			</Modal>
 			<div className="sideButtonsDashboard">

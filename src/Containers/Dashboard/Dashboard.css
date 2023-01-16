@@ -221,14 +221,14 @@
 }
 
 .avatarsModal{
-	display: flex;
-	justify-content: center;
+	/* display: flex; */
+	
 	cursor: pointer;
-	width: 100%;
 }
 
 .avatarsModal>img{
 	width: 10rem;
+	margin-left: 1.8rem;
 }
 
 .avatarHeading{
@@ -273,9 +273,9 @@
 	.Dashboardbg2 {
 		width: 10rem;
 	}
-	@media only screen and (max-width: 370px){
-		.avatarsModal{
-			display: block;
+	@media only screen and (max-width: 450px){
+		.avatarsModal>img{
+			width: 7rem;
 		}
 	}
 }
