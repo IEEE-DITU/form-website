@@ -220,6 +220,21 @@
 	font-weight: 400;
 }
 
+.avatarsModal{
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+	width: 100%;
+}
+
+.avatarsModal>img{
+	width: 10rem;
+}
+
+.avatarHeading{
+	color: #ff432a;
+}
+
 @media only screen and (max-width: 940px) {
 	.DashboardRight {
 		padding-left: 0;
@@ -257,5 +272,10 @@
 	.Dashboardbg1,
 	.Dashboardbg2 {
 		width: 10rem;
+	}
+	@media only screen and (max-width: 370px){
+		.avatarsModal{
+			display: block;
+		}
 	}
 }

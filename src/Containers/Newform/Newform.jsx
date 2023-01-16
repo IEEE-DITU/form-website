@@ -25,6 +25,7 @@ const Newform = () => {
 		id: v4(),
 		description: "",
 		collaborators: [],
+		submit:""
 	});
 	console.log(formData.description)
 	
