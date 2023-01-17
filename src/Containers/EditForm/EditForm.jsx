@@ -10,7 +10,6 @@ import ToggleSwitch from "../../Components/ToggleSwitch/ToggleSwitch";
 import MultipleChoice from "../../Components/QuestionTypes/MultipleChoice";
 import SingleChoice from "../../Components/QuestionTypes/SingleChoice";
 import toast from "react-hot-toast";
-// import "./Newform.css";
 
 const EditForm = () => {
 	const { id } = useParams();
@@ -137,6 +136,11 @@ const EditForm = () => {
 			}
 		}
 	};
+	function textAreaAdjust() {
+		const element = document.getElementById("descriptionTextArea");
+		element.style.height = "1px";
+		element.style.height = 15 + element.scrollHeight + "px";
+	}
 
 	const publish = () => {
 		const promise = () => {
@@ -210,20 +214,20 @@ const EditForm = () => {
 							Update
 						</button>
 					</div>
-				<input
-				type="text"
-				className="inputfield"
-				placeholder="Enter the description for the form..."
-				value={formData.description}
-				onChange={(e) =>
-				{let a = formData ;
-					a.description=e.target.value;
-					setFormData({...a});
-				}
-				
-						}
-			    />
 					<div className="newFormQuestions">
+						<textarea
+							type="text"
+							className="inputfield"
+							placeholder="Enter the description for the form..."
+							value={formData.description}
+							onChange={(e) => {
+								let a = formData;
+								a.description = e.target.value;
+								setFormData({ ...a });
+							}}
+							onKeyUp={() => textAreaAdjust()}
+							id="descriptionTextArea"
+						/>
 						{questions.map((question, id) => {
 							return (
 								<div className="newFormQuestion" key={id}>

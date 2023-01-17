@@ -152,13 +152,14 @@ const Submit = () => {
 							<div className="submitFormTitle">{data.title}</div>
 							<button onClick={() => SubmitResponse()}>Submit</button>
 						</div>
-				<p 
-				type="text"
-				className="inputfield"
-				placeholder="Enter the description for the form..."
-				value={data.description}
-				/>
 						<div className="SubmitFormQuestions">
+							<p
+								className="descriptionSumbit"
+								type="text"
+								placeholder="Enter the description for the form..."
+							>
+								{data.description}
+							</p>
 							{data.questions &&
 								data.questions.map((question, id) => {
 									return (

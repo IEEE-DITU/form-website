@@ -60,6 +60,13 @@
 	padding-bottom: 0.5rem;
 }
 
+.descriptionSumbit {
+	background: white;
+	padding: 1rem;
+	border-radius: 20px;
+	width: 100%;
+}
+
 .SubmitFormQuestion {
 	flex-shrink: 0;
 	background: white;
