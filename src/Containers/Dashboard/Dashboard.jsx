@@ -58,7 +58,8 @@ function Dashboard() {
 				setAvatarUrl((prev) => [...new Set([...prev, profileUrl])]);
 			}
 		};
-		getProfile();		//eslint-disable-next-line
+		getProfile();
+		//eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -126,10 +127,8 @@ function Dashboard() {
 				title={<h2 className="avatarHeading">Choose the avatar</h2>}
 			>
 				<div className="avatarsModal">
-					{avatarUrl.map((m) => {
-						return (
-							<img src={m} alt="" />
-						)
+					{avatarUrl.map((m, id) => {
+						return <img src={m} alt="profile" key={id} />;
 					})}
 				</div>
 			</Modal>
@@ -237,11 +236,6 @@ function Dashboard() {
 					<div className="profilecontent">
 						<p>Name- {currentUser.displayName}</p>
 						<p>Email- {currentUser.email}</p>
-						{/* delete this after
-						console log isliye nhi kra kyunki value baad me fetch hori log pehle ho jaara
-						<p>Avatar url ki length: {avatarUrl.length}</p>
-						<p>Avatar url: {JSON.stringify(avatarUrl)}</p>
-						///////////////// */}
 					</div>
 					<button className="DashboardLogout" onClick={() => logOut()}>
 						Log Out
