@@ -178,7 +178,7 @@ function Dashboard() {
 					<div
 						style={{
 							width: "100%",
-							overflow: "scroll",
+							overflowY: "scroll",
 							height: "100%",
 							paddingTop: "0.75rem",
 							marginTop: "2px",

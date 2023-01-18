@@ -12,6 +12,7 @@ import MultipleChoice from "../../Components/QuestionTypes/MultipleChoice";
 import SingleChoice from "../../Components/QuestionTypes/SingleChoice";
 import toast from "react-hot-toast";
 import "./Newform.css";
+import Attachment from "../../Components/QuestionTypes/Attachment";
 
 const Newform = () => {
 	const { currentUser } = useAuth();
@@ -76,6 +77,7 @@ const Newform = () => {
 		{ value: "text", label: "text" },
 		{ value: "singleChoice", label: "single choice" },
 		{ value: "multipleChoice", label: "multiple choice" },
+		{ value: "attachment", label: "attachment" },
 	];
 	const setRequired = (questionId) => {
 		const arr = questions.filter((question) => {
@@ -340,17 +342,25 @@ const Newform = () => {
 											singleoption={singleoption}
 										/>
 									)}
+									{question.questionType === "attachment" && (
+										<Attachment
+											// ChangeFileType={changeWordLimit}
+											qid={question.questionId}
+											// fileType={question.maxChoice}
+										/>
+									)}
 								</div>
 							</div>
 							<div className="newFormQuestionLower">
-								{question.questionType !== "text" && (
-									<div
-										className="newFormAddOption"
-										onClick={() => addOption(question.questionId)}
-									>
-										<p>+ Add option</p>
-									</div>
-								)}
+								{question.questionType !== "text" &&
+									question.questionType !== "attachment" && (
+										<div
+											className="newFormAddOption"
+											onClick={() => addOption(question.questionId)}
+										>
+											<p>+ Add option</p>
+										</div>
+									)}
 								<div className="requiredSwitch">
 									<p>Required</p>
 									<ToggleSwitch

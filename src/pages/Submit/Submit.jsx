@@ -8,6 +8,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import MultipleChoiceSubmit from "../../Components/QuestionTypes/MultipleChoiceSubmit";
 import SingleChoiceSubmit from "../../Components/QuestionTypes/SingleChoiceSubmit";
 import toast from "react-hot-toast";
+import AttachmentSubmit from "../../Components/QuestionTypes/AttachmentSubmit";
 
 const Submit = () => {
 	const { id } = useParams();
@@ -15,6 +16,7 @@ const Submit = () => {
 
 	const [data, setData] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [fileUpload, setFileUpload] = useState(false);
 	const [responses, setResponses] = useState({});
 
 	const setAnsText = (questionID, ans) => {
@@ -68,64 +70,82 @@ const Submit = () => {
 	}, []);
 
 	const SubmitResponse = () => {
-		const promise = () => {
-			return new Promise((resolve, reject) => {
-				try {
-					const a = responses;
-					const d = new Date();
-					const date = d.getDate();
-					const month = d.getMonth();
-					const year = d.getFullYear();
-					const hours = d.getHours();
-					const minutes = d.getMinutes();
-					const seconds = d.getSeconds();
-					const months = [
-						"Jan",
-						"Feb",
-						"Mar",
-						"Apr",
-						"May",
-						"Jun",
-						"Jul",
-						"Aug",
-						"Sep",
-						"Oct",
-						"Nov",
-						"Dec",
-					];
-					const time = `${date} ${months[month]} ${year} ${hours}:${minutes}:${seconds}`;
-					a.time = time;
-					const docRef = doc(db, "responses", id);
-					getDoc(docRef)
-						.then((snapshot) => {
-							const oldData = snapshot.data();
-							updateDoc(docRef, {
-								responses: [...oldData.responses, a],
-							})
-								.then(resolve())
-								.catch((err) => {
-									reject(err.message);
-								});
-						})
-
-						.catch((err) => {
-							reject(err.message);
-						});
-				} catch {
-					reject("some error occured");
+		const checkForm = () => {
+			for (let i in data.questions) {
+				if (data.questions[i].isRequired) {
+					if (!responses[data.questions[i].questionId]) {
+						return false;
+					}
 				}
-			});
+			}
+			return true;
 		};
-		toast.promise(promise(), {
-			loading: "submitting...",
-			success: () => {
-				navigate("/user/dashboard");
-				return "response submitted";
-			},
-			error: (err) => {
-				return `${err}`;
-			},
-		});
+		if (fileUpload) {
+			toast.error("Please wait for the file upload to finish");
+			return;
+		} else if (!checkForm()) {
+			toast.error("Please fill all the required fields");
+			return;
+		} else {
+			const promise = () => {
+				return new Promise((resolve, reject) => {
+					try {
+						const a = responses;
+						const d = new Date();
+						const date = d.getDate();
+						const month = d.getMonth();
+						const year = d.getFullYear();
+						const hours = d.getHours();
+						const minutes = d.getMinutes();
+						const seconds = d.getSeconds();
+						const months = [
+							"Jan",
+							"Feb",
+							"Mar",
+							"Apr",
+							"May",
+							"Jun",
+							"Jul",
+							"Aug",
+							"Sep",
+							"Oct",
+							"Nov",
+							"Dec",
+						];
+						const time = `${date} ${months[month]} ${year} ${hours}:${minutes}:${seconds}`;
+						a.time = time;
+						const docRef = doc(db, "responses", id);
+						getDoc(docRef)
+							.then((snapshot) => {
+								const oldData = snapshot.data();
+								updateDoc(docRef, {
+									responses: [...oldData.responses, a],
+								})
+									.then(resolve())
+									.catch((err) => {
+										reject(err.message);
+									});
+							})
+
+							.catch((err) => {
+								reject(err.message);
+							});
+					} catch {
+						reject("some error occured");
+					}
+				});
+			};
+			toast.promise(promise(), {
+				loading: "submitting...",
+				success: () => {
+					navigate("/user/dashboard");
+					return "response submitted";
+				},
+				error: (err) => {
+					return `${err}`;
+				},
+			});
+		}
 	};
 
 	return (
@@ -161,11 +181,11 @@ const Submit = () => {
 								{data.description}
 							</p>
 							{data.questions &&
-								data.questions.map((question, id) => {
+								data.questions.map((question, uuuid) => {
 									return (
-										<div className="SubmitFormQuestion" key={id}>
+										<div className="SubmitFormQuestion" key={uuuid}>
 											<div className="SubmitFormQuestionUpper">
-												<div className="SubmitFormQuestionId">{id + 1}.</div>
+												<div className="SubmitFormQuestionId">{uuuid + 1}.</div>
 												<div className="SubmitFormQuestionTitle">
 													{question.questionTitle}
 												</div>
@@ -195,6 +215,16 @@ const Submit = () => {
 														questionID={question.questionId}
 														setAnsSingle={setAnsSingle}
 														responses={responses}
+													/>
+												)}
+												{question.questionType === "attachment" && (
+													<AttachmentSubmit
+														questionID={question.questionId}
+														setAnsText={setAnsText}
+														responses={responses}
+														fileUpload={fileUpload}
+														setFileUpload={setFileUpload}
+														id={id}
 													/>
 												)}
 											</div>

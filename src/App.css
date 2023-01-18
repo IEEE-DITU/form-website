@@ -23,6 +23,24 @@ div {
 	user-select: none;
 }
 
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
 ::-webkit-scrollbar {
-	display: none;
+	width: 5px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	border: none;
+	border-radius: 10px;
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.44, #ff705d),
+		color-stop(0.72, red),
+		color-stop(0.86, #ff705d)
+	);
 }
