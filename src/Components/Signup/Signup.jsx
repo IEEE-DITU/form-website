@@ -48,7 +48,7 @@ function Signup({ setLogin }) {
 								email: values.email,
 								uid: data.user.uid,
 								forms: [],
-								profileImg:0
+								profileImg:"https://firebasestorage.googleapis.com/v0/b/ieee-custom-forms-181e4.appspot.com/o/Profile_Image%2Fprofile_2.png?alt=media&token=f0579c59-4506-4201-976b-4df2c4604e50"
 							})
 								.then(() => verifyUser())
 								.then(() => setSubmitButtonDisabled(false));
