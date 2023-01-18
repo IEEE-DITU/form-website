@@ -8,7 +8,9 @@ import { db } from "../../Firebase";
 import { toast } from "react-hot-toast";
 import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
-import avatar from "../../images/avatar 1.png";
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import { Modal } from "@mantine/core";
+import avatar from "../../images/no-profile.png";
 import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
 import dashboardBgImage2 from "../../images/dash2.png";
@@ -16,6 +18,7 @@ import editprofile from "../../images/profile edit button.png";
 import Pagination from "../../Components/Pagination/Pagination";
 import MyForms from "../../Components/MyForms/MyForms";
 import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
+
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -24,7 +27,6 @@ function Dashboard() {
 	const [forms, setForms] = useState([]);
 	const [sharedForms, setSharedForms] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
-	// eslint-disable-next-line
 	const [sharedCurrentPage, setSharedCurrentPage] = useState(1);
 	const [loading, setLoading] = useState(true);
 	const [sharedLoading, setSharedLoading] = useState(true);
@@ -41,6 +43,24 @@ function Dashboard() {
 		indexOfFirstCardShared,
 		indexOfLastCardShared
 	);
+	const [modalOpened, setModalOpened] = useState(false);
+	const [avatarUrl, setAvatarUrl] = useState([]);
+	const storage = getStorage();
+
+	useEffect(() => {
+		const getProfile = async () => {
+			const profileRef = ref(storage, "Profile_Image/");
+			const profiles = await listAll(profileRef);
+			for (let i in profiles.items) {
+				const profileUrl = await getDownloadURL(
+					ref(storage, profiles.items[i].fullPath)
+				);
+				setAvatarUrl((prev) => [...new Set([...prev, profileUrl])]);
+			}
+		};
+		getProfile();
+		//eslint-disable-next-line
+	}, []);
 
 	useEffect(() => {
 		function fetchUserForms() {
@@ -59,7 +79,7 @@ function Dashboard() {
 				});
 				setForms([...forms]);
 				setLoading(false);
-                                fetchSharedForms()
+				fetchSharedForms();
 			});
 		}
 		function fetchSharedForms() {
@@ -100,6 +120,18 @@ function Dashboard() {
 
 	return (
 		<>
+			<Modal
+				className="mainModal"
+				opened={modalOpened}
+				onClose={() => setModalOpened(false)}
+				title={<h2 className="avatarHeading">Choose the avatar</h2>}
+			>
+				<div className="avatarsModal">
+					{avatarUrl.map((m, id) => {
+						return <img src={m} alt="profile" key={id} />;
+					})}
+				</div>
+			</Modal>
 			<div className="sideButtonsDashboard">
 				<div
 					className={`sideButtonDashboard ${profile ? "" : "active"}`}
@@ -195,7 +227,11 @@ function Dashboard() {
 					<p className="myprofile">My Profile</p>
 					<div className="avatar">
 						<img src={avatar} alt="user profile"></img>
-						<img src={editprofile} alt="edit profile"></img>
+						<img
+							src={editprofile}
+							onClick={() => setModalOpened(true)}
+							alt="edit profile"
+						></img>
 					</div>
 					<div className="profilecontent">
 						<p>Name- {currentUser.displayName}</p>
