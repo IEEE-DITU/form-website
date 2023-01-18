@@ -144,7 +144,7 @@ const SharedCard = (e) => {
 					<input
 						style={{
 							whiteSpace: "nowrap",
-							overflow: "scroll",
+							overflowY: "scroll",
 							cursor: "text",
 							border: "1px solid grey",
 							borderRadius: "5px",

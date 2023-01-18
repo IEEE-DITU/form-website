@@ -14,13 +14,17 @@ const SingleChoiceSubmit = ({
 						<input
 							type="radio"
 							name={`${questionID}singleOption`}
-							id={`${id}singleOption`}
+							id={`${option}${id}singleOption`}
 							onClick={() => setAnsSingle(questionID, option)}
 							checked={
 								responses[questionID] && responses[questionID].includes(option)
 							}
 						/>
-						<label htmlFor={`${id}singleOption`} style={{ width: "100%" }}>
+						<label
+							htmlFor={`${option}${id}singleOption`}
+							style={{ width: "100%" }}
+							className="multipleChoiceTypeSubmit"
+						>
 							{option}
 						</label>
 					</div>

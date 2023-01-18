@@ -220,7 +220,7 @@ function DashboardCard(e) {
 					<input
 						style={{
 							whiteSpace: "nowrap",
-							overflow: "scroll",
+							overflowY: "scroll",
 							cursor: "text",
 							border: "1px solid grey",
 							borderRadius: "5px",
@@ -319,7 +319,7 @@ function DashboardCard(e) {
 						style={{
 							width: "100%",
 							height: "10rem",
-							overflow: "scroll",
+							overflowY: "scroll",
 							display: "flex",
 							flexDirection: "column",
 							gap: "0.15rem",
