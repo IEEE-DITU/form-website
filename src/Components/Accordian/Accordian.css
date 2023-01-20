@@ -1,17 +1,17 @@
-.accordian_title{
+.accordian_title {
 	display: inline-flex;
 }
-.accordian_title >.plus{
+.accordian_title > .plus {
 	margin-right: 10px;
 	margin-left: 1rem;
 	margin-top: 0.5rem;
 }
 
-.accordian_response{
+.accordian_response {
 	background-color: white;
-	width:95%;
-	height:100%;
-	overflow:scroll;
+	width: 95%;
+	height: 100%;
+	overflow-y: scroll;
 	padding-left: 0.5rem;
 	justify-content: left;
 	border-radius: 1rem;
@@ -20,51 +20,42 @@
 	border-width: 2rem;
 	margin-left: 1rem;
 	margin-right: 3rem;
-	
 }
-.mainclass{
-	background-color: #7F92D4;
+.mainclass {
+	background-color: #7f92d4;
 	border-radius: 0.5rem;
 	margin-bottom: 0.5rem;
-	
-	
 }
-.mainclass > .accordian_title > .responses{
+.mainclass > .accordian_title > .responses {
 	align-items: center;
 	justify-content: center;
-	width:80vw;
+	width: 80vw;
 	height: 20%;
 	margin-top: 0.7rem;
 	margin-bottom: 0.7rem;
-	font-family:Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-weight: 500;
 	color: white;
 }
-.main-heading >.title > .questiontitle{
-	
-		color:black;
-		font-size: 1rem;
-		font-weight: 500;
-		gap: 0.5rem;
-
+.main-heading > .title > .questiontitle {
+	color: black;
+	font-size: 1rem;
+	font-weight: 500;
+	gap: 0.5rem;
 }
-.answer{
-	
-		color: black;
-		gap: 0.5rem;
-		font-size: 0.9rem;
-
+.answer {
+	color: black;
+	gap: 0.5rem;
+	font-size: 0.9rem;
 }
-.main-heading{
+.main-heading {
 	display: flex;
 	flex-direction: column;
 }
-.main-heading>.type>.questiontype {
-	
+.main-heading > .type > .questiontype {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
 	font-size: 0.75rem;
-
 }

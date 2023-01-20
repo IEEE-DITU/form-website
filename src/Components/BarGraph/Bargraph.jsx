@@ -26,7 +26,7 @@ const Bargraph = (e) => {
 		for (let i in e.options) {
 			let count = 0;
 			for (let j in e.rdata) {
-				if (e.rdata[j][e.qid].includes(e.options[i])) {
+				if (e.rdata[j][e.qid] && e.rdata[j][e.qid].includes(e.options[i])) {
 					count = count + 1;
 				}
 			}

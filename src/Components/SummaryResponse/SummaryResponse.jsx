@@ -83,6 +83,30 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 										</div>
 									</div>
 								)}
+								{question.questionType === "attachment" && (
+									<div className="attachment">
+										<ol>
+											{rdata.map((response, id) => {
+												return (
+													<li key={id}>
+														<a
+															href={response[question.questionId]}
+															target="_blank"
+															rel="noreferrer"
+														>
+															<span
+																style={{ width: "100%", overflow: "hidden" }}
+															>
+																{response[question.questionId]}
+															</span>
+															...
+														</a>
+													</li>
+												);
+											})}
+										</ol>
+									</div>
+								)}
 							</div>
 						</div>
 					);

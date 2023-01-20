@@ -10,6 +10,7 @@ import ToggleSwitch from "../../Components/ToggleSwitch/ToggleSwitch";
 import MultipleChoice from "../../Components/QuestionTypes/MultipleChoice";
 import SingleChoice from "../../Components/QuestionTypes/SingleChoice";
 import toast from "react-hot-toast";
+import Attachment from "../../Components/QuestionTypes/Attachment";
 
 const EditForm = () => {
 	const { id } = useParams();
@@ -54,6 +55,7 @@ const EditForm = () => {
 		{ value: "text", label: "text" },
 		{ value: "singleChoice", label: "single choice" },
 		{ value: "multipleChoice", label: "multiple choice" },
+		{ value: "attachment", label: "attachment" },
 	];
 	const setRequired = (questionId) => {
 		const arr = questions.filter((question) => {
@@ -72,6 +74,16 @@ const EditForm = () => {
 				return question;
 			}
 			question.questionTitle = title;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+	const changeWordLimit = (limit, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.maxChoice = limit;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -263,7 +275,13 @@ const EditForm = () => {
 									</div>
 									<div className="newFormQuestionMiddle">
 										<div className="newFormQuestionAnswerArea">
-											{question.questionType === "text" && <Text />}
+											{question.questionType === "text" && (
+												<Text
+													changeWordLimit={changeWordLimit}
+													qid={question.questionId}
+													limit={question.maxChoice}
+												/>
+											)}
 											{question.questionType === "multipleChoice" && (
 												<MultipleChoice
 													options={question.options}
@@ -281,17 +299,25 @@ const EditForm = () => {
 													singleoption={singleoption}
 												/>
 											)}
+											{question.questionType === "attachment" && (
+												<Attachment
+													// ChangeFileType={changeWordLimit}
+													qid={question.questionId}
+													// fileType={question.maxChoice}
+												/>
+											)}
 										</div>
 									</div>
 									<div className="newFormQuestionLower">
-										{question.questionType !== "text" && (
-											<div
-												className="newFormAddOption"
-												onClick={() => addOption(question.questionId)}
-											>
-												<p>+ Add option</p>
-											</div>
-										)}
+										{question.questionType !== "text" &&
+											question.questionType !== "attachment" && (
+												<div
+													className="newFormAddOption"
+													onClick={() => addOption(question.questionId)}
+												>
+													<p>+ Add option</p>
+												</div>
+											)}
 										<div className="requiredSwitch">
 											<p>Required</p>
 											<ToggleSwitch

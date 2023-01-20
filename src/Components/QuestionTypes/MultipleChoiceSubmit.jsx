@@ -18,8 +18,14 @@ const MultipleChoiceSubmit = ({
 							checked={
 								responses[questionID] && responses[questionID].includes(option)
 							}
+							id={`${option}${id}multipleOption`}
 						/>
-						<div className="multipleChoiceTypeSubmit">{option}</div>
+						<label
+							htmlFor={`${option}${id}multipleOption`}
+							className="multipleChoiceTypeSubmit"
+						>
+							{option}
+						</label>
 					</div>
 				);
 			})}

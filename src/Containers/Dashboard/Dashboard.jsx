@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { collection, query, where, onSnapshot, updateDoc, doc, getDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
@@ -45,7 +45,25 @@ function Dashboard() {
 	);
 	const [modalOpened, setModalOpened] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState([]);
+	const [finalUrl, setFinalUrl] = useState()
 	const storage = getStorage();
+	const ref1 = doc(db, "users", currentUser.uid);
+	const updateUrl = async () => {
+		const docSnap = await getDoc(ref1);
+		setFinalUrl(docSnap.data().profileImg)
+	}
+	const changeProfile = async (m) => {
+		await updateDoc(ref1, {
+			profileImg: m
+		})
+		updateUrl();
+		setModalOpened(false);
+	}
+	useEffect(() => {
+
+		updateUrl();
+	}, [])
+
 
 	useEffect(() => {
 		const getProfile = async () => {
@@ -117,7 +135,6 @@ function Dashboard() {
 			}
 		);
 	};
-
 	return (
 		<>
 			<Modal
@@ -128,7 +145,7 @@ function Dashboard() {
 			>
 				<div className="avatarsModal">
 					{avatarUrl.map((m, id) => {
-						return <img src={m} alt="profile" key={id} />;
+						return <img src={m} onClick={() => changeProfile(m)} alt="profile" key={id} />;
 					})}
 				</div>
 			</Modal>
@@ -178,7 +195,7 @@ function Dashboard() {
 					<div
 						style={{
 							width: "100%",
-							overflow: "scroll",
+							overflowY: "scroll",
 							height: "100%",
 							paddingTop: "0.75rem",
 							marginTop: "2px",
@@ -226,7 +243,7 @@ function Dashboard() {
 					<img src={dashboardBgImage2} alt="dash" className="Dashboardbg2" />
 					<p className="myprofile">My Profile</p>
 					<div className="avatar">
-						<img src={avatar} alt="user profile"></img>
+						<img src={finalUrl} alt="user profile"></img>
 						<img
 							src={editprofile}
 							onClick={() => setModalOpened(true)}
