@@ -1,6 +1,7 @@
 import Bargraph from "../BarGraph/Bargraph";
 import Piechart from "../PieChart/Piechart";
 import "./SummaryResponse.css";
+import Noresponse from "../Noresponse/Noresponse";
 
 const SummaryResponse = ({ loading, rdata, fdata }) => {
 	return (
@@ -15,7 +16,7 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 				</b>
 			)}
 			{!loading && rdata && rdata.length < 1 && (
-				<h3 style={{ margin: "auto" }}>No responses recieved yet</h3>
+				<Noresponse/>
 			)}
 			{!loading &&
 				fdata &&
