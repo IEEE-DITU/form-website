@@ -138,7 +138,7 @@ const Submit = () => {
 			toast.promise(promise(), {
 				loading: "submitting...",
 				success: () => {
-					navigate("/user/dashboard");
+					navigate("/submitresponse");
 					return "response submitted";
 				},
 				error: (err) => {
