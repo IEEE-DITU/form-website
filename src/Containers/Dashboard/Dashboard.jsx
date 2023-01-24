@@ -93,7 +93,7 @@ function Dashboard() {
 				});
 
 				forms.sort(function (a, b) {
-					return new Date(b.dAt) - new Date(a.createdAt);
+					return new Date(b.createdAt) - new Date(a.createdAt);
 				});
 				setForms([...forms]);
 				setLoading(false);
