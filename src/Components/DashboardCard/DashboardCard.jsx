@@ -348,7 +348,7 @@ function DashboardCard(e) {
 						{e.createdAt}
 					</p>
 					<p className="cardcontent">
-						<span style={{ fontWeight: "600" }}>Number of responces</span> -{" "}
+						<span style={{ fontWeight: "600" }}>Number of responses</span> -{" "}
 						{len}
 					</p>
 				</div>
