@@ -4,7 +4,8 @@
 .maindiv{
     background-color: #FFF7F2;
     width: 60%;
-    height: 70%;
+    position: absolute;
+    height: 80%;
     border-radius: 20px;
     margin-left: 20%;
     margin-right: 20%;
