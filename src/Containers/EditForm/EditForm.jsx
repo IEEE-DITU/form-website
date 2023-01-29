@@ -28,7 +28,7 @@ const EditForm = () => {
 			isRequired: false,
 			options: [""],
 			minChoice: 1,
-			maxChoice: 1,
+			maxChoice: 50,
 		});
 		setQuestions([...a]);
 	};
