@@ -50,8 +50,8 @@
 
 .submittedContent {
 	background-color: #fff7f2;
-	min-width: 80vw;
-	min-height: calc(var(--vh) - 20vh);
+	width: 80vw;
+	height: calc(var(--vh) - 20vh);
 	border-radius: 20px;
 	padding: 0.75rem 2rem;
 	overflow: hidden;
@@ -64,16 +64,17 @@
 
 @media only screen and (max-width: 1205px) {
 	.submittedContent {
-		min-width: 85vw !important;
-		min-height: calc(var(--vh) - 15vh);
+		width: 95vw;
+		height: auto;
+		min-height: 80vh;
 		padding: 1rem;
 	}
 }
 
 @media only screen and (max-width: 430px) {
 	.submittedContent {
-		min-width: 95vw;
-		min-height: calc(var(--vh) - 5vh);
+		/* width: 98vw;
+		height: calc(var(--vh) - 2vh); */
 		padding: 0.5rem;
 	}
 }
