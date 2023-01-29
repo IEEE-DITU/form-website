@@ -34,10 +34,23 @@ function Verify() {
 		});
 	};
 	return (
-		<div>
-			<div className="msgImg">
-				<img src={msgImg} alt="" />
-			</div>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				justifyContent: "center",
+				height: "100%",
+			}}
+		>
+			<img
+				src={msgImg}
+				alt="verify"
+				style={{
+					width: "12vw",
+					minWidth: "10rem",
+				}}
+			/>
 			<div className="heading">Verify your Email</div>
 			<div className="para">
 				<p>Almost there! We’ve sent a verification email to {partialEmail}</p>
@@ -47,17 +60,14 @@ function Verify() {
 				</p>
 			</div>
 			<div className="buttons">
-				<button className="resend" onClick={() => verifyMail()}>
-					Resend Verification Mail
-				</button>
 				<button className="logout" onClick={() => logOut()}>
 					Logout
 				</button>
-				<button
-					className="refresh"
-					onClick={() => window.location.reload(false)}
-				>
+				<button className="refresh" onClick={() => window.location.reload()}>
 					Refresh
+				</button>
+				<button className="resend" onClick={() => verifyMail()}>
+					Resend Verification
 				</button>
 			</div>
 		</div>

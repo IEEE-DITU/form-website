@@ -207,8 +207,9 @@ function DashboardCard(e) {
 					<div
 						id={`${e.title}-${e.createdAt}`}
 						style={{
-							width: "160px",
-							background: "none",
+							width: "min-content",
+							background: "white",
+							padding: "1rem",
 						}}
 					>
 						<QRCode
