@@ -31,11 +31,11 @@ const Newform = () => {
 
 	const [questions, setQuestions] = useState([
 		{
-			questionTitle: "Enter question..?",
+			questionTitle: "",
 			questionType: "text",
 			questionId: v4(),
 			isRequired: false,
-			options: ["enter option"],
+			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
 		},
@@ -44,11 +44,11 @@ const Newform = () => {
 	const addQuestion = () => {
 		let a = questions;
 		a.push({
-			questionTitle: "Enter question..?",
+			questionTitle: "",
 			questionType: "text",
 			questionId: v4(),
 			isRequired: false,
-			options: ["enter option"],
+			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
 		});
@@ -172,6 +172,23 @@ const Newform = () => {
 	};
 
 	const publish = () => {
+		for (let i in questions) {
+			if (!questions[i].questionTitle) {
+				toast.error("questions cannot be empy!");
+				return;
+			}
+			if (
+				questions[i].questionType === "singleChoice" ||
+				questions[i].questionType === "multipleChoice"
+			) {
+				for (let j in questions[i].options) {
+					if (!questions[i].options[j]) {
+						toast.error("Options cannot be empty!");
+						return;
+					}
+				}
+			}
+		}
 		const promise = () => {
 			return new Promise((resolve, reject) => {
 				try {
@@ -296,7 +313,7 @@ const Newform = () => {
 										<input
 											type="text"
 											value={question.questionTitle}
-											placeholder="Enter quetions..."
+											placeholder="Enter quetion..."
 											onChange={(e) =>
 												changeQuestionTitle(e.target.value, question.questionId)
 											}
