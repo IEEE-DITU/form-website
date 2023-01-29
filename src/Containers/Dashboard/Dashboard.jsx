@@ -10,7 +10,6 @@ import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 import { Modal } from "@mantine/core";
-import avatar from "../../images/no-profile.png";
 import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
 import dashboardBgImage2 from "../../images/dash2.png";
@@ -61,7 +60,7 @@ function Dashboard() {
 	}
 	useEffect(() => {
 
-		updateUrl();
+		updateUrl();			//eslint-disable-next-line
 	}, [])
 
 
