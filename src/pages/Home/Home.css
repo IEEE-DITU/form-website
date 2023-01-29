@@ -21,7 +21,7 @@
 
 @media only screen and (max-width: 1205px) {
 	.HomeContent {
-		width: 97vw !important;
+		width: 97vw;
 		height: calc(var(--vh) - 3vh);
 		padding: 1rem;
 	}
