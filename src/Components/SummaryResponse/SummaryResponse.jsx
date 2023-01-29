@@ -3,7 +3,7 @@ import Piechart from "../PieChart/Piechart";
 import "./SummaryResponse.css";
 import Noresponse from "../Noresponse/Noresponse";
 
-const SummaryResponse = ({ loading, rdata, fdata }) => {
+const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 	return (
 		<div className="summaryContainer">
 			{loading && (
@@ -16,7 +16,7 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 				</b>
 			)}
 			{!loading && rdata && rdata.length < 1 && (
-				<Noresponse/>
+				<Noresponse setModalOpened={setModalOpened} />
 			)}
 			{!loading &&
 				fdata &&
@@ -57,13 +57,15 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										<div>
-											<Bargraph
-												rdata={rdata}
-												options={question.options}
-												qid={question.questionId}
-											/>
-										</div>
+										{question.options.length > 2 && (
+											<div>
+												<Bargraph
+													rdata={rdata}
+													options={question.options}
+													qid={question.questionId}
+												/>
+											</div>
+										)}
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
@@ -75,13 +77,16 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										<div>
-											<Bargraph
-												rdata={rdata}
-												options={question.options}
-												qid={question.questionId}
-											/>
-										</div>
+
+										{question.options.length > 2 && (
+											<div>
+												<Bargraph
+													rdata={rdata}
+													options={question.options}
+													qid={question.questionId}
+												/>
+											</div>
+										)}
 									</div>
 								)}
 								{question.questionType === "attachment" && (

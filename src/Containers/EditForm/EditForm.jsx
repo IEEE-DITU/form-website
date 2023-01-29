@@ -22,13 +22,13 @@ const EditForm = () => {
 	const addQuestion = () => {
 		let a = questions;
 		a.push({
-			questionTitle: "Enter question..?",
+			questionTitle: "",
 			questionType: "text",
 			questionId: v4(),
 			isRequired: false,
-			options: ["enter option"],
+			options: [""],
 			minChoice: 1,
-			maxChoice: 1,
+			maxChoice: 50,
 		});
 		setQuestions([...a]);
 	};
@@ -155,6 +155,23 @@ const EditForm = () => {
 	}
 
 	const publish = () => {
+		for (let i in questions) {
+			if (!questions[i].questionTitle) {
+				toast.error("questions cannot be empy!");
+				return;
+			}
+			if (
+				questions[i].questionType === "singleChoice" ||
+				questions[i].questionType === "multipleChoice"
+			) {
+				for (let j in questions[i].options) {
+					if (!questions[i].options[j]) {
+						toast.error("Options cannot be empty!");
+						return;
+					}
+				}
+			}
+		}
 		const promise = () => {
 			return new Promise((resolve, reject) => {
 				try {

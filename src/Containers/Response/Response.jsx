@@ -7,6 +7,10 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase";
 import IndividualResponse from "../../Components/IndividualResponse/IndividualResponse";
 import SummaryResponse from "../../Components/SummaryResponse/SummaryResponse";
+import { toast } from "react-hot-toast";
+import html2canvas from "html2canvas";
+import QRCode from "react-qr-code";
+import { Modal } from "@mantine/core";
 
 const Response = () => {
 	const { id } = useParams();
@@ -14,6 +18,25 @@ const Response = () => {
 	const [fdata, setFdata] = useState("");
 	const [loading, setLoading] = useState(true);
 	const [summary, setSummary] = useState(true);
+	const [modalData, setmodalData] = useState("");
+	const [modalOpened, setModalOpened] = useState(false);
+	function downloadURI(uri, name) {
+		var link = document.createElement("a");
+		link.download = name;
+		link.href = uri;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	}
+	const getImage = () => {
+		const domElement = document.getElementById(
+			`${modalData.title}-${modalData.createdAt}`
+		);
+		html2canvas(domElement).then((canvas) => {
+			const img = canvas.toDataURL("image/jpeg");
+			downloadURI(img, `${modalData.title}-${modalData.createdAt}`);
+		});
+	};
 	useEffect(() => {
 		const unsub = () => {
 			onSnapshot(doc(db, "responses", id), (doc) => {
@@ -23,6 +46,7 @@ const Response = () => {
 			});
 			onSnapshot(doc(db, "forms", id), (doc) => {
 				const a = doc.data();
+				setmodalData(a);
 				setFdata(a.questions);
 				setLoading(false);
 			});
@@ -31,46 +55,129 @@ const Response = () => {
 		// eslint-disable-next-line
 	}, []);
 	return (
-		<div className="Response">
-			<div className="ResponseTop">
-				<div className="heading">
-					<p>{rdata ? rdata.length : 0} Responses</p>
-				</div>
-
+		<>
+			<Modal
+				opened={modalOpened}
+				onClose={() => setModalOpened(false)}
+				title={modalData.title}
+			>
 				<div
 					style={{
 						display: "flex",
+						flexDirection: "column",
+						gap: "1rem",
 						justifyContent: "center",
 						alignItems: "center",
-						gap: "1rem",
+						width: "100%",
 					}}
 				>
-					<BsShareFill style={{ color: "#6D7B94", fontSize: "1.3rem" }} />
-					<FaBars style={{ color: "#6D7B94", fontSize: "1.3rem" }} />
+					<div
+						id={`${modalData.title}-${modalData.createdAt}`}
+						style={{
+							width: "min-content",
+							background: "white",
+							padding: "1rem",
+						}}
+					>
+						<QRCode
+							className="qr"
+							value={`https://form-website-seven.vercel.app/form/${modalData.id}`}
+							style={{ minWidth: "10rem" }}
+						/>
+					</div>
+					<input
+						style={{
+							whiteSpace: "nowrap",
+							overflowY: "scroll",
+							cursor: "text",
+							border: "1px solid grey",
+							borderRadius: "5px",
+							padding: "0.25rem",
+							outline: "none",
+							background: "rgb(243, 243, 243)",
+							width: "100%",
+						}}
+						onChange={(e) => e.preventDefault()}
+						value={`https://form-website-seven.vercel.app/form/${modalData.id}`}
+					/>
+					<div
+						style={{ display: "flex", gap: "0.5rem", width: "100%" }}
+						className="c253Md"
+					>
+						<div className="modalButton" onClick={() => getImage()}>
+							Download QR
+						</div>
+						<div
+							className="modalButton"
+							onClick={() => {
+								navigator.clipboard
+									.writeText(
+										`https://form-website-seven.vercel.app/form/${modalData.id}`
+									)
+									.then(toast.success("link copied to clipboard"))
+									.catch((err) => toast.error(err));
+							}}
+						>
+							Click to copy
+						</div>
+					</div>
+				</div>
+			</Modal>
+
+			<div className="Response">
+				<div className="ResponseTop">
+					<div className="heading">
+						<p>{rdata ? rdata.length : 0} Responses</p>
+					</div>
+
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							gap: "1rem",
+						}}
+					>
+						<BsShareFill
+							style={{ color: "#6D7B94", fontSize: "1.3rem" }}
+							onClick={() => setModalOpened(true)}
+						/>
+						<FaBars style={{ color: "#6D7B94", fontSize: "1.3rem" }} />
+					</div>
+				</div>
+				<div className="responseContent">
+					<div className="responseSwitcher">
+						<div
+							className={`Summary ${summary ? "active" : ""}`}
+							onClick={() => setSummary(true)}
+						>
+							<p>Summary</p>
+						</div>
+						<div
+							className={`Individual  ${summary ? "" : "active"}`}
+							onClick={() => setSummary(false)}
+						>
+							<p>Individual</p>
+						</div>
+					</div>
+					{summary ? (
+						<SummaryResponse
+							rdata={rdata}
+							loading={loading}
+							fdata={fdata}
+							setModalOpened={setModalOpened}
+						/>
+					) : (
+						<IndividualResponse
+							rdata={rdata}
+							loading={loading}
+							fdata={fdata}
+							setModalOpened={setModalOpened}
+						/>
+					)}
 				</div>
 			</div>
-			<div className="responseContent">
-				<div className="responseSwitcher">
-					<div
-						className={`Summary ${summary ? "active" : ""}`}
-						onClick={() => setSummary(true)}
-					>
-						<p>Summary</p>
-					</div>
-					<div
-						className={`Individual  ${summary ? "" : "active"}`}
-						onClick={() => setSummary(false)}
-					>
-						<p>Individual</p>
-					</div>
-				</div>
-				{summary ? (
-					<SummaryResponse rdata={rdata} loading={loading} fdata={fdata} />
-				) : (
-					<IndividualResponse rdata={rdata} loading={loading} fdata={fdata} />
-				)}
-			</div>
-		</div>
+		</>
 	);
 };
 

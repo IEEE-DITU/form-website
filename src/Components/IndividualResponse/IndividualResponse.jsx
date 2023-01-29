@@ -1,7 +1,7 @@
 import Accordian from "../Accordian/Accordian";
 import Noresponse from "../Noresponse/Noresponse";
 
-const IndividualResponse = ({ loading, rdata, fdata }) => {
+const IndividualResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 	return (
 		<div className="individualContainer">
 			{loading && (
@@ -15,10 +15,8 @@ const IndividualResponse = ({ loading, rdata, fdata }) => {
 			)}
 			{!loading && rdata && rdata.length < 1 && (
 				<div>
-			
-				<Noresponse/>
+					<Noresponse setModalOpened={setModalOpened} />
 				</div>
-				
 			)}
 			{!loading &&
 				rdata &&

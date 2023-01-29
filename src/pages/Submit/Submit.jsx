@@ -187,7 +187,22 @@ const Submit = () => {
 											<div className="SubmitFormQuestionUpper">
 												<div className="SubmitFormQuestionId">{uuuid + 1}.</div>
 												<div className="SubmitFormQuestionTitle">
-													{question.questionTitle}
+													{question.questionTitle}{" "}
+													{question.questionType === "text" && (
+														<span
+															style={{
+																fontSize: "0.8rem",
+																color: "grey",
+																marginLeft: "0.5rem",
+															}}
+														>
+															(
+															{responses[question.questionId]
+																? responses[question.questionId].length
+																: 0}
+															/{question.maxChoice})
+														</span>
+													)}
 												</div>
 												{question.isRequired && (
 													<p className="SubmitFormCompulsory">*</p>
@@ -199,6 +214,7 @@ const Submit = () => {
 														setAnsText={setAnsText}
 														responses={responses}
 														questionID={question.questionId}
+														max={question.maxChoice}
 													/>
 												)}
 												{question.questionType === "multipleChoice" && (

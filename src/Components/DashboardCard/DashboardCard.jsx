@@ -207,8 +207,9 @@ function DashboardCard(e) {
 					<div
 						id={`${e.title}-${e.createdAt}`}
 						style={{
-							width: "160px",
-							background: "none",
+							width: "min-content",
+							background: "white",
+							padding: "1rem",
 						}}
 					>
 						<QRCode
@@ -271,7 +272,13 @@ function DashboardCard(e) {
 						Are you sure want to delete {e.title} ?
 					</p>
 					<div style={{ display: "flex", gap: "1rem" }}>
-						<div className="modalButton" onClick={() => deleteForm()}>
+						<div
+							className="modalButton"
+							onClick={() => {
+								deleteForm();
+								setdeleteModalOpened(false);
+							}}
+						>
 							Delete
 						</div>
 						<div
