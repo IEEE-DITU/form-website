@@ -1,45 +1,79 @@
-.underline{
-    color:#ff432a ;
+.underline {
+	color: #ff432a;
+	margin-bottom: 2rem;
 }
-.maindiv{
-    background-color: #FFF7F2;
-    width: 60%;
-    height: 70%;
-    border-radius: 20px;
-    margin-left: 20%;
-    margin-right: 20%;
-    padding: 0.75rem 2rem;
-    overflow: hidden;
-    
+.clap {
+	width: 12vw;
+	min-width: 5rem;
+	display: flex;
+	align-items: center;
 }
-.clap{
-    width: 15vw;
-    display: flex;
-    align-items: center;
+.thankyou {
+	font-family: "Bebas Neue";
+	font-weight: 900;
+	letter-spacing: 5.5px;
+	font-size: 27px;
+	margin-bottom: 1rem;
 }
-.thankyou{
-    font-family: "Bebas Neue";
-    font-weight: 900;
-    letter-spacing: 5.5px;
-    font-size: 27px;
-    margin-bottom: 1rem;
-    }
 
-.ressub{
-    margin-bottom: 5rem;
-}    
-.contentdiv{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.ressub {
+	margin-bottom: 2rem;
+	text-align: center;
 }
-.formname{
-    font-size: 27px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: black;
+.contentdiv {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-.mainb{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.formname {
+	font-size: 27px;
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+	color: black;
+}
+.mainb {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.submittedPage {
+	width: 100vw;
+	height: var(--vh);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url("../../images/authImg.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.submittedContent {
+	background-color: #fff7f2;
+	min-width: 80vw;
+	min-height: calc(var(--vh) - 20vh);
+	border-radius: 20px;
+	padding: 0.75rem 2rem;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+@media only screen and (max-width: 1205px) {
+	.submittedContent {
+		min-width: 85vw !important;
+		min-height: calc(var(--vh) - 15vh);
+		padding: 1rem;
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	.submittedContent {
+		min-width: 95vw;
+		min-height: calc(var(--vh) - 5vh);
+		padding: 0.5rem;
+	}
 }
