@@ -17,7 +17,7 @@ const SharedWithMe = ({ currentPosts, loading }) => {
 				>
 					<img className="image1" src={image1} alt="unavailable"></img>
 					<p align="center">
-						Seems like you haven't created any forms yet ;( wanna{" "}
+						Seems like no any shared any form with you ;( wanna{" "}
 						<Link to="/user/newform" className="link">
 							try creating{" "}
 						</Link>
