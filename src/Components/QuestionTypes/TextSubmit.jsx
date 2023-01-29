@@ -1,6 +1,6 @@
 import "./QuestionTypes.css";
 
-const Text = ({ setAnsText, responses, questionID }) => {
+const Text = ({ setAnsText, responses, questionID, max }) => {
 	return (
 		<div className="TextType">
 			<input
@@ -11,6 +11,7 @@ const Text = ({ setAnsText, responses, questionID }) => {
 					e.preventDefault();
 					setAnsText(questionID, e.target.value);
 				}}
+				maxLength={max}
 			/>
 		</div>
 	);
