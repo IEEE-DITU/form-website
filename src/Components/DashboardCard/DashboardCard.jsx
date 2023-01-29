@@ -271,7 +271,13 @@ function DashboardCard(e) {
 						Are you sure want to delete {e.title} ?
 					</p>
 					<div style={{ display: "flex", gap: "1rem" }}>
-						<div className="modalButton" onClick={() => deleteForm()}>
+						<div
+							className="modalButton"
+							onClick={() => {
+								deleteForm();
+								setdeleteModalOpened(false);
+							}}
+						>
 							Delete
 						</div>
 						<div

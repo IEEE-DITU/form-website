@@ -238,7 +238,7 @@ const Newform = () => {
 		toast.promise(promise(), {
 			loading: "publishing...",
 			success: () => {
-				navigate("/submitresponse");
+				navigate("/user/dashboard");
 				return "published!";
 			},
 			error: (err) => {

@@ -13,8 +13,14 @@ const Piechart = (e) => {
 		for (let i in e.options) {
 			let count = 0;
 			for (let j in e.rdata) {
-				if (e.rdata[j][e.qid] && e.rdata[j][e.qid].includes(e.options[i])) {
-					count = count + 1;
+				if (typeof e.rdata[j][e.qid] === "string") {
+					if (e.rdata[j][e.qid] && e.rdata[j][e.qid] === e.options[i]) {
+						count = count + 1;
+					}
+				} else if (typeof e.rdata[j][e.qid] === "object") {
+					if (e.rdata[j][e.qid] && e.rdata[j][e.qid].includes(e.options[i])) {
+						count = count + 1;
+					}
 				}
 			}
 			a.push(count);

@@ -15,9 +15,7 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 					Loading...
 				</b>
 			)}
-			{!loading && rdata && rdata.length < 1 && (
-				<Noresponse/>
-			)}
+			{!loading && rdata && rdata.length < 1 && <Noresponse />}
 			{!loading &&
 				fdata &&
 				rdata &&
@@ -57,13 +55,15 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										<div>
-											<Bargraph
-												rdata={rdata}
-												options={question.options}
-												qid={question.questionId}
-											/>
-										</div>
+										{question.options.length > 2 && (
+											<div>
+												<Bargraph
+													rdata={rdata}
+													options={question.options}
+													qid={question.questionId}
+												/>
+											</div>
+										)}
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
@@ -75,13 +75,16 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										<div>
-											<Bargraph
-												rdata={rdata}
-												options={question.options}
-												qid={question.questionId}
-											/>
-										</div>
+
+										{question.options.length > 2 && (
+											<div>
+												<Bargraph
+													rdata={rdata}
+													options={question.options}
+													qid={question.questionId}
+												/>
+											</div>
+										)}
 									</div>
 								)}
 								{question.questionType === "attachment" && (
