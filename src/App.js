@@ -13,6 +13,8 @@ import Loading from "./Components/Loading/Loading";
 import Authentication from "./pages/Authentication/Authentication";
 import NotFound from "./pages/404/NotFound";
 import Submit from "./pages/Submit/Submit";
+import Submitresponse from "./pages/Submitresponse/Submitresponse";
+import Formclosed from "./pages/Formclosed/Formclosed";
 import "./App.css";
 
 function MainApp() {
@@ -47,6 +49,8 @@ function MainApp() {
 						path="/auth"
 						element={currentUser ? <Navigate to="/" /> : <Authentication />}
 					/>
+					<Route path="/submitresponse" element={<Submitresponse />} />;
+					<Route path="/formclosed" element={<Formclosed/>}></Route>;
 					<Route
 						path="/user/*"
 						element={currentUser ? <Home /> : <Navigate to="/auth" />}

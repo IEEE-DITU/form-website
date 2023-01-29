@@ -1,4 +1,5 @@
 import Accordian from "../Accordian/Accordian";
+import Noresponse from "../Noresponse/Noresponse";
 
 const IndividualResponse = ({ loading, rdata, fdata }) => {
 	return (
@@ -13,7 +14,11 @@ const IndividualResponse = ({ loading, rdata, fdata }) => {
 				</b>
 			)}
 			{!loading && rdata && rdata.length < 1 && (
-				<h3 style={{ margin: "auto" }}>No responses recieved yet</h3>
+				<div>
+			
+				<Noresponse/>
+				</div>
+				
 			)}
 			{!loading &&
 				rdata &&

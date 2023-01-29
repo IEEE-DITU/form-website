@@ -1,0 +1,12 @@
+.image1 {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 13vw;
+	height: 15vw;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+.link {
+	color: #ff432a;
+}

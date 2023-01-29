@@ -1,6 +1,7 @@
 import Bargraph from "../BarGraph/Bargraph";
 import Piechart from "../PieChart/Piechart";
 import "./SummaryResponse.css";
+import Noresponse from "../Noresponse/Noresponse";
 
 const SummaryResponse = ({ loading, rdata, fdata }) => {
 	return (
@@ -14,9 +15,7 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 					Loading...
 				</b>
 			)}
-			{!loading && rdata && rdata.length < 1 && (
-				<h3 style={{ margin: "auto" }}>No responses recieved yet</h3>
-			)}
+			{!loading && rdata && rdata.length < 1 && <Noresponse />}
 			{!loading &&
 				fdata &&
 				rdata &&
@@ -56,13 +55,15 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										<div>
-											<Bargraph
-												rdata={rdata}
-												options={question.options}
-												qid={question.questionId}
-											/>
-										</div>
+										{question.options.length > 2 && (
+											<div>
+												<Bargraph
+													rdata={rdata}
+													options={question.options}
+													qid={question.questionId}
+												/>
+											</div>
+										)}
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
@@ -74,13 +75,40 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										<div>
-											<Bargraph
-												rdata={rdata}
-												options={question.options}
-												qid={question.questionId}
-											/>
-										</div>
+
+										{question.options.length > 2 && (
+											<div>
+												<Bargraph
+													rdata={rdata}
+													options={question.options}
+													qid={question.questionId}
+												/>
+											</div>
+										)}
+									</div>
+								)}
+								{question.questionType === "attachment" && (
+									<div className="attachment">
+										<ol>
+											{rdata.map((response, id) => {
+												return (
+													<li key={id}>
+														<a
+															href={response[question.questionId]}
+															target="_blank"
+															rel="noreferrer"
+														>
+															<span
+																style={{ width: "100%", overflow: "hidden" }}
+															>
+																{response[question.questionId]}
+															</span>
+															...
+														</a>
+													</li>
+												);
+											})}
+										</ol>
 									</div>
 								)}
 							</div>

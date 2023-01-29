@@ -220,7 +220,7 @@ function DashboardCard(e) {
 					<input
 						style={{
 							whiteSpace: "nowrap",
-							overflow: "scroll",
+							overflowY: "scroll",
 							cursor: "text",
 							border: "1px solid grey",
 							borderRadius: "5px",
@@ -271,7 +271,13 @@ function DashboardCard(e) {
 						Are you sure want to delete {e.title} ?
 					</p>
 					<div style={{ display: "flex", gap: "1rem" }}>
-						<div className="modalButton" onClick={() => deleteForm()}>
+						<div
+							className="modalButton"
+							onClick={() => {
+								deleteForm();
+								setdeleteModalOpened(false);
+							}}
+						>
 							Delete
 						</div>
 						<div
@@ -319,7 +325,7 @@ function DashboardCard(e) {
 						style={{
 							width: "100%",
 							height: "10rem",
-							overflow: "scroll",
+							overflowY: "scroll",
 							display: "flex",
 							flexDirection: "column",
 							gap: "0.15rem",
@@ -348,7 +354,7 @@ function DashboardCard(e) {
 						{e.createdAt}
 					</p>
 					<p className="cardcontent">
-						<span style={{ fontWeight: "600" }}>Number of responces</span> -{" "}
+						<span style={{ fontWeight: "600" }}>Number of responses</span> -{" "}
 						{len}
 					</p>
 				</div>
