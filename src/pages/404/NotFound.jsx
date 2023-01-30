@@ -5,17 +5,6 @@ const NotFound = () => {
 	return (
 		<div className="NotFoundPageContainer">
 			<div className="NotFoundPage">
-				<h5
-					style={{
-						padding: "1rem",
-						position: "absolute",
-						bottom: "1rem",
-						left: "1rem",
-						color: "blue",
-					}}
-				>
-					jb tk 404 ka design nhi bnta tb tk yhi rhega
-				</h5>
 				<main className="container">
 					{[...Array(40)].map((e, i) => (
 						<span className="particle" key={`${i}1404`}>
