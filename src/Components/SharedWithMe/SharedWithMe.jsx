@@ -9,10 +9,12 @@ const SharedWithMe = ({ currentPosts, loading }) => {
 				<div
 					style={{
 						display: "flex",
+						position: "relative",
 						justifyContent: "center",
 						alignItems: "center",
 						width: "100%",
 						flexDirection: "column",
+						zIndex: "100",
 					}}
 				>
 					<img className="image1" src={image1} alt="unavailable"></img>

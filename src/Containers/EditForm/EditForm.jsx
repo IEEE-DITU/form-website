@@ -151,7 +151,7 @@ const EditForm = () => {
 	function textAreaAdjust() {
 		const element = document.getElementById("descriptionTextArea");
 		element.style.height = "1px";
-		element.style.height = 15 + element.scrollHeight + "px";
+		element.style.height = 3 + element.scrollHeight + "px";
 	}
 
 	const publish = () => {
@@ -212,8 +212,8 @@ const EditForm = () => {
 			.then((snapshot) => {
 				setFormData(snapshot.data());
 				setQuestions(snapshot.data().questions);
+				setLoading(false);
 			})
-			.then(setLoading(false))
 			.catch((err) => {
 				toast.error(err.message);
 			});
@@ -223,7 +223,13 @@ const EditForm = () => {
 	return (
 		<div className="NewForm">
 			{loading ? (
-				"Loading..."
+				<h2
+					style={{
+						margin: "auto",
+					}}
+				>
+					Loading...
+				</h2>
 			) : (
 				<>
 					<div className="newForm-title">
