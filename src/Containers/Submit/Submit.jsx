@@ -140,13 +140,10 @@ const Submit = ({ data, id }) => {
 							<button onClick={() => SubmitResponse()}>Submit</button>
 						</div>
 						<div className="SubmitFormQuestions">
-							<p
-								className="descriptionSumbit"
-								type="text"
-								placeholder="Enter the description for the form..."
-							>
-								{data.description}
-							</p>
+							<div className="descriptionSumbit">
+								<h3>{data.title}</h3>
+								<p>{data.description}</p>
+							</div>
 							{data.questions &&
 								data.questions.map((question, uuuid) => {
 									return (

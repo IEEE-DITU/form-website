@@ -151,7 +151,7 @@ const EditForm = () => {
 	function textAreaAdjust() {
 		const element = document.getElementById("descriptionTextArea");
 		element.style.height = "1px";
-		element.style.height = 15 + element.scrollHeight + "px";
+		element.style.height = 3 + element.scrollHeight + "px";
 	}
 
 	const publish = () => {
