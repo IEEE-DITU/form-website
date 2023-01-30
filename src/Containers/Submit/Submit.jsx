@@ -115,7 +115,12 @@ const Submit = ({ data, id }) => {
 			toast.promise(promise(), {
 				loading: "submitting...",
 				success: () => {
-					navigate("/submitresponse");
+					navigate("/submitresponse", {
+						state: {
+							id: id,
+							name: data.title,
+						},
+					});
 					return "response submitted";
 				},
 				error: (err) => {

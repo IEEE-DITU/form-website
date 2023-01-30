@@ -36,18 +36,22 @@ const SubmitPage = () => {
 	return (
 		<>
 			{loading && (
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						width: "100%",
-						height: "100%",
-						fontSize: "2rem",
-						fontWeight: "bold",
-					}}
-				>
-					Loading...
+				<div className="Submit">
+					<div className="SubmitContent">
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								width: "100%",
+								height: "100%",
+								fontSize: "2rem",
+								fontWeight: "bold",
+							}}
+						>
+							Loading...
+						</div>
+					</div>
 				</div>
 			)}
 			{!loading && data && data.acceptingResponses === true && (

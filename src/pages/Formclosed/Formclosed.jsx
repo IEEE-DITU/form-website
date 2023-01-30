@@ -12,10 +12,17 @@ const Formclosed = ({ title }) => {
 				<img className="clap" src={sadsticker} alt="not available"></img>
 				<p className="thankyou">AW SNAP!</p>
 				<p className="ressub">
-					Looks like the form you are trying to access is no{" "}
-					<span style={{ fontWeight: "600" }}>longer accepting responses.</span>
+					Looks like the form you are trying to access is{" "}
+					<span style={{ fontWeight: "600" }}>
+						no longer accepting responses.
+					</span>
+					<br />
+					<span
+						style={{ fontSize: "0.8rem", marginTop: "0.5rem", color: "grey" }}
+					>
+						If you think this is an error plese contact form owner
+					</span>
 				</p>
-				<p className="links">*links and some other stuff</p>
 			</div>
 		</div>
 	);
