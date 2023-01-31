@@ -22,13 +22,13 @@ const EditForm = () => {
 	const addQuestion = () => {
 		let a = questions;
 		a.push({
-			questionTitle: "Enter question..?",
+			questionTitle: "",
 			questionType: "text",
 			questionId: v4(),
 			isRequired: false,
-			options: ["enter option"],
+			options: [""],
 			minChoice: 1,
-			maxChoice: 1,
+			maxChoice: 50,
 		});
 		setQuestions([...a]);
 	};
@@ -151,10 +151,27 @@ const EditForm = () => {
 	function textAreaAdjust() {
 		const element = document.getElementById("descriptionTextArea");
 		element.style.height = "1px";
-		element.style.height = 15 + element.scrollHeight + "px";
+		element.style.height = 3 + element.scrollHeight + "px";
 	}
 
 	const publish = () => {
+		for (let i in questions) {
+			if (!questions[i].questionTitle) {
+				toast.error("questions cannot be empy!");
+				return;
+			}
+			if (
+				questions[i].questionType === "singleChoice" ||
+				questions[i].questionType === "multipleChoice"
+			) {
+				for (let j in questions[i].options) {
+					if (!questions[i].options[j]) {
+						toast.error("Options cannot be empty!");
+						return;
+					}
+				}
+			}
+		}
 		const promise = () => {
 			return new Promise((resolve, reject) => {
 				try {
@@ -193,10 +210,15 @@ const EditForm = () => {
 		const ref = doc(db, "forms", id);
 		getDoc(ref)
 			.then((snapshot) => {
+				if (!snapshot.exists()) {
+					toast.error("This form does not exist");
+					navigate("/user/dashboard");
+					return;
+				}
 				setFormData(snapshot.data());
 				setQuestions(snapshot.data().questions);
+				setLoading(false);
 			})
-			.then(setLoading(false))
 			.catch((err) => {
 				toast.error(err.message);
 			});
@@ -206,150 +228,161 @@ const EditForm = () => {
 	return (
 		<div className="NewForm">
 			{loading ? (
-				"Loading..."
+				<h2
+					style={{
+						margin: "auto",
+					}}
+				>
+					Loading...
+				</h2>
 			) : (
-				<>
-					<div className="newForm-title">
-						<input
-							type="text"
-							value={formData.title}
-							onChange={(event) =>
-								setFormData((prev) => ({ ...prev, title: event.target.value }))
-							}
-							placeholder="Enter you form title here..."
-						/>
-						<button
-							onClick={() => {
-								publish();
-							}}
-						>
-							Update
-						</button>
-					</div>
-					<div className="newFormQuestions">
-						<textarea
-							type="text"
-							className="inputfield"
-							placeholder="Enter the description for the form..."
-							value={formData.description}
-							onChange={(e) => {
-								let a = formData;
-								a.description = e.target.value;
-								setFormData({ ...a });
-							}}
-							onKeyUp={() => textAreaAdjust()}
-							id="descriptionTextArea"
-						/>
-						{questions.map((question, id) => {
-							return (
-								<div className="newFormQuestion" key={id}>
-									<div className="newFormQuestionUpper">
-										<div className="left">
-											<div className="newFormQuestionId">{id + 1}.</div>
-											<div className="newFormQuestionTitle">
-												<input
-													type="text"
-													value={question.questionTitle}
-													placeholder="Enter quetions..."
-													onChange={(e) =>
-														changeQuestionTitle(
-															e.target.value,
-															question.questionId
-														)
-													}
-												/>
-											</div>
-										</div>
-										<div className="right">
-											<div className="questionChangeType">
-												<Dropdown
-													options={questionTypes}
-													onChange={(e) =>
-														changeQuestionType(e.value, question.questionId)
-													}
-													value={question.questionType}
-													placeholder="Select an option"
-												/>
-											</div>
-										</div>
-									</div>
-									<div className="newFormQuestionMiddle">
-										<div className="newFormQuestionAnswerArea">
-											{question.questionType === "text" && (
-												<Text
-													changeWordLimit={changeWordLimit}
-													qid={question.questionId}
-													limit={question.maxChoice}
-												/>
-											)}
-											{question.questionType === "multipleChoice" && (
-												<MultipleChoice
-													options={question.options}
-													qid={question.questionId}
-													editOption={editOption}
-													deleteOption={deleteOption}
-												/>
-											)}
-											{question.questionType === "singleChoice" && (
-												<SingleChoice
-													options={question.options}
-													qid={question.questionId}
-													editOption={editOption}
-													deleteOption={deleteOption}
-													singleoption={singleoption}
-												/>
-											)}
-											{question.questionType === "attachment" && (
-												<Attachment
-													// ChangeFileType={changeWordLimit}
-													qid={question.questionId}
-													// fileType={question.maxChoice}
-												/>
-											)}
-										</div>
-									</div>
-									<div className="newFormQuestionLower">
-										{question.questionType !== "text" &&
-											question.questionType !== "attachment" && (
-												<div
-													className="newFormAddOption"
-													onClick={() => addOption(question.questionId)}
-												>
-													<p>+ Add option</p>
+				formData && (
+					<>
+						<div className="newForm-title">
+							<input
+								type="text"
+								value={formData.title}
+								onChange={(event) =>
+									setFormData((prev) => ({
+										...prev,
+										title: event.target.value,
+									}))
+								}
+								placeholder="Enter you form title here..."
+							/>
+							<button
+								onClick={() => {
+									publish();
+								}}
+							>
+								Update
+							</button>
+						</div>
+						<div className="newFormQuestions">
+							<textarea
+								type="text"
+								className="inputfield"
+								placeholder="Enter the description for the form..."
+								value={formData.description}
+								onChange={(e) => {
+									let a = formData;
+									a.description = e.target.value;
+									setFormData({ ...a });
+								}}
+								onKeyUp={() => textAreaAdjust()}
+								id="descriptionTextArea"
+							/>
+							{questions.map((question, id) => {
+								return (
+									<div className="newFormQuestion" key={id}>
+										<div className="newFormQuestionUpper">
+											<div className="left">
+												<div className="newFormQuestionId">{id + 1}.</div>
+												<div className="newFormQuestionTitle">
+													<input
+														type="text"
+														value={question.questionTitle}
+														placeholder="Enter quetions..."
+														onChange={(e) =>
+															changeQuestionTitle(
+																e.target.value,
+																question.questionId
+															)
+														}
+													/>
 												</div>
-											)}
-										<div className="requiredSwitch">
-											<p>Required</p>
-											<ToggleSwitch
-												id={question.questionId}
-												name="required"
-												checked={question.isRequired}
-												disabled={false}
-												small={true}
-												optionLabels={["true", "false"]}
-												onChange={setRequired}
-											/>
+											</div>
+											<div className="right">
+												<div className="questionChangeType">
+													<Dropdown
+														options={questionTypes}
+														onChange={(e) =>
+															changeQuestionType(e.value, question.questionId)
+														}
+														value={question.questionType}
+														placeholder="Select an option"
+													/>
+												</div>
+											</div>
 										</div>
+										<div className="newFormQuestionMiddle">
+											<div className="newFormQuestionAnswerArea">
+												{question.questionType === "text" && (
+													<Text
+														changeWordLimit={changeWordLimit}
+														qid={question.questionId}
+														limit={question.maxChoice}
+													/>
+												)}
+												{question.questionType === "multipleChoice" && (
+													<MultipleChoice
+														options={question.options}
+														qid={question.questionId}
+														editOption={editOption}
+														deleteOption={deleteOption}
+													/>
+												)}
+												{question.questionType === "singleChoice" && (
+													<SingleChoice
+														options={question.options}
+														qid={question.questionId}
+														editOption={editOption}
+														deleteOption={deleteOption}
+														singleoption={singleoption}
+													/>
+												)}
+												{question.questionType === "attachment" && (
+													<Attachment
+														// ChangeFileType={changeWordLimit}
+														qid={question.questionId}
+														// fileType={question.maxChoice}
+													/>
+												)}
+											</div>
+										</div>
+										<div className="newFormQuestionLower">
+											{question.questionType !== "text" &&
+												question.questionType !== "attachment" && (
+													<div
+														className="newFormAddOption"
+														onClick={() => addOption(question.questionId)}
+													>
+														<p>+ Add option</p>
+													</div>
+												)}
+											<div className="requiredSwitch">
+												<p>Required</p>
+												<ToggleSwitch
+													id={question.questionId}
+													name="required"
+													checked={question.isRequired}
+													disabled={false}
+													small={true}
+													optionLabels={["true", "false"]}
+													onChange={setRequired}
+												/>
+											</div>
 
-										<div
-											className="newFormQuestionDelete"
-											onClick={() => deleteQuestion(id)}
-										>
-											<p>Delete</p>
-											<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
+											<div
+												className="newFormQuestionDelete"
+												onClick={() => deleteQuestion(id)}
+											>
+												<p>Delete</p>
+												<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
+											</div>
 										</div>
 									</div>
-								</div>
-							);
-						})}
-					</div>
-					<div
-						className="newFormAddQuestionButton"
-						onClick={() => addQuestion()}
-					>
-						+ Add Question
-					</div>
-				</>
+								);
+							})}
+						</div>
+						<div
+							className="newFormAddQuestionButton"
+							onClick={() => addQuestion()}
+						>
+							+ Add Question
+						</div>
+					</>
+				)
 			)}
 		</div>
 	);

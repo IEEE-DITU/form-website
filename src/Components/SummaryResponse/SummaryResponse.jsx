@@ -3,7 +3,7 @@ import Piechart from "../PieChart/Piechart";
 import "./SummaryResponse.css";
 import Noresponse from "../Noresponse/Noresponse";
 
-const SummaryResponse = ({ loading, rdata, fdata }) => {
+const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 	return (
 		<div className="summaryContainer">
 			{loading && (
@@ -15,7 +15,9 @@ const SummaryResponse = ({ loading, rdata, fdata }) => {
 					Loading...
 				</b>
 			)}
-			{!loading && rdata && rdata.length < 1 && <Noresponse />}
+			{!loading && rdata && rdata.length < 1 && (
+				<Noresponse setModalOpened={setModalOpened} />
+			)}
 			{!loading &&
 				fdata &&
 				rdata &&

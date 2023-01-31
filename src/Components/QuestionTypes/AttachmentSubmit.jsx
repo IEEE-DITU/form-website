@@ -86,7 +86,7 @@ const AttachmentSubmit = ({
 					className="AttachmentSubmit"
 					style={{ backgroundColor: "black", color: "white" }}
 				>
-					<p style={{ padding: "0.25rem" }}>UpfileUpload file...</p>
+					<p style={{ padding: "0.25rem" }}>Uploading file...</p>
 					<LoaderSmall />
 					<p>{progress}%</p>
 				</div>

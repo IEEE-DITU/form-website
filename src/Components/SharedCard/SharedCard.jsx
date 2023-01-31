@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
-import {
-	doc,
-	updateDoc,
-	deleteDoc,
-	getDoc,
-	onSnapshot,
-} from "firebase/firestore";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { Modal } from "@mantine/core";
 import { db } from "../../Firebase";
-import { useAuth } from "../../context/AuthContext";
 import React, { useEffect, useState } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import toast from "react-hot-toast";
@@ -16,9 +9,7 @@ import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
 
 const SharedCard = (e) => {
-	const { currentUser } = useAuth();
 	const [modalOpened, setModalOpened] = useState(false);
-	const [deletemodalOpened, setdeleteModalOpened] = useState(false);
 	const [len, setLen] = useState(0);
 	const promise = () => {
 		return new Promise((resolve, reject) => {
@@ -37,48 +28,6 @@ const SharedCard = (e) => {
 			loading: e.acceptingResponses ? "Closing..." : "Opening...",
 			success: () => {
 				return e.acceptingResponses ? "Closed..." : "Opened...";
-			},
-			error: (err) => {
-				return `${err}`;
-			},
-		});
-	};
-
-	const deleteForm = () => {
-		const promise = () => {
-			return new Promise((resolve, reject) => {
-				try {
-					const ref = doc(db, "forms", e.id);
-					const ref2 = doc(db, "responses", e.id);
-					const ref3 = doc(db, "users", currentUser.uid);
-					deleteDoc(ref).catch((err) => console.log(err, "ref"));
-					deleteDoc(ref2).catch((err) => console.log(err, "ref2"));
-					getDoc(ref3)
-						.then((snapshot) => {
-							const abc = snapshot.data();
-							const oldData = abc.forms;
-							const index = oldData.indexOf(e.id);
-							if (index > -1) {
-								oldData.splice(index, 1);
-							}
-							updateDoc(ref3, {
-								forms: [...oldData],
-							}).then(() => {
-								setdeleteModalOpened(false);
-								resolve();
-							});
-						})
-						.catch((err) => console.log(err, "ref3"));
-				} catch {
-					reject();
-				}
-			});
-		};
-
-		toast.promise(promise(), {
-			loading: "deleting...",
-			success: () => {
-				return "Deleted!";
 			},
 			error: (err) => {
 				return `${err}`;
@@ -179,34 +128,6 @@ const SharedCard = (e) => {
 					</div>
 				</div>
 			</Modal>
-			<Modal
-				opened={deletemodalOpened}
-				onClose={() => setdeleteModalOpened(false)}
-				title="Confirm Deletion"
-			>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: "1rem",
-					}}
-				>
-					<p style={{ fontWeight: "500" }}>
-						Are you sure want to delete {e.title} ?
-					</p>
-					<div style={{ display: "flex", gap: "1rem" }}>
-						<div className="modalButton" onClick={() => deleteForm()}>
-							Delete
-						</div>
-						<div
-							className="modalButton2"
-							onClick={() => setdeleteModalOpened(false)}
-						>
-							Cancel
-						</div>
-					</div>
-				</div>
-			</Modal>
 			<div className="card">
 				<div className="cardleft">
 					<p className="cardcontent">
@@ -256,15 +177,6 @@ const SharedCard = (e) => {
 								Get Link
 							</span>
 						</p>
-					</div>
-					<div>
-						<span
-							className="closed"
-							onClick={() => setdeleteModalOpened(true)}
-							style={{ cursor: "pointer" }}
-						>
-							Delete
-						</span>
 					</div>
 				</div>
 			</div>

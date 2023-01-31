@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { collection, query, where, onSnapshot, updateDoc, doc, getDoc } from "firebase/firestore";
+import {
+	collection,
+	query,
+	where,
+	onSnapshot,
+	updateDoc,
+	doc,
+	getDoc,
+} from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
@@ -17,6 +25,7 @@ import editprofile from "../../images/profile edit button.png";
 import Pagination from "../../Components/Pagination/Pagination";
 import MyForms from "../../Components/MyForms/MyForms";
 import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
+import loadingProfile from "../../images/no-profile.gif";
 
 import "./Dashboard.css";
 
@@ -44,20 +53,20 @@ function Dashboard() {
 	);
 	const [modalOpened, setModalOpened] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState([]);
-	const [finalUrl, setFinalUrl] = useState()
+	const [finalUrl, setFinalUrl] = useState();
 	const storage = getStorage();
 	const ref1 = doc(db, "users", currentUser.uid);
 	const updateUrl = async () => {
 		const docSnap = await getDoc(ref1);
-		setFinalUrl(docSnap.data().profileImg)
-	}
+		setFinalUrl(docSnap.data().profileImg);
+	};
 	const changeProfile = async (m) => {
 		await updateDoc(ref1, {
-			profileImg: m
-		})
+			profileImg: m,
+		});
 		updateUrl();
 		setModalOpened(false);
-	}
+	};
 	useEffect(() => {
 
 		updateUrl();			//eslint-disable-next-line
@@ -144,7 +153,14 @@ function Dashboard() {
 			>
 				<div className="avatarsModal">
 					{avatarUrl.map((m, id) => {
-						return <img src={m} onClick={() => changeProfile(m)} alt="profile" key={id} />;
+						return (
+							<img
+								src={m}
+								onClick={() => changeProfile(m)}
+								alt="profile"
+								key={id}
+							/>
+						);
 					})}
 				</div>
 			</Modal>
@@ -242,7 +258,10 @@ function Dashboard() {
 					<img src={dashboardBgImage2} alt="dash" className="Dashboardbg2" />
 					<p className="myprofile">My Profile</p>
 					<div className="avatar">
-						<img src={finalUrl} alt="user profile"></img>
+						<img
+							src={finalUrl ? finalUrl : loadingProfile}
+							alt="user profile"
+						></img>
 						<img
 							src={editprofile}
 							onClick={() => setModalOpened(true)}
