@@ -68,9 +68,10 @@ function Dashboard() {
 		setModalOpened(false);
 	};
 	useEffect(() => {
-		updateUrl();
-		//eslint-disable-next-line
-	}, []);
+
+		updateUrl();			//eslint-disable-next-line
+	}, [])
+
 
 	useEffect(() => {
 		const getProfile = async () => {

@@ -224,6 +224,17 @@
 	/* display: flex; */
 	cursor: pointer;
 }
+.mainModal{
+	max-height: 90vh;
+}
+.mantine-144aj37{
+	overflow-y: hidden;
+}
+
+.avatarsModal{
+	max-height: 69vh;
+	overflow-y: scroll;
+}
 
 .avatarsModal > img {
 	width: 10rem;
