@@ -25,6 +25,7 @@ import editprofile from "../../images/profile edit button.png";
 import Pagination from "../../Components/Pagination/Pagination";
 import MyForms from "../../Components/MyForms/MyForms";
 import SharedWithMe from "../../Components/SharedWithMe/SharedWithMe";
+import loadingProfile from "../../images/no-profile.gif";
 
 import "./Dashboard.css";
 
@@ -256,7 +257,10 @@ function Dashboard() {
 					<img src={dashboardBgImage2} alt="dash" className="Dashboardbg2" />
 					<p className="myprofile">My Profile</p>
 					<div className="avatar">
-						<img src={finalUrl} alt="user profile"></img>
+						<img
+							src={finalUrl ? finalUrl : loadingProfile}
+							alt="user profile"
+						></img>
 						<img
 							src={editprofile}
 							onClick={() => setModalOpened(true)}
