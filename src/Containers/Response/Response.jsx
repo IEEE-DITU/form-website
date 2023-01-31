@@ -5,12 +5,13 @@ import { FaBars } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase";
+import { CSVLink } from "react-csv";
+import { toast } from "react-hot-toast";
+import { Drawer, Modal } from "@mantine/core";
 import IndividualResponse from "../../Components/IndividualResponse/IndividualResponse";
 import SummaryResponse from "../../Components/SummaryResponse/SummaryResponse";
-import { toast } from "react-hot-toast";
 import html2canvas from "html2canvas";
 import QRCode from "react-qr-code";
-import { Modal } from "@mantine/core";
 
 const Response = () => {
 	const { id } = useParams();
@@ -20,6 +21,9 @@ const Response = () => {
 	const [summary, setSummary] = useState(true);
 	const [modalData, setmodalData] = useState("");
 	const [modalOpened, setModalOpened] = useState(false);
+	const [drawer, setDrawer] = useState(false);
+	const [csvData, setCsvData] = useState([]);
+	const [csvHeaders, setCsvHeaders] = useState([]);
 	function downloadURI(uri, name) {
 		var link = document.createElement("a");
 		link.download = name;
@@ -37,17 +41,27 @@ const Response = () => {
 			downloadURI(img, `${modalData.title}-${modalData.createdAt}`);
 		});
 	};
+
 	useEffect(() => {
 		const unsub = () => {
 			onSnapshot(doc(db, "responses", id), (doc) => {
 				const a = doc.data();
 				setRdata(a.responses);
+				setCsvData(a.responses);
 				setLoading(false);
 			});
 			onSnapshot(doc(db, "forms", id), (doc) => {
 				const a = doc.data();
 				setmodalData(a);
 				setFdata(a.questions);
+				const arrH = [];
+				for (let i in a.questions) {
+					const obj = {};
+					obj.label = a.questions[i].questionTitle;
+					obj.key = a.questions[i].questionId;
+					arrH.push(obj);
+				}
+				setCsvHeaders(arrH);
 				setLoading(false);
 			});
 		};
@@ -123,7 +137,51 @@ const Response = () => {
 					</div>
 				</div>
 			</Modal>
-
+			<Drawer
+				opened={drawer}
+				onClose={() => setDrawer(false)}
+				title="Options"
+				position="right"
+				padding="md"
+				size="md"
+			>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "flex-start",
+						alignItems: "flex-start",
+						flexDirection: "column",
+						gap: "1rem",
+						paddingTop: "1.5rem",
+					}}
+				>
+					<CSVLink
+						style={{
+							borderBottom: "1px solid grey",
+							width: "100%",
+							textAlign: "left",
+							paddingBottom: "0.25rem",
+							paddingLeft: "0.25rem",
+							fontSize: "1rem",
+							fontWeight: "500",
+							cursor: "pointer",
+							color: "black",
+						}}
+						filename={`${modalData.title}-responses`}
+						data={csvData}
+						headers={csvHeaders}
+						onClick={(e) => {
+							if (csvData.length < 1) {
+								e.preventDefault();
+								toast.error("Can't export empty responses");
+								return false;
+							}
+						}}
+					>
+						Export to csv
+					</CSVLink>
+				</div>
+			</Drawer>
 			<div className="Response">
 				<div className="ResponseTop">
 					<div className="heading">
@@ -142,7 +200,10 @@ const Response = () => {
 							style={{ color: "#6D7B94", fontSize: "1.3rem" }}
 							onClick={() => setModalOpened(true)}
 						/>
-						<FaBars style={{ color: "#6D7B94", fontSize: "1.3rem" }} />
+						<FaBars
+							style={{ color: "#6D7B94", fontSize: "1.3rem" }}
+							onClick={() => setDrawer(true)}
+						/>
 					</div>
 				</div>
 				<div className="responseContent">

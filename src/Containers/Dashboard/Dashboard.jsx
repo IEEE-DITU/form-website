@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { collection, query, where, onSnapshot, updateDoc, doc, getDoc } from "firebase/firestore";
+import {
+	collection,
+	query,
+	where,
+	onSnapshot,
+	updateDoc,
+	doc,
+	getDoc,
+} from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../Firebase";
@@ -10,7 +18,6 @@ import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 import { Modal } from "@mantine/core";
-import avatar from "../../images/no-profile.png";
 import line1 from "../../images/Line1.png";
 import dashboardBgImage1 from "../../images/dash1.png";
 import dashboardBgImage2 from "../../images/dash2.png";
@@ -45,25 +52,24 @@ function Dashboard() {
 	);
 	const [modalOpened, setModalOpened] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState([]);
-	const [finalUrl, setFinalUrl] = useState()
+	const [finalUrl, setFinalUrl] = useState();
 	const storage = getStorage();
 	const ref1 = doc(db, "users", currentUser.uid);
 	const updateUrl = async () => {
 		const docSnap = await getDoc(ref1);
-		setFinalUrl(docSnap.data().profileImg)
-	}
+		setFinalUrl(docSnap.data().profileImg);
+	};
 	const changeProfile = async (m) => {
 		await updateDoc(ref1, {
-			profileImg: m
-		})
+			profileImg: m,
+		});
 		updateUrl();
 		setModalOpened(false);
-	}
+	};
 	useEffect(() => {
-
 		updateUrl();
-	}, [])
-
+		//eslint-disable-next-line
+	}, []);
 
 	useEffect(() => {
 		const getProfile = async () => {
@@ -145,7 +151,14 @@ function Dashboard() {
 			>
 				<div className="avatarsModal">
 					{avatarUrl.map((m, id) => {
-						return <img src={m} onClick={() => changeProfile(m)} alt="profile" key={id} />;
+						return (
+							<img
+								src={m}
+								onClick={() => changeProfile(m)}
+								alt="profile"
+								key={id}
+							/>
+						);
 					})}
 				</div>
 			</Modal>
