@@ -33,6 +33,8 @@ function Login({ setLogin }) {
 							name: res.user.displayName,
 							email: res.user.email,
 							uid: res.user.uid,
+							profileImg:
+								"https://firebasestorage.googleapis.com/v0/b/jsr-forms.appspot.com/o/Profile_Image%2Fprofile_6.png?alt=media&token=1d642371-82cf-4ddd-aab6-9f2608177cdf",
 							forms: [],
 						});
 					}

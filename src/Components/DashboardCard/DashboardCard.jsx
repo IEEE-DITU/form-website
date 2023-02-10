@@ -60,8 +60,8 @@ function DashboardCard(e) {
 					const ref = doc(db, "forms", e.id);
 					const ref2 = doc(db, "responses", e.id);
 					const ref3 = doc(db, "users", currentUser.uid);
-					deleteDoc(ref).catch((err) => console.log(err, "ref"));
 					deleteDoc(ref2).catch((err) => console.log(err, "ref2"));
+					deleteDoc(ref).catch((err) => console.log(err, "ref"));
 					getDoc(ref3)
 						.then((snapshot) => {
 							const abc = snapshot.data();
