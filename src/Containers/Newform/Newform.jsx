@@ -116,7 +116,7 @@ const Newform = () => {
 			if (question.questionId !== questionID) {
 				return question;
 			}
-			question.options.push("enter option");
+			question.options.push("");
 			return question;
 		});
 		setQuestions([...arr]);
