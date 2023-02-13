@@ -60,8 +60,8 @@ function DashboardCard(e) {
 					const ref = doc(db, "forms", e.id);
 					const ref2 = doc(db, "responses", e.id);
 					const ref3 = doc(db, "users", currentUser.uid);
-					deleteDoc(ref).catch((err) => console.log(err, "ref"));
 					deleteDoc(ref2).catch((err) => console.log(err, "ref2"));
+					deleteDoc(ref).catch((err) => console.log(err, "ref"));
 					getDoc(ref3)
 						.then((snapshot) => {
 							const abc = snapshot.data();
@@ -214,7 +214,7 @@ function DashboardCard(e) {
 					>
 						<QRCode
 							className="qr"
-							value={`https://form-website-seven.vercel.app/form/${e.id}`}
+							value={`https://jsrforms.live/form/${e.id}`}
 							style={{ minWidth: "10rem" }}
 						/>
 					</div>
@@ -231,7 +231,7 @@ function DashboardCard(e) {
 							width: "100%",
 						}}
 						onChange={(e) => e.preventDefault()}
-						value={`https://form-website-seven.vercel.app/form/${e.id}`}
+						value={`https://jsrforms.live/form/${e.id}`}
 					/>
 					<div
 						style={{ display: "flex", gap: "0.5rem", width: "100%" }}
@@ -244,9 +244,7 @@ function DashboardCard(e) {
 							className="modalButton"
 							onClick={() => {
 								navigator.clipboard
-									.writeText(
-										`https://form-website-seven.vercel.app/form/${e.id}`
-									)
+									.writeText(`https://jsrforms.live/form/${e.id}`)
 									.then(toast.success("link copied to clipboard"))
 									.catch((err) => toast.error(err));
 							}}
