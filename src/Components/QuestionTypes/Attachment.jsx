@@ -9,7 +9,7 @@ const Attachment = (e) => {
 					fontSize: "0.8rem",
 				}}
 			>
-				Note: there's a fix size limit for attachment: 20 yottabyte
+				Note: there's a fix size limit for attachment: 20 mb
 			</p>
 		</div>
 	);
