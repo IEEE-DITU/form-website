@@ -168,7 +168,7 @@
 	position: absolute;
 	bottom: 0rem;
 	right: -0.1rem;
-	width: 16vw;
+	width: 14vw;
 	z-index: 0;
 }
 .line1 {
@@ -289,7 +289,7 @@
 	}
 	.Dashboardbg1,
 	.Dashboardbg2 {
-		width: 10rem;
+		width: 8.5rem;
 	}
 	@media only screen and (max-width: 450px) {
 		.avatarsModal > img {
