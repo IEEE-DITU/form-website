@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { v4 } from "uuid";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiDeleteBin6Line, RiDragMoveFill } from "react-icons/ri";
 import Dropdown from "react-dropdown";
 import Text from "../../Components/QuestionTypes/Text";
 import ToggleSwitch from "../../Components/ToggleSwitch/ToggleSwitch";
@@ -300,7 +300,6 @@ const EditForm = () => {
 															<div
 																className="newFormQuestion"
 																{...provided.draggableProps}
-																{...provided.dragHandleProps}
 																ref={provided.innerRef}
 															>
 																<div className="newFormQuestionUpper">
@@ -354,6 +353,8 @@ const EditForm = () => {
 																				qid={question.questionId}
 																				editOption={editOption}
 																				deleteOption={deleteOption}
+																				setQuestions={setQuestions}
+																				questions={questions}
 																			/>
 																		)}
 																		{question.questionType ===
@@ -364,6 +365,8 @@ const EditForm = () => {
 																				editOption={editOption}
 																				deleteOption={deleteOption}
 																				singleoption={singleoption}
+																				setQuestions={setQuestions}
+																				questions={questions}
 																			/>
 																		)}
 																		{question.questionType === "attachment" && (
@@ -407,6 +410,12 @@ const EditForm = () => {
 																		<p>Delete</p>
 																		<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
 																	</div>
+																</div>
+																<div
+																	className="questionMover"
+																	{...provided.dragHandleProps}
+																>
+																	<RiDragMoveFill />
 																</div>
 															</div>
 														)}
