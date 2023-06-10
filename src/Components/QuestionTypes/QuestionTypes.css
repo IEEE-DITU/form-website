@@ -25,27 +25,33 @@
 	max-height: 8rem;
 }
 
-.multipleChoiceType > .option {
+.multipleChoiceType .option {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
+	gap: 0.5rem;
 }
 
-.multipleChoiceType > .option > input[type="text"] {
+.multipleChoiceType .option > input[type="text"] {
 	font-size: 1rem;
 	margin-bottom: 0.2rem;
 	font-weight: 300;
 	width: 100%;
 	border: none;
 	outline: none;
+	background-color: transparent;
 }
 
-.multipleChoiceType > .option > input[type="text"]::placeholder {
+.multipleChoiceType .option > input[type="text"]::placeholder {
 	font-size: 1rem;
 }
 
 .multichoiceIcon:hover {
 	color: #ff432a;
+}
+
+.bigm {
+	font-size: 1.35rem;
+	color: rgb(84, 84, 84);
 }
 
 .multipleChoiceTypeSubmit {

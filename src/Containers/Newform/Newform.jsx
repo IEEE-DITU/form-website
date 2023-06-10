@@ -14,6 +14,7 @@ import SingleChoice from "../../Components/QuestionTypes/SingleChoice";
 import toast from "react-hot-toast";
 import "./Newform.css";
 import Attachment from "../../Components/QuestionTypes/Attachment";
+import { RiDragMoveFill } from "react-icons/ri";
 
 const Newform = () => {
 	const { currentUser } = useAuth();
@@ -335,7 +336,6 @@ const Newform = () => {
 												<div
 													className="newFormQuestion"
 													{...provided.draggableProps}
-													{...provided.dragHandleProps}
 													ref={provided.innerRef}
 												>
 													<div className="newFormQuestionUpper">
@@ -386,6 +386,8 @@ const Newform = () => {
 																	qid={question.questionId}
 																	editOption={editOption}
 																	deleteOption={deleteOption}
+																	setQuestions={setQuestions}
+																	questions={questions}
 																/>
 															)}
 															{question.questionType === "singleChoice" && (
@@ -395,6 +397,8 @@ const Newform = () => {
 																	editOption={editOption}
 																	deleteOption={deleteOption}
 																	singleoption={singleoption}
+																	setQuestions={setQuestions}
+																	questions={questions}
 																/>
 															)}
 															{question.questionType === "attachment" && (
@@ -416,6 +420,7 @@ const Newform = () => {
 																	<p>+ Add option</p>
 																</div>
 															)}
+
 														<div className="requiredSwitch">
 															<p>Required</p>
 															<ToggleSwitch
@@ -436,6 +441,12 @@ const Newform = () => {
 															<p>Delete</p>
 															<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
 														</div>
+													</div>
+													<div
+														className="questionMover"
+														{...provided.dragHandleProps}
+													>
+														<RiDragMoveFill />
 													</div>
 												</div>
 											)}
