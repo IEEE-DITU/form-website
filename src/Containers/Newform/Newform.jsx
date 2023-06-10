@@ -18,6 +18,7 @@ import Attachment from "../../Components/QuestionTypes/Attachment";
 const Newform = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     title: "Untitled Form",
     creatorId: currentUser.uid,
@@ -39,6 +40,7 @@ const Newform = () => {
       options: [""],
       minChoice: 1,
       maxChoice: 50,
+	  finalposition:[],
     },
   ]);
 
@@ -63,6 +65,14 @@ const Newform = () => {
       setQuestions([...a]);
     }
   };
+  function handleOnDragEnd(result) {
+	if (!result.destination) return;
+	const items = Array.from(questions);
+	const [reorderedItem] = items.splice(result.source.index, 1);
+	items.splice(result.destination.index, 0, reorderedItem);
+	let a=questions;
+	setQuestions([...a]);
+  }
 
   const changeQuestionType = (type, uuid) => {
     const arr = questions.filter((question) => {
@@ -270,14 +280,7 @@ const Newform = () => {
     element.style.height = 15 + element.scrollHeight + "px";
   }
   return (
-    <DragDropContext>
-      <Droppable droppableId="charecters">
-        {(provided) => (
-          <div
-            className="NewForm"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
+     <div className="NewForm">
             <div className="newForm-title">
               <input
                 type="text"
@@ -314,9 +317,14 @@ const Newform = () => {
                 onKeyUp={() => textAreaAdjust()}
                 id="descriptionTextArea"
               />
-              {questions.map((question, id, index) => {
+			<DragDropContext onDragEnd={handleOnDragEnd}>
+				<Droppable droppableId="questions1">
+					{provided => (
+					<div className="additionaldiv" {...provided.droppableProps}
+              		ref={provided.innerRef}>
+							{questions.map((question, id) => {
                 return (
-                  <Draggable key={id} draggableId={id} index={index}>
+                  <Draggable key={question.questionId} draggableId={question.questionId} index={id}>
                     {(provided) => (
                       <div
                         className="newFormQuestion"
@@ -428,6 +436,12 @@ const Newform = () => {
                   </Draggable>
                 );
               })}
+					{provided.placeholder}		
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
+              
             </div>
             <div
               className="newFormAddQuestionButton"
@@ -436,9 +450,8 @@ const Newform = () => {
               + Add Question
             </div>
           </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+       
+     
   );
 };
 
