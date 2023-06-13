@@ -18,6 +18,7 @@ const AttachmentSubmit = ({
 	setFileUpload,
 	fileUpload,
 	fileType,
+	maxSize,
 }) => {
 	const myref = useRef();
 	const storage = getStorage();
@@ -39,59 +40,41 @@ const AttachmentSubmit = ({
 		const uploadTask = uploadBytesResumable(storageRef, myref.current.files[0]);
 		const currFileTypes = myref.current.files[0].type.split("/")[0];
 		const currPartFileTypes = myref.current.files[0].type.split("/")[1];
-		// console.log(currFileTypes);
-		// if (currFileTypes !== fileType) {
-		// 	toast.error(`Please upload a ${fileType} file type`);
-		// 	setFileUpload(false);
-		// 	return;
-		// }
+		const currSize = myref.current.files[0].size;
 
 		if (currFileTypes === fileType || currPartFileTypes === fileType) {
-			uploadTask.on(
-				"state_changed",
-				(snapshot) => {
-					setProgress(
-						Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-					);
-				},
-				(error) => {
-					toast.error(error.message);
-					fileUpload(false);
-					return;
-				},
-				() => {
-					getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-						setAnsText(questionID, url);
-						setFileUpload(false);
-					});
-				}
-			);
+			if(currSize > maxSize*1024*1024){
+				toast.error(`Please upload a file less than ${maxSize} mb`);
+				setFileUpload(false);
+				return;
+			}
+			else{
+				uploadTask.on(
+					"state_changed",
+					(snapshot) => {
+						setProgress(
+							Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+						);
+					},
+					(error) => {
+						toast.error(error.message);
+						fileUpload(false);
+						return;
+					},
+					() => {
+						getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+							setAnsText(questionID, url);
+							setFileUpload(false);
+						});
+					}
+				);
+			}
 		}
 		else {
 			toast.error(`Please upload a ${fileType} file type`);
 			setFileUpload(false);
 			return;
 		}
-
-		// uploadTask.on(
-		// 	"state_changed",
-		// 	(snapshot) => {
-		// 		setProgress(
-		// 			Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-		// 		);
-		// 	},
-		// 	(error) => {
-		// 		toast.error(error.message);
-		// 		fileUpload(false);
-		// 		return;
-		// 	},
-		// 	() => {
-		// 		getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-		// 			setAnsText(questionID, url);
-		// 			setFileUpload(false);
-		// 		});
-		// 	}
-		// );
 	};
 
 
@@ -104,7 +87,7 @@ const AttachmentSubmit = ({
 					fontSize: "0.8rem",
 				}}
 			>
-				Note: there's a fix size limit for attachment: 20 mb
+				Note: There's a fix size limit for attachment: {maxSize} mb
 			</p>
 			{!fileUpload && (
 				<div

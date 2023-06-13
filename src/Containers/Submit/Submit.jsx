@@ -206,6 +206,7 @@ const Submit = ({ data, id }) => {
 														setFileUpload={setFileUpload}
 														id={id}
 														fileType={question.fileType}
+														maxSize={question.maxSize}
 													/>
 												)}
 											</div>

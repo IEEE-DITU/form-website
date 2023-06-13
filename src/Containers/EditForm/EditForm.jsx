@@ -31,6 +31,7 @@ const EditForm = () => {
 			minChoice: 1,
 			maxChoice: 50,
 			fileType: "image",
+			maxSize: 5,
 		});
 		setQuestions([...a]);
 	};
@@ -94,6 +95,17 @@ const EditForm = () => {
 				return question;
 			}
 			question.maxChoice = limit;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const changeFileSize = (size, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.maxSize = size;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -190,6 +202,16 @@ const EditForm = () => {
 						toast.error("Options cannot be empty!");
 						return;
 					}
+				}
+			}
+			if(questions[i].questionType === "attachment"){
+				if(questions[i].maxSize === ""){
+					toast.error("Max size cannot be empty");
+					return;
+				}
+				if(questions[i].maxSize <= 0 ){
+					toast.error("Max size cannot be less than or equal to 0MB");
+					return;
 				}
 			}
 		}
@@ -383,9 +405,11 @@ const EditForm = () => {
 																			)}
 																		{question.questionType === "attachment" && (
 																			<Attachment
-																				changeFileType={changeFileType}
-																				qid={question.questionId}
-																				fileType={question.fileType}
+																			changeFileType={changeFileType}
+																			qid={question.questionId}
+																			fileType={question.fileType}
+																			changeFileSize={changeFileSize}
+																			maxSize={question.maxSize}
 																			/>
 																		)}
 																	</div>
