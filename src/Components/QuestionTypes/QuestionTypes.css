@@ -110,6 +110,23 @@
 	font-weight: 500;
 }
 
+.Attachment>.maxSizeField{
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	overflow-y: scroll;
+}
+
+.Attachment>.maxSizeField>input{
+	font-size: 1rem;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	background: none;
+	border-bottom: 1px solid black;
+	width: fit-content;
+}
+
 .AttachmentSubmit {
 	border: 1px solid black;
 	border-radius: 5px;
