@@ -81,6 +81,33 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.Attachment>.dropdown{
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	overflow-y: scroll;
+}
+
+.Attachment>.dropdown>label{
+	font-size: 1rem;
+	font-weight: 300;
+}
+
+.Attachment>.dropdown>select{
+	font-size: 1rem;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	background: none;
+	border-bottom: 1px solid black;
+}
+
+.Attachment>.dropdown>select>option{
+	font-size: 1rem;
+	font-weight: 500;
 }
 
 .AttachmentSubmit {

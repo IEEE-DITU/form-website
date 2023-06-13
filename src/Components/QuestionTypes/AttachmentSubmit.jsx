@@ -6,8 +6,9 @@ import {
 	getStorage,
 } from "firebase/storage";
 import LoaderSmall from "../LoaderSmall/LoaderSmall";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import "./QuestionTypes.css";
+import { useEffect } from "react";
 
 const AttachmentSubmit = ({
 	setAnsText,
@@ -16,6 +17,7 @@ const AttachmentSubmit = ({
 	id,
 	setFileUpload,
 	fileUpload,
+	fileType,
 }) => {
 	const myref = useRef();
 	const storage = getStorage();
@@ -35,6 +37,13 @@ const AttachmentSubmit = ({
 		const fileName = Date.now() + myref.current.files[0].name;
 		const storageRef = ref(storage, `responses/${id}/${fileName}`);
 		const uploadTask = uploadBytesResumable(storageRef, myref.current.files[0]);
+		const currFileTypes = myref.current.files[0].type.split("/")[1];
+		// console.log(currFileTypes);
+		if (currFileTypes !== fileType) {
+			toast.error(`Please upload a ${fileType} file type`);
+			setFileUpload(false);
+			return;
+		}
 		uploadTask.on(
 			"state_changed",
 			(snapshot) => {
@@ -55,15 +64,18 @@ const AttachmentSubmit = ({
 			}
 		);
 	};
+
+
 	return (
 		<div className="Attachment">
+			<Toaster/>
 			<p
 				style={{
 					color: "grey",
 					fontSize: "0.8rem",
 				}}
 			>
-				Note: there's a fix size limit for attachment: 20 yottabyte
+				Note: there's a fix size limit for attachment: 20 mb
 			</p>
 			{!fileUpload && (
 				<div
@@ -74,10 +86,10 @@ const AttachmentSubmit = ({
 				>
 					<p style={{ padding: "0.25rem" }}>
 						{responses[questionID] &&
-						myref.current.files &&
-						myref.current.files.length > 0
+							myref.current.files &&
+							myref.current.files.length > 0
 							? myref.current.files[0].name
-							: "Click to Choose File"}
+							: `Click to Choose File (${fileType})`}
 					</p>
 				</div>
 			)}
@@ -91,6 +103,7 @@ const AttachmentSubmit = ({
 					<p>{progress}%</p>
 				</div>
 			)}
+
 			<input
 				type="file"
 				ref={myref}
