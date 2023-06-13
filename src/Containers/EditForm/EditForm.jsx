@@ -30,6 +30,7 @@ const EditForm = () => {
 			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
+			fileType: "image",
 		});
 		setQuestions([...a]);
 	};
@@ -93,6 +94,17 @@ const EditForm = () => {
 				return question;
 			}
 			question.maxChoice = limit;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const changeFileType = (type, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.fileType = type;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -311,7 +323,7 @@ const EditForm = () => {
 																			<input
 																				type="text"
 																				value={question.questionTitle}
-																				placeholder="Enter quetions..."
+																				placeholder="Enter question..."
 																				onChange={(e) =>
 																					changeQuestionTitle(
 																						e.target.value,
@@ -348,32 +360,32 @@ const EditForm = () => {
 																		)}
 																		{question.questionType ===
 																			"multipleChoice" && (
-																			<MultipleChoice
-																				options={question.options}
-																				qid={question.questionId}
-																				editOption={editOption}
-																				deleteOption={deleteOption}
-																				setQuestions={setQuestions}
-																				questions={questions}
-																			/>
-																		)}
+																				<MultipleChoice
+																					options={question.options}
+																					qid={question.questionId}
+																					editOption={editOption}
+																					deleteOption={deleteOption}
+																					setQuestions={setQuestions}
+																					questions={questions}
+																				/>
+																			)}
 																		{question.questionType ===
 																			"singleChoice" && (
-																			<SingleChoice
-																				options={question.options}
-																				qid={question.questionId}
-																				editOption={editOption}
-																				deleteOption={deleteOption}
-																				singleoption={singleoption}
-																				setQuestions={setQuestions}
-																				questions={questions}
-																			/>
-																		)}
+																				<SingleChoice
+																					options={question.options}
+																					qid={question.questionId}
+																					editOption={editOption}
+																					deleteOption={deleteOption}
+																					singleoption={singleoption}
+																					setQuestions={setQuestions}
+																					questions={questions}
+																				/>
+																			)}
 																		{question.questionType === "attachment" && (
 																			<Attachment
-																				// ChangeFileType={changeWordLimit}
+																				changeFileType={changeFileType}
 																				qid={question.questionId}
-																				// fileType={question.maxChoice}
+																				fileType={question.fileType}
 																			/>
 																		)}
 																	</div>

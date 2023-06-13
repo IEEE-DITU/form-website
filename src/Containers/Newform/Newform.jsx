@@ -42,6 +42,7 @@ const Newform = () => {
 			minChoice: 1,
 			maxChoice: 50,
 			finalposition: [],
+			fileType: "image",
 		},
 	]);
 
@@ -55,6 +56,7 @@ const Newform = () => {
 			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
+			fileType: "image",
 		});
 		setQuestions([...a]);
 	};
@@ -117,6 +119,17 @@ const Newform = () => {
 				return question;
 			}
 			question.maxChoice = limit;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const changeFileType = (type, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.fileType = type;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -345,7 +358,7 @@ const Newform = () => {
 																<input
 																	type="text"
 																	value={question.questionTitle}
-																	placeholder="Enter quetion..."
+																	placeholder="Enter question..."
 																	onChange={(e) =>
 																		changeQuestionTitle(
 																			e.target.value,
@@ -403,9 +416,9 @@ const Newform = () => {
 															)}
 															{question.questionType === "attachment" && (
 																<Attachment
-																	// ChangeFileType={changeWordLimit}
+																	changeFileType={changeFileType}
 																	qid={question.questionId}
-																	// fileType={question.maxChoice}
+																	fileType={question.fileType}
 																/>
 															)}
 														</div>
