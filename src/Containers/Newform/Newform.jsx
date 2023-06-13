@@ -42,7 +42,7 @@ const Newform = () => {
 			minChoice: 1,
 			maxChoice: 50,
 			finalposition: [],
-			fileType: "png",
+			fileType: "image",
 		},
 	]);
 
@@ -56,7 +56,7 @@ const Newform = () => {
 			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
-			fileType: "png",
+			fileType: "image",
 		});
 		setQuestions([...a]);
 	};

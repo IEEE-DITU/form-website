@@ -30,7 +30,7 @@ const EditForm = () => {
 			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
-			fileType: "png",
+			fileType: "image",
 		});
 		setQuestions([...a]);
 	};

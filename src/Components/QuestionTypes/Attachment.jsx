@@ -15,10 +15,8 @@ const Attachment = (e) => {
 			<div className="dropdown">
 				<label for="filetype">Choose file type:</label>
 				<select name="filetype" id="filetype" onChange={(event) => e.changeFileType(event.target.value, e.qid)}>
-					<option value="png">png</option>
-					<option value="jpg">jpg</option>
-					<option value="jpeg">jpeg</option>
-					<option value="webp">webp</option>
+					<option value="image">image</option>
+					<option value="video">video</option>
 					<option value="pdf">pdf</option>
 					<option value="docx">word</option>
 				</select>
