@@ -183,8 +183,8 @@ const EditForm = () => {
 	};
 	function textAreaAdjust() {
 		const element = document.getElementById("descriptionTextArea");
-		element.style.height = "1px";
-		element.style.height = 15 + element.scrollHeight + "px";
+		element.style.minHeight = "1px";
+		element.style.minHeight = 15 + element.scrollHeight + "px";
 	}
 
 	const publish = () => {
@@ -204,12 +204,12 @@ const EditForm = () => {
 					}
 				}
 			}
-			if(questions[i].questionType === "attachment"){
-				if(questions[i].maxSize === ""){
+			if (questions[i].questionType === "attachment") {
+				if (questions[i].maxSize === "") {
 					toast.error("Max size cannot be empty");
 					return;
 				}
-				if(questions[i].maxSize <= 0 ){
+				if (questions[i].maxSize <= 0) {
 					toast.error("Max size cannot be less than or equal to 0MB");
 					return;
 				}
@@ -267,6 +267,12 @@ const EditForm = () => {
 			});
 		//eslint-disable-next-line
 	}, []);
+
+	useEffect(() => {
+		if (!loading) {
+			textAreaAdjust();
+		}
+	}, [loading]);
 
 	return (
 		<div className="NewForm">
@@ -382,34 +388,34 @@ const EditForm = () => {
 																		)}
 																		{question.questionType ===
 																			"multipleChoice" && (
-																				<MultipleChoice
-																					options={question.options}
-																					qid={question.questionId}
-																					editOption={editOption}
-																					deleteOption={deleteOption}
-																					setQuestions={setQuestions}
-																					questions={questions}
-																				/>
-																			)}
+																			<MultipleChoice
+																				options={question.options}
+																				qid={question.questionId}
+																				editOption={editOption}
+																				deleteOption={deleteOption}
+																				setQuestions={setQuestions}
+																				questions={questions}
+																			/>
+																		)}
 																		{question.questionType ===
 																			"singleChoice" && (
-																				<SingleChoice
-																					options={question.options}
-																					qid={question.questionId}
-																					editOption={editOption}
-																					deleteOption={deleteOption}
-																					singleoption={singleoption}
-																					setQuestions={setQuestions}
-																					questions={questions}
-																				/>
-																			)}
+																			<SingleChoice
+																				options={question.options}
+																				qid={question.questionId}
+																				editOption={editOption}
+																				deleteOption={deleteOption}
+																				singleoption={singleoption}
+																				setQuestions={setQuestions}
+																				questions={questions}
+																			/>
+																		)}
 																		{question.questionType === "attachment" && (
 																			<Attachment
-																			changeFileType={changeFileType}
-																			qid={question.questionId}
-																			fileType={question.fileType}
-																			changeFileSize={changeFileSize}
-																			maxSize={question.maxSize}
+																				changeFileType={changeFileType}
+																				qid={question.questionId}
+																				fileType={question.fileType}
+																				changeFileSize={changeFileSize}
+																				maxSize={question.maxSize}
 																			/>
 																		)}
 																	</div>

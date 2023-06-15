@@ -225,12 +225,12 @@ const Newform = () => {
 					}
 				}
 			}
-			if(questions[i].questionType === "attachment"){
-				if(questions[i].maxSize === ""){
+			if (questions[i].questionType === "attachment") {
+				if (questions[i].maxSize === "") {
 					toast.error("Max size cannot be empty");
 					return;
 				}
-				if(questions[i].maxSize <= 0 ){
+				if (questions[i].maxSize <= 0) {
 					toast.error("Max size cannot be less than or equal to 0MB");
 					return;
 				}
@@ -312,8 +312,8 @@ const Newform = () => {
 	};
 	function textAreaAdjust() {
 		const element = document.getElementById("descriptionTextArea");
-		element.style.height = "1px";
-		element.style.height = 15 + element.scrollHeight + "px";
+		element.style.minHeight = "1px";
+		element.style.minHeight = 15 + element.scrollHeight + "px";
 	}
 	return (
 		<div className="NewForm">
