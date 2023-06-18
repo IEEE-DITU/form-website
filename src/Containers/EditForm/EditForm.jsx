@@ -186,7 +186,11 @@ const EditForm = () => {
 		element.style.height = "1px";
 		element.style.height = 15 + element.scrollHeight + "px";
 	}
-
+function submittextAreaAdjust() {
+  const element = document.getElementById("submitTextArea");
+  element.style.height = "1px";
+  element.style.height = 15 + element.scrollHeight + "px";
+}
 	const publish = () => {
 		for (let i in questions) {
 			if (!questions[i].questionTitle) {
@@ -269,212 +273,225 @@ const EditForm = () => {
 	}, []);
 
 	return (
-		<div className="NewForm">
-			{loading ? (
-				<h2
-					style={{
-						margin: "auto",
-					}}
-				>
-					Loading...
-				</h2>
-			) : (
-				formData && (
-					<>
-						<div className="newForm-title">
-							<input
-								type="text"
-								value={formData.title}
-								onChange={(event) =>
-									setFormData((prev) => ({
-										...prev,
-										title: event.target.value,
-									}))
-								}
-								placeholder="Enter you form title here..."
-							/>
-							<button
-								onClick={() => {
-									publish();
-								}}
-							>
-								Update
-							</button>
-						</div>
-						<div className="newFormQuestions">
-							<textarea
-								type="text"
-								className="inputfield"
-								placeholder="Enter the description for the form..."
-								value={formData.description}
-								onChange={(e) => {
-									let a = formData;
-									a.description = e.target.value;
-									setFormData({ ...a });
-								}}
-								onKeyUp={() => textAreaAdjust()}
-								id="descriptionTextArea"
-							/>
-							<DragDropContext onDragEnd={handleOnDragEnd}>
-								<Droppable droppableId="questions1">
-									{(provided) => (
-										<div
-											className="additionaldiv"
-											{...provided.droppableProps}
-											ref={provided.innerRef}
-										>
-											{questions.map((question, id) => {
-												return (
-													<Draggable
-														key={question.questionId}
-														draggableId={question.questionId}
-														index={id}
-													>
-														{(provided) => (
-															<div
-																className="newFormQuestion"
-																{...provided.draggableProps}
-																ref={provided.innerRef}
-															>
-																<div className="newFormQuestionUpper">
-																	<div className="left">
-																		<div className="newFormQuestionId">
-																			{id + 1}.
-																		</div>
-																		<div className="newFormQuestionTitle">
-																			<input
-																				type="text"
-																				value={question.questionTitle}
-																				placeholder="Enter question..."
-																				onChange={(e) =>
-																					changeQuestionTitle(
-																						e.target.value,
-																						question.questionId
-																					)
-																				}
-																			/>
-																		</div>
-																	</div>
-																	<div className="right">
-																		<div className="questionChangeType">
-																			<Dropdown
-																				options={questionTypes}
-																				onChange={(e) =>
-																					changeQuestionType(
-																						e.value,
-																						question.questionId
-																					)
-																				}
-																				value={question.questionType}
-																				placeholder="Select an option"
-																			/>
-																		</div>
-																	</div>
-																</div>
-																<div className="newFormQuestionMiddle">
-																	<div className="newFormQuestionAnswerArea">
-																		{question.questionType === "text" && (
-																			<Text
-																				changeWordLimit={changeWordLimit}
-																				qid={question.questionId}
-																				limit={question.maxChoice}
-																			/>
-																		)}
-																		{question.questionType ===
-																			"multipleChoice" && (
-																				<MultipleChoice
-																					options={question.options}
-																					qid={question.questionId}
-																					editOption={editOption}
-																					deleteOption={deleteOption}
-																					setQuestions={setQuestions}
-																					questions={questions}
-																				/>
-																			)}
-																		{question.questionType ===
-																			"singleChoice" && (
-																				<SingleChoice
-																					options={question.options}
-																					qid={question.questionId}
-																					editOption={editOption}
-																					deleteOption={deleteOption}
-																					singleoption={singleoption}
-																					setQuestions={setQuestions}
-																					questions={questions}
-																				/>
-																			)}
-																		{question.questionType === "attachment" && (
-																			<Attachment
-																			changeFileType={changeFileType}
-																			qid={question.questionId}
-																			fileType={question.fileType}
-																			changeFileSize={changeFileSize}
-																			maxSize={question.maxSize}
-																			/>
-																		)}
-																	</div>
-																</div>
-																<div className="newFormQuestionLower">
-																	{question.questionType !== "text" &&
-																		question.questionType !== "attachment" && (
-																			<div
-																				className="newFormAddOption"
-																				onClick={() =>
-																					addOption(question.questionId)
-																				}
-																			>
-																				<p>+ Add option</p>
-																			</div>
-																		)}
-																	<div className="requiredSwitch">
-																		<p>Required</p>
-																		<ToggleSwitch
-																			id={question.questionId}
-																			name="required"
-																			checked={question.isRequired}
-																			disabled={false}
-																			small={true}
-																			optionLabels={["true", "false"]}
-																			onChange={setRequired}
-																		/>
-																	</div>
+    <div className="NewForm">
+      {loading ? (
+        <h2
+          style={{
+            margin: "auto",
+          }}
+        >
+          Loading...
+        </h2>
+      ) : (
+        formData && (
+          <>
+            <div className="newForm-title">
+              <input
+                type="text"
+                value={formData.title}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    title: event.target.value,
+                  }))
+                }
+                placeholder="Enter you form title here..."
+              />
+              <button
+                onClick={() => {
+                  publish();
+                }}
+              >
+                Update
+              </button>
+            </div>
+            <div className="newFormQuestions">
+              <textarea
+                type="text"
+                className="inputfield"
+                placeholder="Enter the description for the form..."
+                value={formData.description}
+                onChange={(e) => {
+                  let a = formData;
+                  a.description = e.target.value;
+                  setFormData({ ...a });
+                }}
+                onKeyUp={() => textAreaAdjust()}
+                id="descriptionTextArea"
+              />
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="questions1">
+                  {(provided) => (
+                    <div
+                      className="additionaldiv"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {questions.map((question, id) => {
+                        return (
+                          <Draggable
+                            key={question.questionId}
+                            draggableId={question.questionId}
+                            index={id}
+                          >
+                            {(provided) => (
+                              <div
+                                className="newFormQuestion"
+                                {...provided.draggableProps}
+                                ref={provided.innerRef}
+                              >
+                                <div className="newFormQuestionUpper">
+                                  <div className="left">
+                                    <div className="newFormQuestionId">
+                                      {id + 1}.
+                                    </div>
+                                    <div className="newFormQuestionTitle">
+                                      <input
+                                        type="text"
+                                        value={question.questionTitle}
+                                        placeholder="Enter question..."
+                                        onChange={(e) =>
+                                          changeQuestionTitle(
+                                            e.target.value,
+                                            question.questionId
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="right">
+                                    <div className="questionChangeType">
+                                      <Dropdown
+                                        options={questionTypes}
+                                        onChange={(e) =>
+                                          changeQuestionType(
+                                            e.value,
+                                            question.questionId
+                                          )
+                                        }
+                                        value={question.questionType}
+                                        placeholder="Select an option"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="newFormQuestionMiddle">
+                                  <div className="newFormQuestionAnswerArea">
+                                    {question.questionType === "text" && (
+                                      <Text
+                                        changeWordLimit={changeWordLimit}
+                                        qid={question.questionId}
+                                        limit={question.maxChoice}
+                                      />
+                                    )}
+                                    {question.questionType ===
+                                      "multipleChoice" && (
+                                      <MultipleChoice
+                                        options={question.options}
+                                        qid={question.questionId}
+                                        editOption={editOption}
+                                        deleteOption={deleteOption}
+                                        setQuestions={setQuestions}
+                                        questions={questions}
+                                      />
+                                    )}
+                                    {question.questionType ===
+                                      "singleChoice" && (
+                                      <SingleChoice
+                                        options={question.options}
+                                        qid={question.questionId}
+                                        editOption={editOption}
+                                        deleteOption={deleteOption}
+                                        singleoption={singleoption}
+                                        setQuestions={setQuestions}
+                                        questions={questions}
+                                      />
+                                    )}
+                                    {question.questionType === "attachment" && (
+                                      <Attachment
+                                        changeFileType={changeFileType}
+                                        qid={question.questionId}
+                                        fileType={question.fileType}
+                                        changeFileSize={changeFileSize}
+                                        maxSize={question.maxSize}
+                                      />
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="newFormQuestionLower">
+                                  {question.questionType !== "text" &&
+                                    question.questionType !== "attachment" && (
+                                      <div
+                                        className="newFormAddOption"
+                                        onClick={() =>
+                                          addOption(question.questionId)
+                                        }
+                                      >
+                                        <p>+ Add option</p>
+                                      </div>
+                                    )}
+                                  <div className="requiredSwitch">
+                                    <p>Required</p>
+                                    <ToggleSwitch
+                                      id={question.questionId}
+                                      name="required"
+                                      checked={question.isRequired}
+                                      disabled={false}
+                                      small={true}
+                                      optionLabels={["true", "false"]}
+                                      onChange={setRequired}
+                                    />
+                                  </div>
 
-																	<div
-																		className="newFormQuestionDelete"
-																		onClick={() => deleteQuestion(id)}
-																	>
-																		<p>Delete</p>
-																		<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
-																	</div>
-																</div>
-																<div
-																	className="questionMover"
-																	{...provided.dragHandleProps}
-																>
-																	<RiDragMoveFill />
-																</div>
-															</div>
-														)}
-													</Draggable>
-												);
-											})}
-											{provided.placeholder}
-										</div>
-									)}
-								</Droppable>
-							</DragDropContext>
-						</div>
-						<div
-							className="newFormAddQuestionButton"
-							onClick={() => addQuestion()}
-						>
-							+ Add Question
-						</div>
-					</>
-				)
-			)}
-		</div>
-	);
+                                  <div
+                                    className="newFormQuestionDelete"
+                                    onClick={() => deleteQuestion(id)}
+                                  >
+                                    <p>Delete</p>
+                                    <RiDeleteBin6Line className="newFormQuestionDelete-icon" />
+                                  </div>
+                                </div>
+                                <div
+                                  className="questionMover"
+                                  {...provided.dragHandleProps}
+                                >
+                                  <RiDragMoveFill />
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+              <textarea
+                type="text"
+                className="inputfield"
+                placeholder="Enter the submit text for the form..."
+                value={formData.submitText}
+                onChange={(e) => {
+                  let a = formData;
+                  a.submitText = e.target.value;
+                  setFormData({ ...a });
+                }}
+                onKeyUp={() => submittextAreaAdjust()}
+                id="submitTextArea"
+              />
+            </div>
+            <div
+              className="newFormAddQuestionButton"
+              onClick={() => addQuestion()}
+            >
+              + Add Question
+            </div>
+          </>
+        )
+      )}
+    </div>
+  );
 };
 
 export default EditForm;
