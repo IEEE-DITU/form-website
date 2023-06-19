@@ -186,7 +186,11 @@ const EditForm = () => {
 		element.style.minHeight = "1px";
 		element.style.minHeight = 15 + element.scrollHeight + "px";
 	}
-
+function submittextAreaAdjust() {
+  const element = document.getElementById("submitTextArea");
+  element.style.height = "1px";
+  element.style.height = 15 + element.scrollHeight + "px";
+}
 	const publish = () => {
 		for (let i in questions) {
 			if (!questions[i].questionTitle) {
@@ -275,6 +279,8 @@ const EditForm = () => {
 	}, [loading]);
 
 	return (
+
+
 		<div className="NewForm">
 			{loading ? (
 				<h2
@@ -445,42 +451,56 @@ const EditForm = () => {
 																		/>
 																	</div>
 
-																	<div
-																		className="newFormQuestionDelete"
-																		onClick={() => deleteQuestion(id)}
-																	>
-																		<p>Delete</p>
-																		<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
-																	</div>
-																</div>
-																<div
-																	className="questionMover"
-																	{...provided.dragHandleProps}
-																>
-																	<RiDragMoveFill />
-																</div>
-															</div>
-														)}
-													</Draggable>
-												);
-											})}
-											{provided.placeholder}
-										</div>
-									)}
-								</Droppable>
-							</DragDropContext>
-						</div>
-						<div
-							className="newFormAddQuestionButton"
-							onClick={() => addQuestion()}
-						>
-							+ Add Question
-						</div>
-					</>
-				)
-			)}
-		</div>
-	);
+
+                                  <div
+                                    className="newFormQuestionDelete"
+                                    onClick={() => deleteQuestion(id)}
+                                  >
+                                    <p>Delete</p>
+                                    <RiDeleteBin6Line className="newFormQuestionDelete-icon" />
+                                  </div>
+                                </div>
+                                <div
+                                  className="questionMover"
+                                  {...provided.dragHandleProps}
+                                >
+                                  <RiDragMoveFill />
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+              <textarea
+                type="text"
+                className="inputfield"
+                placeholder="Enter the submit text for the form..."
+                value={formData.submitText}
+                onChange={(e) => {
+                  let a = formData;
+                  a.submitText = e.target.value;
+                  setFormData({ ...a });
+                }}
+                onKeyUp={() => submittextAreaAdjust()}
+                id="submitTextArea"
+              />
+            </div>
+            <div
+              className="newFormAddQuestionButton"
+              onClick={() => addQuestion()}
+            >
+              + Add Question
+            </div>
+          </>
+        )
+      )}
+    </div>
+  );
 };
 
 export default EditForm;
