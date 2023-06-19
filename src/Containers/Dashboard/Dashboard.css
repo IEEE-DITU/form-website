@@ -18,6 +18,18 @@
 	min-width: 450px;
 }
 
+.upperProfile {
+	width: 3rem;
+	display: none;
+}
+
+.DashboardLeftTopRight {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
 .DashboardLeftTop {
 	display: flex;
 	align-items: flex-start;
@@ -37,7 +49,7 @@
 	font-weight: 300;
 	font-family: Arial, Helvetica, sans-serif;
 	background: transparent;
-	padding-right: 1.5rem;
+	padding-right: 0.5rem;
 	width: max-content;
 }
 
@@ -104,7 +116,22 @@
 	z-index: 10;
 }
 
-.DashboardRight > .myprofile {
+.DashboardRight>.upperHeading{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.DashboardRight>.upperHeading>.back{
+	display: none;
+}
+
+.DashboardRight>.upperHeading>.empty{
+	display: none;
+}
+
+.DashboardRight>.upperHeading>.myprofile {
 	font-size: 1.75rem;
 	font-weight: 300;
 	font-family: Arial, Helvetica, sans-serif;
@@ -117,19 +144,19 @@
 	position: relative;
 }
 
-.Dashboard .avatar > img:nth-child(1) {
+.Dashboard .avatar>img:nth-child(1) {
 	width: 8rem;
 	height: 8rem;
 }
 
-.Dashboard .avatar > img:nth-child(2) {
+.Dashboard .avatar>img:nth-child(2) {
 	position: absolute;
 	right: 0.25rem;
 	bottom: 0.25rem;
 	cursor: pointer;
 }
 
-.DashboardRight > .profilecontent {
+.DashboardRight>.profilecontent {
 	font-size: 1.1rem;
 	font-weight: 500;
 	margin-top: 2.5rem;
@@ -171,6 +198,7 @@
 	width: 14vw;
 	z-index: 0;
 }
+
 .line1 {
 	height: 100%;
 }
@@ -194,6 +222,7 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+
 .sideButtonDashboard {
 	display: flex;
 	flex-direction: column;
@@ -224,19 +253,21 @@
 	/* display: flex; */
 	cursor: pointer;
 }
-.mainModal{
+
+.mainModal {
 	max-height: 90vh;
 }
-.mantine-144aj37{
+
+.mantine-144aj37 {
 	overflow-y: hidden;
 }
 
-.avatarsModal{
+.avatarsModal {
 	max-height: 69vh;
 	overflow-y: scroll;
 }
 
-.avatarsModal > img {
+.avatarsModal>img {
 	width: 10rem;
 	height: 10rem;
 	min-width: 10rem;
@@ -263,40 +294,72 @@
 	.line1 {
 		display: none;
 	}
+
 	.DashboardLeft {
 		min-width: 0 !important;
 	}
+
 	.DashboardRight {
 		width: 100%;
 		max-width: none;
 		align-items: center;
 		gap: 2rem;
 	}
+
 	.DashboardRight .profilecontent {
 		align-self: center;
 		font-size: 1.2rem;
 		font-weight: 500;
 	}
+
 	.DashboardLogout {
 		padding: 0.8rem 1.5rem;
 		font-size: 1.2rem;
 	}
-	.sideButtonsDashboard {
+
+	/* .sideButtonsDashboard {
 		display: flex;
-	}
+	} */
+
 	.dNone {
 		display: none;
 	}
+
 	.Dashboardbg1,
 	.Dashboardbg2 {
 		width: 8.5rem;
 	}
+
+	.upperProfile{
+		display: flex;
+	}
+
+	.DashboardRight>.upperHeading{
+		justify-content: space-between;
+	}
+	
+	.DashboardRight>.upperHeading>.back{
+		display: flex;
+	}
+	
+	.DashboardRight>.upperHeading>.empty{
+		display: flex;
+	}
 	@media only screen and (max-width: 450px) {
-		.avatarsModal > img {
+		.avatarsModal>img {
 			width: 7rem;
 			height: 7rem;
 			min-width: 7rem;
 			min-height: 7rem;
 		}
 	}
+	@media only screen and (max-width: 322px){
+		.DashboardLeftTop>.heading>p{
+			font-size: 1.5rem;
+		}
+		.DashboardLeftTopRight{
+			gap: 0.2rem;
+		}
+	}
+
 }
