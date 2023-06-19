@@ -16,6 +16,7 @@ import { db } from "../../Firebase";
 import { toast } from "react-hot-toast";
 import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
+import { BiArrowBack } from "react-icons/bi";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 import { Modal } from "@mantine/core";
 import line1 from "../../images/Line1.png";
@@ -164,22 +165,6 @@ function Dashboard() {
 					})}
 				</div>
 			</Modal>
-			<div className="sideButtonsDashboard">
-				<div
-					className={`sideButtonDashboard ${profile ? "" : "active"}`}
-					onClick={() => setProfile(false)}
-				>
-					<BiHomeAlt />
-					<p>Home</p>
-				</div>
-				<div
-					className={`sideButtonDashboard ${profile ? "active" : ""}`}
-					onClick={() => setProfile(true)}
-				>
-					<AiOutlineUser />
-					<p>Profile</p>
-				</div>
-			</div>
 			<div className="Dashboard">
 				<div className={`DashboardLeft ${profile ? "dNone" : ""}`}>
 					<img src={dashboardBgImage1} alt="dash" className="Dashboardbg1" />
@@ -187,9 +172,16 @@ function Dashboard() {
 						<div className="heading">
 							<p>My Forms</p>
 						</div>
-						<Link to={"/user/newform"} style={{ zIndex: 10 }}>
-							<div className="DashboardCreateButton">+ Create</div>
-						</Link>
+						<div className="DashboardLeftTopRight">
+							<Link to={"/user/newform"} style={{ zIndex: 10 }}>
+								<div className="DashboardCreateButton">+ Create</div>
+							</Link>
+							<img className="upperProfile"
+								src={finalUrl ? finalUrl : loadingProfile}
+								alt="user profile"
+								onClick={() => setProfile(true)}
+							></img>
+						</div>
 					</div>
 
 					<div className="formSwitcher">
@@ -256,7 +248,11 @@ function Dashboard() {
 				<img className="line1" src={line1} alt="misc"></img>
 				<div className={`DashboardRight ${profile ? "" : "dNone"}`}>
 					<img src={dashboardBgImage2} alt="dash" className="Dashboardbg2" />
-					<p className="myprofile">My Profile</p>
+					<div className="upperHeading">
+						<div className="back" onClick={() => setProfile(false)}><BiArrowBack size={"1.5em"} /></div>
+						<p className="myprofile" style={{ textAlign: "center" }}>My Profile</p>
+						<div className="empty"></div>
+					</div>
 					<div className="avatar">
 						<img
 							src={finalUrl ? finalUrl : loadingProfile}

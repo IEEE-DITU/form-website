@@ -105,7 +105,7 @@ const AttachmentSubmit = ({
 					</p>
 				</div>
 			)}
-			{fileUpload && (
+			{fileUpload && responses[questionID] && (
 				<div
 					className="AttachmentSubmit"
 					style={{ backgroundColor: "black", color: "white" }}
