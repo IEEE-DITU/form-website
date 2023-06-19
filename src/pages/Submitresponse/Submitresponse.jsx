@@ -9,12 +9,12 @@ const Submitresponse = () => {
     <div className="submittedPage">
       <div className="submittedContent">
         <u className="underline">
-          <p className="formname">{location.state.name}</p>
+        <p className="formname">{location.state.name}</p>
         </u>
         <img className="clap" src={hands1} alt="not available"></img>
         <p className="thankyou">THANK YOU</p>
         <p className="ressub">
-          Your response has been submitted.{location.state.submit}
+          Your response has been submitted.{location.state.submitText}
           <br />
           <span
             style={{ fontSize: "0.8rem", marginTop: "0.5rem", color: "grey" }}
