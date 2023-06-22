@@ -57,7 +57,7 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										{question.options.length > 2 && (
+										{/* {question.options.length > 2 && (
 											<div>
 												<Bargraph
 													rdata={rdata}
@@ -65,7 +65,7 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 													qid={question.questionId}
 												/>
 											</div>
-										)}
+										)} */}
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
@@ -78,7 +78,7 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 											/>
 										</div>
 
-										{question.options.length > 2 && (
+										{/* {question.options.length > 2 && (
 											<div>
 												<Bargraph
 													rdata={rdata}
@@ -86,7 +86,7 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 													qid={question.questionId}
 												/>
 											</div>
-										)}
+										)} */}
 									</div>
 								)}
 								{question.questionType === "attachment" && (
