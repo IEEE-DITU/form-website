@@ -43,17 +43,18 @@ const AttachmentSubmit = ({
 		const currSize = myref.current.files[0].size;
 
 		if (currFileTypes === fileType || currPartFileTypes === fileType) {
-			if(currSize > maxSize*1024*1024){
+			if (currSize > maxSize * 1024 * 1024) {
 				toast.error(`Please upload a file less than ${maxSize} mb`);
 				setFileUpload(false);
 				return;
-			}
-			else{
+			} else {
 				uploadTask.on(
 					"state_changed",
 					(snapshot) => {
 						setProgress(
-							Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+							Math.round(
+								(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+							)
 						);
 					},
 					(error) => {
@@ -69,18 +70,16 @@ const AttachmentSubmit = ({
 					}
 				);
 			}
-		}
-		else {
+		} else {
 			toast.error(`Please upload a ${fileType} file type`);
 			setFileUpload(false);
 			return;
 		}
 	};
 
-
 	return (
 		<div className="Attachment">
-			<Toaster/>
+			<Toaster />
 			<p
 				style={{
 					color: "grey",
@@ -98,14 +97,14 @@ const AttachmentSubmit = ({
 				>
 					<p style={{ padding: "0.25rem" }}>
 						{responses[questionID] &&
-							myref.current.files &&
-							myref.current.files.length > 0
+						myref.current.files &&
+						myref.current.files.length > 0
 							? myref.current.files[0].name
 							: `Click to Choose File (${fileType})`}
 					</p>
 				</div>
 			)}
-			{fileUpload && responses[questionID] && (
+			{fileUpload && (
 				<div
 					className="AttachmentSubmit"
 					style={{ backgroundColor: "black", color: "white" }}
