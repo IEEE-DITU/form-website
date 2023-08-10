@@ -6,8 +6,9 @@ import {
 	getStorage,
 } from "firebase/storage";
 import LoaderSmall from "../LoaderSmall/LoaderSmall";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import "./QuestionTypes.css";
+import { useEffect } from "react";
 
 const AttachmentSubmit = ({
 	setAnsText,
@@ -16,6 +17,8 @@ const AttachmentSubmit = ({
 	id,
 	setFileUpload,
 	fileUpload,
+	fileType,
+	maxSize,
 }) => {
 	const myref = useRef();
 	const storage = getStorage();
@@ -35,35 +38,55 @@ const AttachmentSubmit = ({
 		const fileName = Date.now() + myref.current.files[0].name;
 		const storageRef = ref(storage, `responses/${id}/${fileName}`);
 		const uploadTask = uploadBytesResumable(storageRef, myref.current.files[0]);
-		uploadTask.on(
-			"state_changed",
-			(snapshot) => {
-				setProgress(
-					Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-				);
-			},
-			(error) => {
-				toast.error(error.message);
-				fileUpload(false);
+		const currFileTypes = myref.current.files[0].type.split("/")[0];
+		const currPartFileTypes = myref.current.files[0].type.split("/")[1];
+		const currSize = myref.current.files[0].size;
+
+		if (currFileTypes === fileType || currPartFileTypes === fileType) {
+			if (currSize > maxSize * 1024 * 1024) {
+				toast.error(`Please upload a file less than ${maxSize} mb`);
+				setFileUpload(false);
 				return;
-			},
-			() => {
-				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-					setAnsText(questionID, url);
-					setFileUpload(false);
-				});
+			} else {
+				uploadTask.on(
+					"state_changed",
+					(snapshot) => {
+						setProgress(
+							Math.round(
+								(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+							)
+						);
+					},
+					(error) => {
+						toast.error(error.message);
+						fileUpload(false);
+						return;
+					},
+					() => {
+						getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+							setAnsText(questionID, url);
+							setFileUpload(false);
+						});
+					}
+				);
 			}
-		);
+		} else {
+			toast.error(`Please upload a ${fileType} file type`);
+			setFileUpload(false);
+			return;
+		}
 	};
+
 	return (
 		<div className="Attachment">
+			<Toaster />
 			<p
 				style={{
 					color: "grey",
 					fontSize: "0.8rem",
 				}}
 			>
-				Note: there's a fix size limit for attachment: 20 yottabyte
+				Note: There's a fix size limit for attachment: {maxSize} mb
 			</p>
 			{!fileUpload && (
 				<div
@@ -77,7 +100,7 @@ const AttachmentSubmit = ({
 						myref.current.files &&
 						myref.current.files.length > 0
 							? myref.current.files[0].name
-							: "Click to Choose File"}
+							: `Click to Choose File (${fileType})`}
 					</p>
 				</div>
 			)}
@@ -91,6 +114,7 @@ const AttachmentSubmit = ({
 					<p>{progress}%</p>
 				</div>
 			)}
+
 			<input
 				type="file"
 				ref={myref}

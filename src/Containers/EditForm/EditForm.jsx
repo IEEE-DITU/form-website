@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { v4 } from "uuid";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiDeleteBin6Line, RiDragMoveFill } from "react-icons/ri";
 import Dropdown from "react-dropdown";
 import Text from "../../Components/QuestionTypes/Text";
 import ToggleSwitch from "../../Components/ToggleSwitch/ToggleSwitch";
@@ -11,6 +11,7 @@ import MultipleChoice from "../../Components/QuestionTypes/MultipleChoice";
 import SingleChoice from "../../Components/QuestionTypes/SingleChoice";
 import toast from "react-hot-toast";
 import Attachment from "../../Components/QuestionTypes/Attachment";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const EditForm = () => {
 	const { id } = useParams();
@@ -29,9 +30,19 @@ const EditForm = () => {
 			options: [""],
 			minChoice: 1,
 			maxChoice: 50,
+			fileType: "image",
+			maxSize: 5,
 		});
 		setQuestions([...a]);
 	};
+
+	function handleOnDragEnd(result) {
+		if (!result.destination) return;
+		let newList = questions;
+		const [reorderedItem] = newList.splice(result.source.index, 1);
+		newList.splice(result.destination.index, 0, reorderedItem);
+		setQuestions([...newList]);
+	}
 
 	const deleteQuestion = (index) => {
 		let a = questions;
@@ -84,6 +95,28 @@ const EditForm = () => {
 				return question;
 			}
 			question.maxChoice = limit;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const changeFileSize = (size, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.maxSize = size;
+			return question;
+		});
+		setQuestions([...arr]);
+	};
+
+	const changeFileType = (type, questionID) => {
+		const arr = questions.filter((question) => {
+			if (question.questionId !== questionID) {
+				return question;
+			}
+			question.fileType = type;
 			return question;
 		});
 		setQuestions([...arr]);
@@ -150,10 +183,14 @@ const EditForm = () => {
 	};
 	function textAreaAdjust() {
 		const element = document.getElementById("descriptionTextArea");
-		element.style.height = "1px";
-		element.style.height = 3 + element.scrollHeight + "px";
+		element.style.minHeight = "1px";
+		element.style.minHeight = 15 + element.scrollHeight + "px";
 	}
-
+function submittextAreaAdjust() {
+  const element = document.getElementById("submitTextArea");
+  element.style.height = "1px";
+  element.style.height = 15 + element.scrollHeight + "px";
+}
 	const publish = () => {
 		for (let i in questions) {
 			if (!questions[i].questionTitle) {
@@ -169,6 +206,16 @@ const EditForm = () => {
 						toast.error("Options cannot be empty!");
 						return;
 					}
+				}
+			}
+			if (questions[i].questionType === "attachment") {
+				if (questions[i].maxSize === "") {
+					toast.error("Max size cannot be empty");
+					return;
+				}
+				if (questions[i].maxSize <= 0) {
+					toast.error("Max size cannot be less than or equal to 0MB");
+					return;
 				}
 			}
 		}
@@ -225,7 +272,15 @@ const EditForm = () => {
 		//eslint-disable-next-line
 	}, []);
 
+	useEffect(() => {
+		if (!loading) {
+			textAreaAdjust();
+		}
+	}, [loading]);
+
 	return (
+
+
 		<div className="NewForm">
 			{loading ? (
 				<h2
@@ -272,120 +327,180 @@ const EditForm = () => {
 								onKeyUp={() => textAreaAdjust()}
 								id="descriptionTextArea"
 							/>
-							{questions.map((question, id) => {
-								return (
-									<div className="newFormQuestion" key={id}>
-										<div className="newFormQuestionUpper">
-											<div className="left">
-												<div className="newFormQuestionId">{id + 1}.</div>
-												<div className="newFormQuestionTitle">
-													<input
-														type="text"
-														value={question.questionTitle}
-														placeholder="Enter quetions..."
-														onChange={(e) =>
-															changeQuestionTitle(
-																e.target.value,
-																question.questionId
-															)
-														}
-													/>
-												</div>
-											</div>
-											<div className="right">
-												<div className="questionChangeType">
-													<Dropdown
-														options={questionTypes}
-														onChange={(e) =>
-															changeQuestionType(e.value, question.questionId)
-														}
-														value={question.questionType}
-														placeholder="Select an option"
-													/>
-												</div>
-											</div>
-										</div>
-										<div className="newFormQuestionMiddle">
-											<div className="newFormQuestionAnswerArea">
-												{question.questionType === "text" && (
-													<Text
-														changeWordLimit={changeWordLimit}
-														qid={question.questionId}
-														limit={question.maxChoice}
-													/>
-												)}
-												{question.questionType === "multipleChoice" && (
-													<MultipleChoice
-														options={question.options}
-														qid={question.questionId}
-														editOption={editOption}
-														deleteOption={deleteOption}
-													/>
-												)}
-												{question.questionType === "singleChoice" && (
-													<SingleChoice
-														options={question.options}
-														qid={question.questionId}
-														editOption={editOption}
-														deleteOption={deleteOption}
-														singleoption={singleoption}
-													/>
-												)}
-												{question.questionType === "attachment" && (
-													<Attachment
-														// ChangeFileType={changeWordLimit}
-														qid={question.questionId}
-														// fileType={question.maxChoice}
-													/>
-												)}
-											</div>
-										</div>
-										<div className="newFormQuestionLower">
-											{question.questionType !== "text" &&
-												question.questionType !== "attachment" && (
-													<div
-														className="newFormAddOption"
-														onClick={() => addOption(question.questionId)}
+							<DragDropContext onDragEnd={handleOnDragEnd}>
+								<Droppable droppableId="questions1">
+									{(provided) => (
+										<div
+											className="additionaldiv"
+											{...provided.droppableProps}
+											ref={provided.innerRef}
+										>
+											{questions.map((question, id) => {
+												return (
+													<Draggable
+														key={question.questionId}
+														draggableId={question.questionId}
+														index={id}
 													>
-														<p>+ Add option</p>
-													</div>
-												)}
-											<div className="requiredSwitch">
-												<p>Required</p>
-												<ToggleSwitch
-													id={question.questionId}
-													name="required"
-													checked={question.isRequired}
-													disabled={false}
-													small={true}
-													optionLabels={["true", "false"]}
-													onChange={setRequired}
-												/>
-											</div>
+														{(provided) => (
+															<div
+																className="newFormQuestion"
+																{...provided.draggableProps}
+																ref={provided.innerRef}
+															>
+																<div className="newFormQuestionUpper">
+																	<div className="left">
+																		<div className="newFormQuestionId">
+																			{id + 1}.
+																		</div>
+																		<div className="newFormQuestionTitle">
+																			<input
+																				type="text"
+																				value={question.questionTitle}
+																				placeholder="Enter question..."
+																				onChange={(e) =>
+																					changeQuestionTitle(
+																						e.target.value,
+																						question.questionId
+																					)
+																				}
+																			/>
+																		</div>
+																	</div>
+																	<div className="right">
+																		<div className="questionChangeType">
+																			<Dropdown
+																				options={questionTypes}
+																				onChange={(e) =>
+																					changeQuestionType(
+																						e.value,
+																						question.questionId
+																					)
+																				}
+																				value={question.questionType}
+																				placeholder="Select an option"
+																			/>
+																		</div>
+																	</div>
+																</div>
+																<div className="newFormQuestionMiddle">
+																	<div className="newFormQuestionAnswerArea">
+																		{question.questionType === "text" && (
+																			<Text
+																				changeWordLimit={changeWordLimit}
+																				qid={question.questionId}
+																				limit={question.maxChoice}
+																			/>
+																		)}
+																		{question.questionType ===
+																			"multipleChoice" && (
+																			<MultipleChoice
+																				options={question.options}
+																				qid={question.questionId}
+																				editOption={editOption}
+																				deleteOption={deleteOption}
+																				setQuestions={setQuestions}
+																				questions={questions}
+																			/>
+																		)}
+																		{question.questionType ===
+																			"singleChoice" && (
+																			<SingleChoice
+																				options={question.options}
+																				qid={question.questionId}
+																				editOption={editOption}
+																				deleteOption={deleteOption}
+																				singleoption={singleoption}
+																				setQuestions={setQuestions}
+																				questions={questions}
+																			/>
+																		)}
+																		{question.questionType === "attachment" && (
+																			<Attachment
+																				changeFileType={changeFileType}
+																				qid={question.questionId}
+																				fileType={question.fileType}
+																				changeFileSize={changeFileSize}
+																				maxSize={question.maxSize}
+																			/>
+																		)}
+																	</div>
+																</div>
+																<div className="newFormQuestionLower">
+																	{question.questionType !== "text" &&
+																		question.questionType !== "attachment" && (
+																			<div
+																				className="newFormAddOption"
+																				onClick={() =>
+																					addOption(question.questionId)
+																				}
+																			>
+																				<p>+ Add option</p>
+																			</div>
+																		)}
+																	<div className="requiredSwitch">
+																		<p>Required</p>
+																		<ToggleSwitch
+																			id={question.questionId}
+																			name="required"
+																			checked={question.isRequired}
+																			disabled={false}
+																			small={true}
+																			optionLabels={["true", "false"]}
+																			onChange={setRequired}
+																		/>
+																	</div>
 
-											<div
-												className="newFormQuestionDelete"
-												onClick={() => deleteQuestion(id)}
-											>
-												<p>Delete</p>
-												<RiDeleteBin6Line className="newFormQuestionDelete-icon" />
-											</div>
-										</div>
-									</div>
-								);
-							})}
-						</div>
-						<div
-							className="newFormAddQuestionButton"
-							onClick={() => addQuestion()}
-						>
-							+ Add Question
-						</div>
-					</>
-				)
-			)}
-		</div>
-	);
+
+                                  <div
+                                    className="newFormQuestionDelete"
+                                    onClick={() => deleteQuestion(id)}
+                                  >
+                                    <p>Delete</p>
+                                    <RiDeleteBin6Line className="newFormQuestionDelete-icon" />
+                                  </div>
+                                </div>
+                                <div
+                                  className="questionMover"
+                                  {...provided.dragHandleProps}
+                                >
+                                  <RiDragMoveFill />
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+              <textarea
+                type="text"
+                className="inputfield"
+                placeholder="Enter the submit text for the form..."
+                value={formData.submitText}
+                onChange={(e) => {
+                  let a = formData;
+                  a.submitText = e.target.value;
+                  setFormData({ ...a });
+                }}
+                onKeyUp={() => submittextAreaAdjust()}
+                id="submitTextArea"
+              />
+            </div>
+            <div
+              className="newFormAddQuestionButton"
+              onClick={() => addQuestion()}
+            >
+              + Add Question
+            </div>
+          </>
+        )
+      )}
+    </div>
+  );
 };
 
 export default EditForm;

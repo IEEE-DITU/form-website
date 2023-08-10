@@ -116,9 +116,10 @@ const Submit = ({ data, id }) => {
 				loading: "submitting...",
 				success: () => {
 					navigate("/submitresponse", {
-						state: {
+						state: {	
 							id: id,
 							name: data.title,
+							submitText: data.submitText,
 						},
 					});
 					return "response submitted";
@@ -205,6 +206,8 @@ const Submit = ({ data, id }) => {
 														fileUpload={fileUpload}
 														setFileUpload={setFileUpload}
 														id={id}
+														fileType={question.fileType}
+														maxSize={question.maxSize}
 													/>
 												)}
 											</div>

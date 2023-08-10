@@ -63,6 +63,7 @@
 	justify-content: center;
 	align-items: center;
 	padding-right: 1.5rem;
+	margin-bottom: 1rem;
 }
 
 .newFormQuestionUpper {
@@ -275,4 +276,22 @@
 }
 .newFormQuestions > textarea:focus-within {
 	border-color: #ff432a;
+}
+.additionaldiv {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.questionMover {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 0.2rem;
+	font-size: 1.2rem;
+}
+
+.questionMover:hover {
+	color: #ff432a;
 }

@@ -2,6 +2,7 @@ import Bargraph from "../BarGraph/Bargraph";
 import Piechart from "../PieChart/Piechart";
 import "./SummaryResponse.css";
 import Noresponse from "../Noresponse/Noresponse";
+import ResponseCounter from "../ResponseCounter/ResponseCounter";
 
 const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 	return (
@@ -57,7 +58,7 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 												qid={question.questionId}
 											/>
 										</div>
-										{question.options.length > 2 && (
+										{/* {question.options.length > 2 && (
 											<div>
 												<Bargraph
 													rdata={rdata}
@@ -65,7 +66,32 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 													qid={question.questionId}
 												/>
 											</div>
-										)}
+										)} */}
+										<div
+											style={{
+												display: "flex",
+												flexDirection: "column",
+												padding: "0.5rem",
+												paddingLeft: "1rem",
+												gap: "0.5rem",
+											}}
+										>
+											<ul>
+												{question.options.map((optn, id) => {
+													return (
+														<li key={id}>
+															<span style={{ fontWeight: "500" }}>{optn}</span>{" "}
+															:{" "}
+															<ResponseCounter
+																rdata={rdata}
+																option={optn}
+																qid={question.questionId}
+															/>
+														</li>
+													);
+												})}
+											</ul>
+										</div>
 									</div>
 								)}
 								{question.questionType === "multipleChoice" && (
@@ -78,7 +104,7 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 											/>
 										</div>
 
-										{question.options.length > 2 && (
+										{/* {question.options.length > 2 && (
 											<div>
 												<Bargraph
 													rdata={rdata}
@@ -86,7 +112,32 @@ const SummaryResponse = ({ loading, rdata, fdata, setModalOpened }) => {
 													qid={question.questionId}
 												/>
 											</div>
-										)}
+										)} */}
+										<div
+											style={{
+												display: "flex",
+												flexDirection: "column",
+												padding: "0.5rem",
+												paddingLeft: "1rem",
+												gap: "0.5rem",
+											}}
+										>
+											<ul>
+												{question.options.map((optn, id) => {
+													return (
+														<li key={id}>
+															<span style={{ fontWeight: "500" }}>{optn}</span>{" "}
+															:{" "}
+															<ResponseCounter
+																rdata={rdata}
+																option={optn}
+																qid={question.questionId}
+															/>
+														</li>
+													);
+												})}
+											</ul>
+										</div>
 									</div>
 								)}
 								{question.questionType === "attachment" && (

@@ -32,7 +32,7 @@ const Piechart = (e) => {
 		labels: e.options,
 		datasets: [
 			{
-				label: "No. of repoinses",
+				label: "No. of responses",
 				data: responses,
 				backgroundColor: [
 					"rgba(255, 99, 132, 0.2)",
