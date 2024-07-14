@@ -86,7 +86,7 @@ const SharedCard = (e) => {
 					>
 						<QRCode
 							className="qr"
-							value={`https://jsrforms.live/form/${e.id}`}
+							value={`https://jsrforms-dev.vercel.app/form/${e.id}`}
 							style={{ minWidth: "10rem" }}
 						/>
 					</div>
@@ -103,7 +103,7 @@ const SharedCard = (e) => {
 							width: "100%",
 						}}
 						onChange={(e) => e.preventDefault()}
-						value={`https://jsrforms.live/form/${e.id}`}
+						value={`https://jsrforms-dev.vercel.app/form/${e.id}`}
 					/>
 					<div
 						style={{ display: "flex", gap: "0.5rem", width: "100%" }}
@@ -116,7 +116,7 @@ const SharedCard = (e) => {
 							className="modalButton"
 							onClick={() => {
 								navigator.clipboard
-									.writeText(`https://jsrforms.live/form/${e.id}`)
+									.writeText(`https://jsrforms-dev.vercel.app/form/${e.id}`)
 									.then(toast.success("link copied to clipboard"))
 									.catch((err) => toast.error(err));
 							}}
