@@ -95,7 +95,7 @@ const Response = () => {
 					>
 						<QRCode
 							className="qr"
-							value={`https://jsrforms.live/form/${modalData.id}`}
+							value={`https://jsrforms-dev.vercel.app/form/${modalData.id}`}
 							style={{ minWidth: "10rem" }}
 						/>
 					</div>
@@ -112,7 +112,7 @@ const Response = () => {
 							width: "100%",
 						}}
 						onChange={(e) => e.preventDefault()}
-						value={`https://jsrforms.live/form/${modalData.id}`}
+						value={`https://jsrforms-dev.vercel.app/form/${modalData.id}`}
 					/>
 					<div
 						style={{ display: "flex", gap: "0.5rem", width: "100%" }}
@@ -125,7 +125,7 @@ const Response = () => {
 							className="modalButton"
 							onClick={() => {
 								navigator.clipboard
-									.writeText(`https://jsrforms.live/form/${modalData.id}`)
+									.writeText(`https://jsrforms-dev.vercel.app/form/${modalData.id}`)
 									.then(toast.success("link copied to clipboard"))
 									.catch((err) => toast.error(err));
 							}}
